@@ -11,6 +11,6 @@
 
 Based on the Acornsoft SNG47 release
 
-See hacks.bbcelite.com for details
+See hacks.bbcelite.com/ue for details
 ---------------------------------------
 

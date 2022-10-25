@@ -130,6 +130,6 @@ keyUp = &8F
 keyGt = &2E
 keyLt = &2C
 
-INCLUDE "../source-files/elite-universe-editor-macros.asm"
+INCLUDE "../universe-editor/main-sources/elite-universe-editor-macros.asm"
 
 ENDIF

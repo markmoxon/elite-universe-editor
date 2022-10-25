@@ -8703,7 +8703,7 @@ CPU 0                   \ Switch back to normal 6502 asembly
 _6502SP_VERSION = TRUE
 _MASTER_VERSION = FALSE
 
-INCLUDE "../source-files/elite-universe-editor-z.asm"
+INCLUDE "../universe-editor/main-sources/elite-universe-editor-z.asm"
 
                         \ --- End of added code ------------------------------->
 
