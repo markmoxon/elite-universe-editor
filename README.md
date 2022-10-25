@@ -4,13 +4,13 @@
 
 This repository contains source code for the Elite Universe Editor on the BBC Master and the BBC Micro with a 6502 Second Processor.
 
-For information about the Elite Universe Editor, see the [bbcelite.com website](https://www.bbcelite.com).
+The Elite Universe Editor allows you to create your own universes in classic BBC Micro Elite. For more information, see the [bbcelite.com website](https://www.bbcelite.com/hacks/elite_universe_editor.html).
 
-For information about the source code and build process, see the [introduction](#introduction).
+This repository contains the full source code for the Universe Editor, which you can build yourself on a modern computer. See below for more details on [browsing the source code](#browsing-the-source-in-an-ide) and [building the Elite Universe Editor from the source](#building-the-elite-universe-editor-from-the-source).
+
+![Creating the screenshot from the original box in the Elite Universe Editor](https://www.bbcelite.com/images/github/elite-universe-editor-boxart-2.png)
 
 ## Contents
-
-* [Introduction](#introduction)
 
 * [Acknowledgements](#acknowledgements)
 
@@ -25,30 +25,6 @@ For information about the source code and build process, see the [introduction](
   * [Requirements](#requirements)
   * [Windows](#windows)
   * [Mac and Linux](#mac-and-linux)
-
-## Introduction
-
-![Creating the screenshot from the original box in the Elite Universe Editor](https://www.bbcelite.com/images/github/elite-universe-editor-boxart-2.png)
-
-The Elite Universe Editor allows you to create your own universes in classic BBC Micro Elite. Features include the following:
-
-* Compose your universe by placing ships, planets, suns and space stations anywhere within the local bubble, with a fully featured 3D editor that uses the game's original interface.
-
-* Edit the many different attributes for each ship, such as AI, ship personality, speed, turn rates, laser fire, missiles, E.C.M., station type, planet type and so on.
-
-* Save and load universe files.
-
-* Run the editor on both the 6502 Second Processor and BBC Master.
-
-* Play universe files - i.e. jump straight into the game engine with your universe laid out around you and watch it come to life.
-
-* Edit the galaxy seeds to discover the 281,474,976,710,656 different galaxies that the engine supports.
-
-The Elite Universe Editor is a mod in the real sense of the word - it modifies the original Elite, which is still present in the Universe Editor in its full form (though the 6502 Second Processor version no longer has the rolling demo).
-
-For full instructions, see the [bbcelite.com website](https://www.bbcelite.com).
-
-This repository contains the full source code for the Universe Editor, which you can build yourself on a modern computer.
 
 ## Acknowledgements
 
