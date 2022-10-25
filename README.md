@@ -1,6 +1,6 @@
 # Elite Universe Editor
 
-![The Elite Universe Editor](https://hacks.bbcelite.com/images/elite-universe-editor/elite-universe-editor-home-screen.png)
+![The Elite Universe Editor](https://hacks.bbcelite.com/images/github/elite-universe-editor-home-screen.png)
 
 This repository contains source code for the Elite Universe Editor on the BBC Master and the BBC Micro with a 6502 Second Processor.
 
@@ -23,13 +23,12 @@ For information about the source code and build process, see the [introduction](
 * [Building the Elite Universe Editor from the source](#building-the-elite-universe-editor-from-the-source)
 
   * [Requirements](#requirements)
-  * [Build targets](#build-targets)
   * [Windows](#windows)
   * [Mac and Linux](#mac-and-linux)
 
 ## Introduction
 
-![Creating the screenshot from the original box in the Elite Universe Editor](https://hacks.bbcelite.com/images/elite-universe-editor/elite-universe-editor-boxart-2.png)
+![Creating the screenshot from the original box in the Elite Universe Editor](https://hacks.bbcelite.com/images/github/elite-universe-editor-boxart-2.png)
 
 The Elite Universe Editor allows you to create your own universes in classic BBC Micro Elite. Features include the following:
 
