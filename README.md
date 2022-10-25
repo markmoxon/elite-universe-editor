@@ -104,7 +104,7 @@ I hope you enjoy exploring the inner workings of the Elite Universe Editor as mu
 
 There are three main folders in this repository.
 
-* [universe-editor/main-sources](universe-editor/main-sources) contains the main source files for the Universe Editor.
+* [universe-editor](universe-editor) contains the source files for the Universe Editor.
 
 * [6502sp-elite](6502sp-elite) contains the source code for 6502 Second Processor Elite, modified to hook in the Universe Editor.
 
