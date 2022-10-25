@@ -27,19 +27,20 @@
 \
 \ ******************************************************************************
 
-PUTFILE "6502sp-elite/3-assembled-output/ELITE.bin", "TubeElt", &FF1FDC, &FF2085
-PUTFILE "6502sp-elite/3-assembled-output/ELITEa.bin", "I.ELITEa", &FF2000, &FF2000
-PUTFILE "6502sp-elite/3-assembled-output/I.CODE.bin", "I.CODE", &FF2400, &FF2C89
-PUTFILE "6502sp-elite/3-assembled-output/P.CODE.bin", "P.CODE", &000E3C, &00106A
+PUTFILE "universe-editor/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
+PUTFILE "universe-editor/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
+PUTFILE "universe-editor/other-files/README.txt", "README", &FFFFFF, &FFFFFF
 
 PUTFILE "master-elite/3-assembled-output/M128Elt.bin", "M128Elt", &FF0E00, &FF0E43
 PUTFILE "master-elite/3-assembled-output/BDATA.bin", "BDATA", &000000, &000000
 PUTFILE "master-elite/3-assembled-output/BCODE.bin", "BCODE", &000000, &000000
 
+PUTFILE "6502sp-elite/3-assembled-output/ELITE.bin", "TubeElt", &FF1FDC, &FF2085
+PUTFILE "6502sp-elite/3-assembled-output/ELITEa.bin", "I.ELITEa", &FF2000, &FF2000
+PUTFILE "6502sp-elite/3-assembled-output/I.CODE.bin", "I.CODE", &FF2400, &FF2C89
+PUTFILE "6502sp-elite/3-assembled-output/P.CODE.bin", "P.CODE", &000E3C, &00106A
+
 PUTFILE "universe-editor/universe-files/U.BOXART1.bin", "U.BOXART1", &000000, &000000
 PUTFILE "universe-editor/universe-files/U.BOXART2.bin", "U.BOXART2", &000000, &000000
 PUTFILE "universe-editor/universe-files/U.PAGE5.bin", "U.PAGE5", &000000, &000000
 
-PUTFILE "universe-editor/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
-PUTFILE "universe-editor/other-files/README.txt", "README", &FFFFFF, &FFFFFF
-PUTFILE "universe-editor/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
