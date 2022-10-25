@@ -275,7 +275,7 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 \       Name: gameRows
 \       Type: Variable
 \   Category: Universe editor
-\    Summary: Screen modifications to change to the main game dashboard
+\    Summary: Screen modifications to change back to the main game dashboard
 \
 \ ------------------------------------------------------------------------------
 \
@@ -391,7 +391,7 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 \       Name: ModifyDashboard
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Poke a set of bytes to a screen row to modify the dashboard
+\    Summary: Poke a set of bytes into a screen row to modify the dashboard
 \
 \ ------------------------------------------------------------------------------
 \
@@ -469,7 +469,7 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 \       Name: EditorDashboard
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Implement the OSWORD 250 command (display the editor dashboard)
+\    Summary: Display the editor dashboard
 \
 \ ******************************************************************************
 
@@ -526,7 +526,7 @@ ENDIF
 \       Name: GameDashboard
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Implement the OSWORD 251 command (display the game dashboard)
+\    Summary: Display the game dashboard
 \
 \ ******************************************************************************
 

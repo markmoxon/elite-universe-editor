@@ -28,12 +28,12 @@
 \ ******************************************************************************
 
 shiftCtrl = ECMA        \ ECMA is only used when the E.C.M. is active, so we can
-                        \ reuse it
+                        \ reuse it in the Universe Editor
 
 IF _6502SP_VERSION
 
 currentSlot = XSAV2     \ XSAV2 and YSAV2 are unused in the original game, so we
-repeatingKey = YSAV2    \ can reuse them
+repeatingKey = YSAV2    \ can reuse them in the Universe Editor
 
 keyA = &41
 keyC = &52
@@ -78,7 +78,7 @@ keyLt = &66
 ELIF _MASTER_VERSION
 
 currentSlot = &0000     \ &0000 and &0001 are unused in the original game, so we
-repeatingKey = &0001    \ can reuse them
+repeatingKey = &0001    \ can reuse them in the Universe Editor
 
 IF _SNG47
 

@@ -788,6 +788,7 @@ ENDIF
 
  JSR PLUT               \ Call PLUT to update the geometric axes in INWK to
                         \ match the view (front, rear, left, right)
+
 \ ******************************************************************************
 \
 \       Name: DrawShip
@@ -1521,7 +1522,7 @@ ENDIF
 \       Name: DeleteShip
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Delete the ship from the current slot
+\    Summary: Delete the ship in the current slot
 \
 \ ------------------------------------------------------------------------------
 \

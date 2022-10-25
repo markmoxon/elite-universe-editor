@@ -59,7 +59,7 @@
 \       Name: ApplyMods
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Apply mods for the universe editor
+\    Summary: Apply code modifications for the Universe Editor
 \
 \ ******************************************************************************
 
@@ -113,7 +113,7 @@ ENDIF
 \       Name: RevertMods
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Reverse mods for the universe editor
+\    Summary: Reverse code modifications for the Universe Editor
 \
 \ ******************************************************************************
 
@@ -162,7 +162,8 @@ ENDIF
 \       Name: ChangeView
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Change view to front, rear, left or right
+\    Summary: Process the key press to change the space view to front, rear,
+\             left or right
 \
 \ ------------------------------------------------------------------------------
 \
@@ -190,7 +191,7 @@ ENDIF
 \       Name: SetSpaceView
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Change view to front, rear, left or right space view
+\    Summary: Change the space view to front, rear, left or right space view
 \
 \ ------------------------------------------------------------------------------
 \
@@ -292,18 +293,13 @@ ENDIF
 \       Name: UpdateSlotNumber
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Set current slot number to INF ship and update slot number
-\             on-screen
+\    Summary: Set the current slot number and update it on-screen
 \
 \ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
 \   X                   New slot number
-\
-\ Returns:
-\
-\   currentSlot         Slot number for ship currently in INF
 \
 \ ******************************************************************************
 
@@ -329,8 +325,8 @@ ENDIF
 \
 \ ------------------------------------------------------------------------------
 \
-\ Set up the text cursor and colour for an in-flight message in capitals at the
-\ bottom of the space view.
+\ Set up the text cursor and colour for an in-flight message at the bottom of
+\ the space view.
 \
 \ ******************************************************************************
 
@@ -386,7 +382,7 @@ ENDIF
 \       Name: NextSlot
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Go to next slot
+\    Summary: Go to the next slot, wrapping around if required
 \
 \ ******************************************************************************
 
@@ -411,7 +407,7 @@ ENDIF
 \       Name: PreviousSlot
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Go to previous slot
+\    Summary: Go to the previous slot, wrapping around if required
 \
 \ ******************************************************************************
 
@@ -459,8 +455,8 @@ ENDIF
 \       Name: SwitchToSlot
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Switch to a new specific slot, updating the slot number, fetching
-\             the ship data and highlighting the ship
+\    Summary: Switch to a specific slot, updating the slot number, fetching the
+\             ship data and highlighting the ship
 \
 \ ------------------------------------------------------------------------------
 \
@@ -489,7 +485,7 @@ ENDIF
 \       Name: GetShipData
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Fetch the ship info for a specified ship slot
+\    Summary: Fetch the ship info for a specific ship slot
 \
 \ ------------------------------------------------------------------------------
 \
@@ -766,65 +762,6 @@ ENDIF
 
 \ ******************************************************************************
 \
-\       Name: defaultName
-\       Type: Variable
-\   Category: Universe editor
-\    Summary: The default name for a universe file
-\
-\ ******************************************************************************
-
-.defaultName
-
- EQUS "MYSCENE"
- EQUB 13
-
-\ ******************************************************************************
-\
-\       Name: saveCommand
-\       Type: Variable
-\   Category: Universe editor
-\    Summary: The OS command string for saving a universe file
-\
-\ ******************************************************************************
-
-IF _MASTER_VERSION
-
-.saveCommand
-
-IF _SNG47
-
- EQUS "SAVE :1.U.MYSCENE 400 +31F 0 0"
- EQUB 13
-
-ELIF _COMPACT
-
- EQUS "SAVE MYSCENE 400 +31F 0 0"
- EQUB 13
-
-ENDIF
-
-ENDIF
-
-\ ******************************************************************************
-\
-\       Name: deleteCommand
-\       Type: Variable
-\   Category: Universe editor
-\    Summary: The OS command string for deleting a universe file
-\
-\ ******************************************************************************
-
-IF _MASTER_VERSION
-
-.deleteCommand
-
- EQUS "DELETE :1.U.MYSCENE"
- EQUB 13
-
-ENDIF
-
-\ ******************************************************************************
-\
 \       Name: PrintToken
 \       Type: Subroutine
 \   Category: Universe editor
@@ -932,7 +869,7 @@ ENDIF
 \       Name: ReturnToDiscMenu
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Show the universe disc menu
+\    Summary: Re-display the universe disc menu
 \
 \ ******************************************************************************
 
@@ -1057,7 +994,7 @@ ENDIF
 \       Name: RevertDiscMods
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Reverse the mods we added for the disc access menu
+\    Summary: Reverse the code modifications we added for the disc access menu
 \
 \ ******************************************************************************
 
@@ -1346,7 +1283,7 @@ ENDIF
 \       Name: ConvertToMaster
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Convert a loaded universe file so it works on a Master
+\    Summary: Convert a loaded universe file so it works on a BBC Master
 \
 \ ******************************************************************************
 
@@ -1384,99 +1321,6 @@ IF _MASTER_VERSION
  STA K%+NI%+33          \ line heap for the space station
  LDA #HI(LSO)
  STA K%+NI%+34
-
-ENDIF
-
-\ ******************************************************************************
-\
-\       Name: TWIST
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Pitch the current ship by a small angle in a positive direction
-\
-\ ------------------------------------------------------------------------------
-\
-\ Arguments:
-\
-\   A                   Pitch direction
-\
-\ ******************************************************************************
-
-IF _MASTER_VERSION
-
-.TWIST2
-
- STA RAT2               \ Set the pitch direction in RAT2 to A
-
- LDX #15                \ Rotate (roofv_x, nosev_x) by a small angle (pitch)
- LDY #9                 \ in the direction given in RAT2
- JSR MVS5
-
- LDX #17                \ Rotate (roofv_y, nosev_y) by a small angle (pitch)
- LDY #11                \ in the direction given in RAT2
- JSR MVS5
-
- LDX #19                \ Rotate (roofv_z, nosev_z) by a small angle (pitch)
- LDY #13                \ in the direction given in RAT2 and return from the
- JMP MVS5               \ subroutine using a tail call
-
-ENDIF
-
-\ ******************************************************************************
-\
-\       Name: STORE
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Copy the ship data block at INWK back to the K% workspace
-\
-\ ------------------------------------------------------------------------------
-\
-\ Arguments:
-\
-\   INF                 The ship data block in the K% workspace to copy INWK to
-\
-\ ******************************************************************************
-
-IF _MASTER_VERSION
-
-.STORE
-
- LDY #(NI%-1)           \ Set a counter in Y so we can loop through the NI%
-                        \ bytes in the ship data block
-
-.DML2
-
- LDA INWK,Y             \ Load the Y-th byte of INWK and store it in the Y-th
- STA (INF),Y            \ byte of INF
-
- DEY                    \ Decrement the loop counter
-
- BPL DML2               \ Loop back for the next byte, until we have copied the
-                        \ last byte from INWK back to INF
-
- RTS                    \ Return from the subroutine
-
-ENDIF
-
-\ ******************************************************************************
-\
-\       Name: ZEBC
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Zero-fill pages &B and &C
-\
-\ ******************************************************************************
-
-IF _MASTER_VERSION
-
-.ZEBC
-
- LDX #&C                \ Call ZES1 with X = &C to zero-fill page &C
- JSR ZES1
-
- DEX                    \ Decrement X to &B
-
- JMP ZES1               \ Jump to ZES1 to zero-fill page &B
 
 ENDIF
 
@@ -2224,6 +2068,158 @@ ENDIF
 
  BMI chav1              \ Jump up to chav1 to store the new value (this BMI is
                         \ effectively a JMP as we just passed through a BPL)
+
+\ ******************************************************************************
+\
+\       Name: defaultName
+\       Type: Variable
+\   Category: Universe editor
+\    Summary: The default name for a universe file
+\
+\ ******************************************************************************
+
+.defaultName
+
+ EQUS "MYSCENE"
+ EQUB 13
+
+\ ******************************************************************************
+\
+\       Name: saveCommand
+\       Type: Variable
+\   Category: Universe editor
+\    Summary: The OS command string for saving a universe file
+\
+\ ******************************************************************************
+
+IF _MASTER_VERSION
+
+.saveCommand
+
+IF _SNG47
+
+ EQUS "SAVE :1.U.MYSCENE 400 +31F 0 0"
+ EQUB 13
+
+ELIF _COMPACT
+
+ EQUS "SAVE MYSCENE 400 +31F 0 0"
+ EQUB 13
+
+ENDIF
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: deleteCommand
+\       Type: Variable
+\   Category: Universe editor
+\    Summary: The OS command string for deleting a universe file
+\
+\ ******************************************************************************
+
+IF _MASTER_VERSION
+
+.deleteCommand
+
+ EQUS "DELETE :1.U.MYSCENE"
+ EQUB 13
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: TWIST
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Pitch the current ship by a small angle in a positive direction
+\
+\ ------------------------------------------------------------------------------
+\
+\ Arguments:
+\
+\   A                   Pitch direction
+\
+\ ******************************************************************************
+
+IF _MASTER_VERSION
+
+.TWIST2
+
+ STA RAT2               \ Set the pitch direction in RAT2 to A
+
+ LDX #15                \ Rotate (roofv_x, nosev_x) by a small angle (pitch)
+ LDY #9                 \ in the direction given in RAT2
+ JSR MVS5
+
+ LDX #17                \ Rotate (roofv_y, nosev_y) by a small angle (pitch)
+ LDY #11                \ in the direction given in RAT2
+ JSR MVS5
+
+ LDX #19                \ Rotate (roofv_z, nosev_z) by a small angle (pitch)
+ LDY #13                \ in the direction given in RAT2 and return from the
+ JMP MVS5               \ subroutine using a tail call
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: STORE
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Copy the ship data block at INWK back to the K% workspace
+\
+\ ------------------------------------------------------------------------------
+\
+\ Arguments:
+\
+\   INF                 The ship data block in the K% workspace to copy INWK to
+\
+\ ******************************************************************************
+
+IF _MASTER_VERSION
+
+.STORE
+
+ LDY #(NI%-1)           \ Set a counter in Y so we can loop through the NI%
+                        \ bytes in the ship data block
+
+.DML2
+
+ LDA INWK,Y             \ Load the Y-th byte of INWK and store it in the Y-th
+ STA (INF),Y            \ byte of INF
+
+ DEY                    \ Decrement the loop counter
+
+ BPL DML2               \ Loop back for the next byte, until we have copied the
+                        \ last byte from INWK back to INF
+
+ RTS                    \ Return from the subroutine
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: ZEBC
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Zero-fill pages &B and &C
+\
+\ ******************************************************************************
+
+IF _MASTER_VERSION
+
+.ZEBC
+
+ LDX #&C                \ Call ZES1 with X = &C to zero-fill page &C
+ JSR ZES1
+
+ DEX                    \ Decrement X to &B
+
+ JMP ZES1               \ Jump to ZES1 to zero-fill page &B
+
+ENDIF
 
 \ ******************************************************************************
 \

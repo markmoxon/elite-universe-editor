@@ -654,74 +654,6 @@ ENDIF
 
 \ ******************************************************************************
 \
-\       Name: SwitchDashboard
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Change the dashboard
-\
-\ ------------------------------------------------------------------------------
-\
-\ Arguments:
-\
-\   A                   The dashboard to display:
-\
-\                         * 250 = the Universe Editor dashboard
-\
-\                         * 251 = the main game dashboard
-\
-\ ******************************************************************************
-
-IF _6502SP_VERSION
-
-.SwitchDashboard
-
- LDX #LO(dashboardBuff) \ Set (Y X) to point to the dashboardBuff parameter
- LDY #HI(dashboardBuff) \ block
-
- JMP OSWORD             \ Send an OSWORD command to the I/O processor to
-                        \ draw the dashboard, returning from the subroutine
-                        \ using a tail call
-
-ENDIF
-
-\ ******************************************************************************
-\
-\       Name: GETYN
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Wait until either "Y" or "N" is pressed
-\
-\ ------------------------------------------------------------------------------
-\
-\ Returns:
-\
-\   C flag              Set if "Y" was pressed, clear if "N" was pressed
-\
-\ ******************************************************************************
-
-IF _6502SP_VERSION
-
-.GETYN
-
- JSR t                  \ Scan the keyboard until a key is pressed, returning
-                        \ the ASCII code in A and X
-
- CMP #'y'               \ If "Y" was pressed, return from the subroutine with
- BEQ gety1              \ the C flag set (as the CMP sets the C flag)
-
- CMP #'n'               \ If "N" was not pressed, loop back to keep scanning
- BNE GETYN              \ for key presses
-
- CLC                    \ Clear the C flag
-
-.gety1
-
- RTS                    \ Return from the subroutine
-
-ENDIF
-
-\ ******************************************************************************
-\
 \       Name: ResetExplosions
 \       Type: Subroutine
 \   Category: Universe editor
@@ -796,5 +728,73 @@ ENDIF
  JMP ApplyExplosionMod  \ Modify the explosion code so it doesn't update the
                         \ explosion, returningh from the subroutine using a tail
                         \ call
+
+\ ******************************************************************************
+\
+\       Name: SwitchDashboard
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Change the dashboard
+\
+\ ------------------------------------------------------------------------------
+\
+\ Arguments:
+\
+\   A                   The dashboard to display:
+\
+\                         * 250 = the Universe Editor dashboard
+\
+\                         * 251 = the main game dashboard
+\
+\ ******************************************************************************
+
+IF _6502SP_VERSION
+
+.SwitchDashboard
+
+ LDX #LO(dashboardBuff) \ Set (Y X) to point to the dashboardBuff parameter
+ LDY #HI(dashboardBuff) \ block
+
+ JMP OSWORD             \ Send an OSWORD command to the I/O processor to
+                        \ draw the dashboard, returning from the subroutine
+                        \ using a tail call
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: GETYN
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Wait until either "Y" or "N" is pressed
+\
+\ ------------------------------------------------------------------------------
+\
+\ Returns:
+\
+\   C flag              Set if "Y" was pressed, clear if "N" was pressed
+\
+\ ******************************************************************************
+
+IF _6502SP_VERSION
+
+.GETYN
+
+ JSR t                  \ Scan the keyboard until a key is pressed, returning
+                        \ the ASCII code in A and X
+
+ CMP #'y'               \ If "Y" was pressed, return from the subroutine with
+ BEQ gety1              \ the C flag set (as the CMP sets the C flag)
+
+ CMP #'n'               \ If "N" was not pressed, loop back to keep scanning
+ BNE GETYN              \ for key presses
+
+ CLC                    \ Clear the C flag
+
+.gety1
+
+ RTS                    \ Return from the subroutine
+
+ENDIF
 
 .endUniverseEditor1
