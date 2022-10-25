@@ -54,18 +54,27 @@ GUARD &F800             \ Guard against assembling over MOS memory
 \
 \ ******************************************************************************
 
-IF _SNG45 OR _SOURCE_DISC
+                        \ --- Mod: Original Acornsoft code removed: ----------->
 
- Q% = _REMOVE_CHECKSUMS \ Set Q% to TRUE to max out the default commander, FALSE
+\IF _SNG45 OR _SOURCE_DISC
+
+\Q% = _REMOVE_CHECKSUMS \ Set Q% to TRUE to max out the default commander, FALSE
                         \ for the standard default commander (this is set to
                         \ TRUE if checksums are disabled, just for convenience)
 
-ELIF _EXECUTIVE
+\ELIF _EXECUTIVE
 
- Q% = TRUE              \ The Executive version starts with a maxed-out default
+\ Q% = TRUE             \ The Executive version starts with a maxed-out default
                         \ commander
 
-ENDIF
+\ENDIF
+
+                        \ --- And replaced by: -------------------------------->
+
+Q% = TRUE               \ The Universe Editor has with a maxed-out default
+                        \ commander
+
+                        \ --- End of replacement ------------------------------>
 
 D% = &D000              \ The address where the ship blueprints get moved to
                         \ after loading, so they go from &D000 to &F200

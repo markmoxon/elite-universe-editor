@@ -41,9 +41,18 @@ GUARD &C000             \ Guard against assembling over MOS memory
 \
 \ ******************************************************************************
 
-Q% = _REMOVE_CHECKSUMS  \ Set Q% to TRUE to max out the default commander, FALSE
+                        \ --- Mod: Original Acornsoft code removed: ----------->
+
+\Q% = _REMOVE_CHECKSUMS \ Set Q% to TRUE to max out the default commander, FALSE
                         \ for the standard default commander (this is set to
                         \ TRUE if checksums are disabled, just for convenience)
+
+                        \ --- And replaced by: -------------------------------->
+
+Q% = TRUE               \ The Universe Editor has with a maxed-out default
+                        \ commander
+
+                        \ --- End of replacement ------------------------------>
 
 NOST = 20               \ The number of stardust particles in normal space (this
                         \ goes down to 3 in witchspace)
