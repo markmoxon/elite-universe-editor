@@ -3536,7 +3536,7 @@ _MASTER_VERSION = FALSE
 ORG &0E3C
 
 INCLUDE "../source-files/elite-universe-editor-variables.asm"
-INCLUDE "../source-files/elite-universe-editor1.asm"
+INCLUDE "../source-files/elite-universe-editor-1.asm"
 
 SKIPTO &1000
 
@@ -41779,7 +41779,7 @@ LOAD_I% = LOAD% + P% - CODE%
 
                         \ --- And replaced by: -------------------------------->
 
-INCLUDE "../source-files/elite-universe-editor2.asm"
+INCLUDE "../source-files/elite-universe-editor-2.asm"
 
                         \ --- End of replacement ------------------------------>
 
@@ -46311,7 +46311,7 @@ ENDIF
 
                         \ --- Mod: Code added for Universe Editor: ------------>
 
-INCLUDE "../source-files/elite-universe-editor3.asm"
+INCLUDE "../source-files/elite-universe-editor-3.asm"
 
                         \ --- End of added code ------------------------------->
 
@@ -49738,7 +49738,7 @@ ENDMACRO
 
                         \ --- And replaced by: -------------------------------->
 
-INCLUDE "../source-files/elite-universe-editor4.asm"
+INCLUDE "../source-files/elite-universe-editor-4.asm"
 
                         \ --- End of replacement ------------------------------>
 
