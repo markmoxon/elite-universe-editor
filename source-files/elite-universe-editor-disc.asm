@@ -27,7 +27,7 @@
 \
 \ ******************************************************************************
 
-PUTFILE "6502sp/3-assembled-output/ELITE.bin", "ELITE", &FF1FDC, &FF2085
+PUTFILE "6502sp/3-assembled-output/ELITE.bin", "TubeElt", &FF1FDC, &FF2085
 PUTFILE "6502sp/3-assembled-output/ELITEa.bin", "I.ELITEa", &FF2000, &FF2000
 PUTFILE "6502sp/3-assembled-output/I.CODE.bin", "I.CODE", &FF2400, &FF2C89
 PUTFILE "6502sp/3-assembled-output/P.CODE.bin", "P.CODE", &000E3C, &00106A
@@ -40,4 +40,6 @@ PUTFILE "source-files/universe-files/U.BOXART1.bin", "U.BOXART1", &000000, &0000
 PUTFILE "source-files/universe-files/U.BOXART2.bin", "U.BOXART2", &000000, &000000
 PUTFILE "source-files/universe-files/U.PAGE5.bin", "U.PAGE5", &000000, &000000
 
-PUTFILE "source-files/README.txt", "README", &FFFFFF, &FFFFFF
+PUTFILE "source-files/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
+PUTFILE "source-files/other-files/README.txt", "README", &FFFFFF, &FFFFFF
+PUTFILE "source-files/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
