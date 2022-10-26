@@ -297,12 +297,16 @@ ENDIF
 .HideBulbs
 
  BIT showingBulb        \ If bit 6 of showingBulb is set, then we are showing
- BVC P%+5               \ the station bulb, so call SPBLB to remove it
+ BVC hide1              \ the station bulb, so call SPBLB to remove it
  JSR SPBLB
 
+.hide1
+
  BIT showingBulb        \ If bit 7 of showingBulb is set, then we are showing
- BPL P%+5               \ the E.C.M. bulb, so call ECBLB to remove it
+ BPL hide2              \ the E.C.M. bulb, so call ECBLB to remove it
  JSR ECBLB
+
+.hide2
 
  STZ showingBulb        \ Zero the bulb status byte
 
