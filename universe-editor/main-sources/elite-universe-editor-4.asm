@@ -1361,6 +1361,11 @@ ENDIF
  TXS                    \ location for the 6502 stack, so this instruction
                         \ effectively resets the stack
 
+ STZ ECMA               \ Set ECMA to zero so the call to RES2 doesn't shoe the
+                        \ "E" bulb (we've been reusing the location of ECMA as
+                        \ shiftCtrl to store the CTRL and SHIFT key presses, so
+                        \ it could be non-zero at this point)
+
  LDA #&60               \ Modify the JSR ZERO in RES2 so it's an RTS, which
  STA yu+3               \ stops RES2 from resetting the ship slots, ship heap
                         \ and dashboard
