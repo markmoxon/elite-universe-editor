@@ -3107,9 +3107,11 @@ WP workspace from  &D00  to &E3C
      0E75   2C 81 73   BIT &7381
      0E78   50 03      BVC &0E7D
      0E7A   20 82 45   JSR &4582
+.hide1
      0E7D   2C 81 73   BIT &7381
      0E80   10 03      BPL &0E85
      0E82   20 78 45   JSR &4578
+.hide2
      0E85   9C 81 73   STZ &7381
      0E88   60         RTS
 .ShowBulbs

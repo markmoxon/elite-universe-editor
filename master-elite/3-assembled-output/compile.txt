@@ -16236,9 +16236,11 @@ Saving file '3-assembled-output/BCODE.unprot.bin'
      B282   2C F8 B8   BIT &B8F8
      B285   50 03      BVC &B28A
      B287   20 0E 1F   JSR &1F0E
+.hide1
      B28A   2C F8 B8   BIT &B8F8
      B28D   10 03      BPL &B292
      B28F   20 F3 1E   JSR &1EF3
+.hide2
      B292   9C F8 B8   STZ &B8F8
      B295   60         RTS
 .ShowBulbs
