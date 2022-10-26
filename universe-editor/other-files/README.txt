@@ -1,16 +1,20 @@
 
 ---------------------------------------
 Elite Universe Editor
+by Mark Moxon
 
-Elite by Ian Bell and David Braben
+For the following machines:
 
-Universe Editor by Mark Moxon
-
-For the BBC Master and BBC Micro with
-6502 Second Processor
+* BBC Micro with 6502 Second Processor
+* BBC Master 128
+* BBC Master Turbo
 
 Based on the Acornsoft SNG47 release
+of Elite by Ian Bell and David Braben
+Copyright (c) Acornsoft 1986
 
-See hacks.bbcelite.com/ue for details
+See www.bbcelite.com for details
+
+Build: 2022-10-26 12:56:31
 ---------------------------------------
 

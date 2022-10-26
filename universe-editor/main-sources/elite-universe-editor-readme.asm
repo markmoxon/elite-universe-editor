@@ -1,6 +1,6 @@
 \ ******************************************************************************
 \
-\ ELITE UNIVERSE EDITOR DISC IMAGE SCRIPT
+\ ELITE UNIVERSE EDITOR README
 \
 \ The Universe Editor is an extended version of BBC Micro Elite by Mark Moxon
 \
@@ -27,19 +27,39 @@
 \
 \ ******************************************************************************
 
-PUTFILE "6502sp-elite/3-assembled-output/ELITE.bin", "TubeElt", &FF1FDC, &FF2085
-PUTFILE "6502sp-elite/3-assembled-output/ELITEa.bin", "I.ELITEa", &FF2000, &FF2000
-PUTFILE "6502sp-elite/3-assembled-output/I.CODE.bin", "I.CODE", &FF2400, &FF2C89
-PUTFILE "6502sp-elite/3-assembled-output/P.CODE.bin", "P.CODE", &000E3C, &00106A
+.readme
 
-PUTFILE "master-elite/3-assembled-output/M128Elt.bin", "M128Elt", &FF0E00, &FF0E43
-PUTFILE "master-elite/3-assembled-output/BDATA.bin", "BDATA", &000000, &000000
-PUTFILE "master-elite/3-assembled-output/BCODE.bin", "BCODE", &000000, &000000
+ EQUB 10, 13
+ EQUS "---------------------------------------"
+ EQUB 10, 13
+ EQUS "Elite Universe Editor"
+ EQUB 10, 13
+ EQUS "by Mark Moxon"
+ EQUB 10, 13
+ EQUB 10, 13
+ EQUS "For the following machines:"
+ EQUB 10, 13
+ EQUB 10, 13
+ EQUS "* BBC Micro with 6502 Second Processor"
+ EQUB 10, 13
+ EQUS "* BBC Master 128"
+ EQUB 10, 13
+ EQUS "* BBC Master Turbo"
+ EQUB 10, 13
+ EQUB 10, 13
+ EQUS "Based on the Acornsoft SNG47 release"
+ EQUB 10, 13
+ EQUS "of Elite by Ian Bell and David Braben"
+ EQUB 10, 13
+ EQUS "Copyright (c) Acornsoft 1986"
+ EQUB 10, 13
+ EQUB 10, 13
+ EQUS "See www.bbcelite.com for details"
+ EQUB 10, 13
+ EQUB 10, 13
+ EQUS "Build: ", TIME$("%F %T")
+ EQUB 10, 13
+ EQUS "---------------------------------------"
+ EQUB 10, 13
 
-PUTFILE "universe-editor/universe-files/U.BOXART1.bin", "U.BOXART1", &000000, &000000
-PUTFILE "universe-editor/universe-files/U.BOXART2.bin", "U.BOXART2", &000000, &000000
-PUTFILE "universe-editor/universe-files/U.PAGE5.bin", "U.PAGE5", &000000, &000000
-
-PUTFILE "universe-editor/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
-PUTFILE "universe-editor/other-files/README.txt", "README", &FFFFFF, &FFFFFF
-PUTFILE "universe-editor/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
+SAVE "universe-editor/other-files/README.txt", readme, P%
