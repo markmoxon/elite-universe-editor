@@ -1317,6 +1317,8 @@ IF _MASTER_VERSION
 
  JMP ConvertFile        \ Convert the loaded file so it works on the Master
 
+ STZ FRIN+NOSH          \ Clear the last ship slot, so it can act as a backstop
+
  LDA #LO(LSO)           \ Set bytes #33 and #34 to point to LSO for the ship
  STA K%+NI%+33          \ line heap for the space station
  LDA #HI(LSO)
