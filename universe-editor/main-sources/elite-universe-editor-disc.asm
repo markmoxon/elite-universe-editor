@@ -38,7 +38,9 @@ PUTFILE "master-elite/3-assembled-output/BCODE.bin", "BCODE", &000000, &000000
 
 PUTFILE "universe-editor/universe-files/U.BOXART1.bin", "U.BOXART1", &000000, &000000
 PUTFILE "universe-editor/universe-files/U.BOXART2.bin", "U.BOXART2", &000000, &000000
-PUTFILE "universe-editor/universe-files/U.PAGE5.bin", "U.PAGE5", &000000, &000000
+PUTFILE "universe-editor/universe-files/U.MANUAL.bin", "U.MANUAL", &000000, &000000
+PUTFILE "universe-editor/universe-files/U.SHIPID.bin", "U.SHIPID", &000000, &000000
+PUTFILE "universe-editor/universe-files/U.SHIPIDM.bin", "U.SHIPIDM", &000000, &000000
 
 PUTFILE "universe-editor/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
 PUTFILE "universe-editor/other-files/README.txt", "README", &FFFFFF, &FFFFFF
