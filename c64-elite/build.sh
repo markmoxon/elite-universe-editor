@@ -32,18 +32,19 @@ $python ../src/elite-modify.py ntsc
 $c1541 \
     -format "elite uni editor,1" \
             d64 \
-            ../../elite-universe-editor-c64-ntsc.d64 \
-    -attach ../../elite-universe-editor-c64-ntsc.d64 \
+            ../../universe-editor-disks/elite-universe-editor-c64-ntsc.d64 \
+    -attach ../../universe-editor-disks/elite-universe-editor-c64-ntsc.d64 \
     -write firebird \
     -write gma1.modified gma1 \
     -write gma3 \
     -write gma4 \
     -write gma5 \
     -write gma6.encrypted gma6 \
-    -write ../universe-files/u.boxart1.bin "boxart1" \
-    -write ../universe-files/u.boxart2.bin "boxart2" \
-    -write ../universe-files/u.manual.bin "manual" \
-    -write ../universe-files/u.shipid.bin "shipid"
+    -write ../../universe-editor/universe-files/u.boxart1.bin "boxart1" \
+    -write ../../universe-editor/universe-files/u.boxart2.bin "boxart2" \
+    -write ../../universe-editor/universe-files/u.manual.bin "manual" \
+    -write ../../universe-editor/universe-files/u.shipid.bin "shipid" \
+    -write ../../universe-editor/other-files/readme64.txt "readme,s"
 
 # Next, we build the PAL version
 cd work
@@ -65,8 +66,8 @@ $python ../src/elite-modify.py pal
 $c1541 \
     -format "elite uni editor,1" \
             d64 \
-            ../../elite-universe-editor-c64-pal.d64 \
-    -attach ../../elite-universe-editor-c64-pal.d64 \
+            ../../universe-editor-disks/elite-universe-editor-c64-pal.d64 \
+    -attach ../../universe-editor-disks/elite-universe-editor-c64-pal.d64 \
     -write firebird \
     -write byebyejulie \
     -write gma1.modified gma1 \
@@ -74,7 +75,8 @@ $c1541 \
     -write gma4 \
     -write gma5 \
     -write gma6.encrypted gma6 \
-    -write ../universe-files/u.boxart1.bin "boxart1" \
-    -write ../universe-files/u.boxart2.bin "boxart2" \
-    -write ../universe-files/u.manual.bin "manual" \
-    -write ../universe-files/u.shipid.bin "shipid"
+    -write ../../universe-editor/universe-files/u.boxart1.bin "boxart1" \
+    -write ../../universe-editor/universe-files/u.boxart2.bin "boxart2" \
+    -write ../../universe-editor/universe-files/u.manual.bin "manual" \
+    -write ../../universe-editor/universe-files/u.shipid.bin "shipid" \
+    -write ../../universe-editor/other-files/readme64.txt "readme,s"

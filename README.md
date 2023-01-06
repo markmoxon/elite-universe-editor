@@ -88,15 +88,17 @@ I hope you enjoy exploring the inner workings of the Elite Universe Editor as mu
 
 ## Folder structure
 
-There are three main folders in this repository.
+There are five main folders in this repository.
 
-* [universe-editor](universe-editor) contains the source files for the Universe Editor.
+* [universe-editor](universe-editor) contains the shared source files for the Universe Editor. The same source is used for all versions.
 
 * [6502sp-elite](6502sp-elite) contains the source code for 6502 Second Processor Elite, modified to hook in the Universe Editor.
 
 * [master-elite](master-elite) contains the source code for BBC Master Elite, modified to hook in the Universe Editor.
 
 * [c64-elite](c64-elite) contains the original disk images for Commodore 64 Elite, which we extract and modify to hook in the Universe Editor.
+
+* [universe-editor-disks](universe-editor-disks) contains the disk images produced by the build process. These disks contain the Universe Editor.
 
 The middle two are heavily based on the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm).
 
@@ -128,7 +130,7 @@ All being well, doing the following:
 make.bat
 ```
 
-will produce a file called `bbc-elite-universe-editor.ssd` in the project folder that contains the BBC version of the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
+will produce a file called `elite-universe-editor-bbc.ssd` in the [`universe-editor-disks`](universe-editor-disks) folder that contains the BBC version of the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
 
 ### Mac and Linux
 
@@ -140,7 +142,7 @@ All being well, doing the following:
 make
 ```
 
-will produce three files in the project folder called `elite-universe-editor-bbc.ssd`, `elite-universe-editor-c64-ntsc.ssd` and `elite-universe-editor-c64-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
+will produce three files in the [`universe-editor-disks`](universe-editor-disks) folder called `elite-universe-editor-bbc.ssd`, `elite-universe-editor-c64-ntsc.ssd` and `elite-universe-editor-c64-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
 
 ---
 

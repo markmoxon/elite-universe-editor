@@ -63,3 +63,30 @@
  EQUB 10, 13
 
 SAVE "universe-editor/other-files/README.txt", readme, P%
+
+.readmeC64
+
+ EQUB 13
+ EQUS "---------------------------------------"
+ EQUB 13
+ EQUS "ELITE UNIVERSE EDITOR"
+ EQUB 13
+ EQUS "BY MARK MOXON"
+ EQUB 13
+ EQUB 13
+ EQUS "BASED ON THE FIREBIRD RELEASE OF ELITE"
+ EQUB 13
+ EQUS "BY IAN BELL AND DAVID BRABEN"
+ EQUB 13
+ EQUS "COPYRIGHT (C) D.BRABEN AND I.BELL 1985"
+ EQUB 13
+ EQUB 13
+ EQUS "SEE WWW.BBCELITE.COM FOR DETAILS"
+ EQUB 13
+ EQUB 13
+ EQUS "BUILD: ", TIME$("%F %T")
+ EQUB 13
+ EQUS "---------------------------------------"
+ EQUB 13
+
+SAVE "universe-editor/other-files/README64.txt", readmeC64, P%
