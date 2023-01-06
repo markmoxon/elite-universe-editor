@@ -52,8 +52,23 @@
 
  JSR ApplyMods          \ Apply the mods required for the Universe Editor
 
+IF _C64_VERSION
+
+ LDA #$FF               \ Set option byte $1D0F (which corresponds to the "P"
+ STA $1D0F              \ option) so planet meridians and equators are drawn
+
+ENDIF
+
  LDA #0                 \ Remove the escape pod so we always show the standard
  STA ESCP               \ palette for the editor
+
+IF _C64_VERSION
+
+ STA MCNT               \ Set MCNT to 0 so the DIALS routine updates the whole
+                        \ dashboard (as this only happens when bits 0 and 1 of
+                        \ MCNT are zero)
+
+ENDIF
 
  JSR TT66               \ Clear the top part of the screen, draw a white border,
                         \ and set the current view type in QQ11 to 0 (space
@@ -71,10 +86,17 @@
  JSR SOLAR              \ Add the sun, planet and stardust, according to the
                         \ current system seeds
 
- LDX #1                 \ Get the details for the sun from slot 1
- STX currentSlot        \
- STX MCNT               \ Also, set MCNT to 1 so we don't update the compass in
- JSR GetShipData        \ the DIALS routine
+ LDX #1                 \ Set the current slot to 1 so we can create the sun
+ STX currentSlot
+
+IF _6502SP_VERSION
+
+ STX MCNT               \ Set MCNT to 1 so we don't update the compass in the
+                        \ DIALS routine
+
+ENDIF
+
+ JSR GetShipData        \ Get the details for the sun from slot 1
 
  JSR ZINF               \ Initialise the sun so it's in front of us
  JSR InitialiseShip
@@ -207,6 +229,28 @@ ELIF _MASTER_VERSION
 
  EQUB &20, &2F          \ SPACE         ?
  EQUB &8C, &8D          \ Left arrow    Right arrow
+
+ELIF _C64_VERSION
+
+                        \ Front view
+
+ EQUB $3E, $42          \ Right arrow   Left arrow
+ EQUB $04, $09          \ SPACE         ?
+
+                        \ Rear view
+
+ EQUB $42, $3E          \ Left arrow    Right arrow
+ EQUB $09, $04          \ ?             SPACE
+
+                        \ Left view
+
+ EQUB $09, $04          \ ?             SPACE
+ EQUB $3E, $42          \ Right arrow   Left arrow
+
+                        \ Right view
+
+ EQUB $04, $09          \ SPACE         ?
+ EQUB $42, $3E          \ Left arrow    Right arrow
 
 ENDIF
 
@@ -538,7 +582,28 @@ ENDIF
 
 .keys29
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
                         \ Fall through into the routine for showing the charts
+
+ELIF _C64_VERSION
+
+ CMP #keyLeftArrow      \ If <- is not being pressed, jump to DrawCharts to
+ BNE DrawCharts         \ process the chart keys
+
+                        \ If we get here then <- is being pressed, so we switch
+                        \ to chart mode
+
+ LDA QQ14               \ Store the current fuel level on the stack
+ PHA
+
+ LDA #70                \ Set the fuel level to 7 light years, for the chart
+ STA QQ14               \ display
+
+ LDA #f4                \ Jump to ForceChart, setting the key that's "pressed"
+ JMP ForceChart         \ to red key f4 (so we show the Long-range Chart)
+
+ENDIF
 
 \ ******************************************************************************
 \
@@ -574,7 +639,7 @@ ENDIF
                         \ in A (skipping the check at the start for the status
                         \ key)
 
-IF _6502SP_VERSION
+IF _6502SP_VERSION OR _C64_VERSION
 
  LDA KL                 \ If "H" was not pressed, jump to char3 to skip the
  CMP #keyH              \ following
@@ -632,7 +697,7 @@ ENDIF
  PLA                    \ Restore the current fuel level from the stack
  STA QQ14
 
-IF _6502SP_VERSION
+IF _6502SP_VERSION OR _C64_VERSION
 
  LDA KL                 \ If "G" was not pressed, jump to draw3 to return from
  CMP #keyG              \ the subroutine (as draw3 contains an RTS)
@@ -674,7 +739,16 @@ ENDIF
  LDA FRIN,X             \ If the slot is empty, return from the subroutine as
  BEQ draw3              \ we are done
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PHX                    \ Store the counter on the stack
+
+ELIF _C64_VERSION
+
+ TXA                    \ Store the counter on the stack
+ PHA
+
+ENDIF
 
  JSR GetShipData        \ Fetch the details for the ship in slot X
 
@@ -682,7 +756,16 @@ ENDIF
 
 .draw2
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PLX                    \ Retrieve the counter from the stack
+
+ELIF _C64_VERSION
+
+ PLA                    \ Retrieve the counter from the stack
+ TAX
+
+ENDIF
 
  INX                    \ Move to the next slot
 
@@ -1263,7 +1346,7 @@ IF _6502SP_VERSION
  SBC #'a'-':'           \ Reduce 'A' to 'Z' so that 'A' is after '9' (we know
                         \ the C flag is set as we just passed through a BCC)
 
-ELIF _MASTER_VERSION
+ELIF _MASTER_VERSION OR _C64_VERSION
 
  CMP #'W'               \ If key is 'W' or greater, it is invalid, so jump to
  BCS add5               \ add5 to make an error beep and return from the
@@ -1443,14 +1526,32 @@ ENDIF
 
 .slot2
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PHX                    \ Store the empty slot number
+
+ELIF _C64_VERSION
+
+ TXA                    \ Store the empty slot number
+ PHA
+
+ENDIF
 
  LDA TYPE               \ Fetch the type of ship to create
 
  JSR NWSHP              \ Add the new ship and store it in K%
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PLX                    \ Restore the empty slot number (which is where the new
                         \ ship will be if it was added)
+
+ELIF _C64_VERSION
+
+ PLA                    \ Restore the empty slot number (which is where the new
+ TAX                    \ ship will be if it was added)
+
+ENDIF
 
  BCC MakeErrorBeep      \ If we didn't add a new ship, jump to MakeErrorBeep to
                         \ make an error beep and return from the subroutine
@@ -1481,6 +1582,11 @@ IF _6502SP_VERSION
 ELIF _MASTER_VERSION
 
  LDY #0                 \ Call the NOISE routine with Y = 0 to make a long, low
+ JMP NOISE              \ beep, returning from the subroutine using a tail call
+
+ELIF _C64_VERSION
+
+ LDY #6                 \ Call the NOISE routine with Y = 6 to make a long, low
  JMP NOISE              \ beep, returning from the subroutine using a tail call
 
 ENDIF
@@ -1691,5 +1797,24 @@ ENDIF
 .showingBulb
 
  EQUB 0
+
+\ ******************************************************************************
+\
+\       Name: dashboardBuff
+\       Type: Variable
+\   Category: Universe editor
+\    Summary: Buffer for changing the dashboard
+\
+\ ******************************************************************************
+
+IF _6502SP_VERSION
+
+.dashboardBuff
+
+ EQUB 2                 \ The number of bytes to transmit with this command
+
+ EQUB 2                 \ The number of bytes to receive with this command
+
+ENDIF
 
 .endUniverseEditor2

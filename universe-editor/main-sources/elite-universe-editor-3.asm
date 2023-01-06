@@ -62,6 +62,8 @@
 \
 \ ******************************************************************************
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
 .SaveLoadFile
 
  PHA                    \ Store A on the stack so we can restore it after the
@@ -138,6 +140,11 @@ ENDIF
  BNE slod1              \ If A is non-zero then we need to load the file, so
                         \ jump to slod2
 
+ LDA #&F9               \ Set the two bytes before the file to &F900, so they
+ STA K%-1               \ can be saved out with the file to act as the PRG bytes
+ STZ K%-2               \ for the Commodore 64 version (these two bytes are part
+                        \ of the MOS keyboard buffer, so they need to be set)
+ 
  LDX #LO(saveCommand)   \ Set (Y X) to point to the save command
  LDY #HI(saveCommand)
 
@@ -153,6 +160,10 @@ ENDIF
 
  JSR OSCLI              \ Call OSCLI to run the load or save OS command
 
+ STZ K%-1               \ Zero the two bytes before the file, as they are part
+ STZ K%-2               \ of the MOS keyboard buffer, and we don't want to
+                        \ corrupt it
+
  JSR SWAPZP             \ Call SWAPZP to restore the top part of zero page
 
 ENDIF
@@ -163,6 +174,7 @@ ENDIF
 
  RTS                    \ Return from the subroutine
 
+ENDIF
 
 \ ******************************************************************************
 \
@@ -180,6 +192,8 @@ ENDIF
 \ is run, it it deletes the correct file, and then it does the deletion.
 \
 \ ******************************************************************************
+
+IF _6502SP_VERSION OR _MASTER_VERSION
 
 .DeleteUniverse
 
@@ -330,6 +344,8 @@ ELIF _MASTER_VERSION
 
 ENDIF
 
+ENDIF
+
 \ ******************************************************************************
 \
 \       Name: ChangeDirectory
@@ -338,6 +354,8 @@ ENDIF
 \    Summary: Change disc directory
 \
 \ ******************************************************************************
+
+IF _6502SP_VERSION OR _MASTER_VERSION
 
 .ChangeDirectory
 
@@ -374,6 +392,8 @@ ELIF _MASTER_VERSION
 
 ENDIF
 
+ENDIF
+
 \ ******************************************************************************
 \
 \       Name: StoreName
@@ -399,69 +419,6 @@ ENDIF
  BPL name1              \ Loop back until we have copied all 8 bytes
 
  RTS                    \ Return from the subroutine
-
-\ ******************************************************************************
-\
-\       Name: CopyBlock
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Copy a small block of memory
-\
-\ ------------------------------------------------------------------------------
-\
-\ Arguments:
-\
-\   Y                   Number of bytes to copy - 1
-\
-\   P(1 0)              From address
-\
-\   Q(1 0)              To address
-\
-\ ******************************************************************************
-
-.CopyBlock
-
- LDA (P),Y              \ Copy byte X from P(1 0) to Q(1 0)
- STA (Q),Y
-
- DEY                    \ Decrement the counter
-
- BPL CopyBlock          \ Loop back until all X bytes are copied
-
- RTS                    \ Return from the subroutine
-
-\ ******************************************************************************
-\
-\       Name: dirCommand
-\       Type: Variable
-\   Category: Universe editor
-\    Summary: The OS command string for changing the disc directory to E
-\
-\ ******************************************************************************
-
-.dirCommand
-
- EQUS "DIR E"
- EQUB 13
-
-\ ******************************************************************************
-\
-\       Name: dashboardBuff
-\       Type: Variable
-\   Category: Universe editor
-\    Summary: Buffer for changing the dashboard
-\
-\ ******************************************************************************
-
-IF _6502SP_VERSION
-
-.dashboardBuff
-
- EQUB 2                 \ The number of bytes to transmit with this command
-
- EQUB 2                 \ The number of bytes to receive with this command
-
-ENDIF
 
 \ ******************************************************************************
 \
@@ -496,14 +453,14 @@ IF _SNG47
                         \ points to the MYSCENE part of the load command in
                         \ loadCommand:
                         \
-                        \   "LOAD :1.U.MYSCENE  3FF"
+                        \   "LOAD :1.U.MYSCENE 3FE"
 
  STA saveCommand+10,Y   \ Store the Y-th character of the commander name in the
                         \ Y-th character of saveCommand+10, where saveCommand+10
                         \ points to the MYSCENE part of the save command in
                         \ saveCommand:
                         \
-                        \   "SAVE :1.U.MYSCENE  3FF +31E 0 0"
+                        \   "SAVE :1.U.MYSCENE 3FE +321 0 0"
 
 ELIF _COMPACT
 
@@ -512,14 +469,14 @@ ELIF _COMPACT
                         \ points to the MYSCENE part of the load command in
                         \ loadCommand:
                         \
-                        \   "LOAD MYSCENE  3FF"
+                        \   "LOAD MYSCENE 3FE"
 
  STA saveCommand+5,Y    \ Store the Y-th character of the commander name in the
                         \ Y-th character of saveCommand+5, where saveCommand+5
                         \ points to the MYSCENE part of the save command in
                         \ saveCommand:
                         \
-                        \   "SAVE MYSCENE  3FF +31E 0 0"
+                        \   "SAVE MYSCENE 3FE +321 0 0"
 ENDIF
 
  INY                    \ Increment the loop counter
@@ -581,12 +538,12 @@ IF _MASTER_VERSION
 
 IF _SNG47
 
- EQUS "LOAD :1.U.MYSCENE 400"
+ EQUS "LOAD :1.U.MYSCENE 3FE"
  EQUB 13
 
 ELIF _COMPACT
 
- EQUS "LOAD MYSCENE 400"
+ EQUS "LOAD MYSCENE 3FE"
  EQUB 13
 
 ENDIF
@@ -594,3 +551,23 @@ ENDIF
 ENDIF
 
 .endUniverseEditor3
+
+\ ******************************************************************************
+\
+\       Name: prgAddress
+\       Type: Variable
+\   Category: Universe editor
+\    Summary: Two bytes that precede K% for the PRG bytes in the universe file
+\             format
+\
+\ ******************************************************************************
+
+IF _6502SP_VERSION
+
+ORG K%-2
+
+.prgAddress
+
+ EQUW &F900
+
+ENDIF

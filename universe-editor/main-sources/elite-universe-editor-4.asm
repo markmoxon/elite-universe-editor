@@ -82,6 +82,20 @@ ELIF _MASTER_VERSION
  STA LL74+16            \ that disables the laser once it has fired, so that
                         \ lasers remain on-screen while in the editor
 
+ELIF _C64_VERSION
+
+ LDA #&60               \ Modify DIALS to skip calling COMPAS at the end
+ STA PZW2-3
+
+ JSR EditorDashboard    \ Switch to the Universe Editor dashboard
+
+ JSR DOT                \ Remove the dot from the compass that the title screen
+                        \ otherwise leaves in-place
+
+ LDA #$24               \ Disable the STA XX1+31 instruction in part 9 of LL9
+ STA LL74+26            \ that disables the laser once it has fired, so that
+                        \ lasers remain on-screen while in the editor
+
 ENDIF
 
  LDA #%11100111         \ Disable the clearing of bit 7 (lasers firing) in
@@ -104,7 +118,34 @@ ENDIF
 
  BPL mods1              \ Loop back for the next byte of the universe filename
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ showingBulb        \ Zero the flags that keep track of the bulb indicators
+
+ELIF _C64_VERSION
+
+ LDA #0                 \ Zero the flags that keep track of the bulb indicators
+ STA showingBulb
+
+ENDIF
+
+IF _C64_VERSION
+
+ LDA #$20               \ Modify the STX KL: SEC instructions in RDKEY to
+ STA RDKEY+72           \ JSR SkipModifierKeys
+ LDA #LO(SkipModifierKeys)
+ STA RDKEY+73
+ LDA #HI(SkipModifierKeys)
+ STA RDKEY+74
+
+ LDA #$20               \ Modify the STA CIA1_PORTA instruction in RDKEY to
+ STA RDKEY+89           \ JSR ShiftCursorKeys
+ LDA #LO(ShiftCursorKeys)
+ STA RDKEY+90
+ LDA #HI(ShiftCursorKeys)
+ STA RDKEY+91
+
+ENDIF
 
  RTS                    \ Return from the subroutine
 
@@ -121,6 +162,24 @@ ENDIF
 
  JSR HideBulbs          \ Hide both dashboard bulbs
 
+IF _C64_VERSION
+
+ LDA #$86               \ Revert the STX KL: SEC instructions in RDKEY
+ STA RDKEY+72
+ LDA #KL
+ STA RDKEY+73
+ LDA #$38
+ STA RDKEY+74
+
+ LDA #$8D               \ Revert the STA CIA1_PORTA instruction in RDKEY
+ STA RDKEY+89
+ LDA #LO(CIA1_PORTA)
+ STA RDKEY+90
+ LDA #HI(CIA1_PORTA)
+ STA RDKEY+91
+
+ENDIF
+
 IF _6502SP_VERSION
 
  LDA #&14               \ Re-enable the TRB XX1+31 instruction in part 9 of LL9
@@ -130,6 +189,11 @@ ELIF _MASTER_VERSION
 
  LDA #&85               \ Re-enable the STA XX1+31 instruction in part 9 of LL9
  STA LL74+16
+
+ELIF _C64_VERSION
+
+ LDA #$85               \ Re-enable the STA XX1+31 instruction in part 9 of LL9
+ STA LL74+26
 
 ENDIF
 
@@ -154,6 +218,15 @@ ELIF _MASTER_VERSION
 
  JMP GameDashboard      \ Switch to the main game dashboard, returning from the
                         \ subroutine using a tail call
+
+ELIF _C64_VERSION
+
+ JSR GameDashboard      \ Switch to the main game dashboard
+
+ LDA #&4C               \ Re-enable the call to COMPAS at the end of DIALS
+ STA PZW2-3
+
+ RTS                    \ Return from the subroutine
 
 ENDIF
 
@@ -305,11 +378,29 @@ ENDIF
 
 .UpdateSlotNumber
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PHX                    \ Store the new slot number on the stack
+
+ELIF _C64_VERSION
+
+ TXA                    \ Store the new slot number on the stack
+ PHA
+
+ENDIF
 
  JSR PrintSlotNumber    \ Erase the current slot number from screen
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PLX                    \ Retrieve the new slot number from the stack
+
+ELIF _C64_VERSION
+
+ PLA                    \ Retrieve the new slot number from the stack
+ TAX
+
+ENDIF
 
  STX currentSlot        \ Set the current slot number to the new slot number
 
@@ -334,8 +425,17 @@ ENDIF
 
  PHA                    \ Store the token number on the stack
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ DLY                \ Set the delay in DLY to 0, so any new in-flight
                         \ messages will be shown instantly
+
+ELIF _C64_VERSION
+
+ LDA #0                 \ Set the delay in DLY to 0, so any new in-flight
+ STA DLY                \ messages will be shown instantly
+
+ENDIF
 
 IF _6502SP_VERSION
 
@@ -357,8 +457,17 @@ ENDIF
  LDA #13                \ Move the text cursor to column 13
  JSR DOXC
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  LDA #22                \ Move the text cursor to row 22
  JSR DOYC
+
+ELIF _C64_VERSION
+
+ LDA #16                \ Move the text cursor to row 16
+ JSR DOYC
+
+ENDIF
 
  PLA                    \ Print the token, returning from the subroutine using a
  JMP PrintToken         \ tail call
@@ -579,7 +688,16 @@ ENDIF
 
 .hsca2
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PHX                    \ Store the loop counter in X on the stack
+
+ELIF _C64_VERSION
+
+ TXA                    \ Store the loop counter in X on the stack
+ PHA
+
+ENDIF
 
  JSR SCAN               \ Draw the ship on the scanner to remove it
 
@@ -595,8 +713,18 @@ ENDIF
  LDY #2                 \ Wait for 2/50 of a second (0.04 seconds)
  JSR DELAY
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PLX                    \ Retrieve the loop counter in X and decrement it
  DEX
+
+ELIF _C64_VERSION
+
+ PLA                    \ Retrieve the loop counter in X and decrement it
+ TAX
+ DEX
+
+ENDIF
 
  BPL hsca2              \ Loop back until we have moved the ship X times
 
@@ -604,7 +732,16 @@ ENDIF
 
 .hsca3
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PHX                    \ Store the loop counter in X on the stack
+
+ELIF _C64_VERSION
+
+ TXA                    \ Store the loop counter in X on the stack
+ PHA
+
+ENDIF
 
  JSR SCAN               \ Draw the ship on the scanner to remove it
 
@@ -620,8 +757,18 @@ ENDIF
  LDY #2                 \ Wait for 2/50 of a second (0.04 seconds)
  JSR DELAY
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PLX                    \ Retrieve the loop counter in X and decrement it
  DEX
+
+ELIF _C64_VERSION
+
+ PLA                    \ Retrieve the loop counter in X and decrement it
+ TAX
+ DEX
+
+ENDIF
 
  BPL hsca3              \ Loop back until we have moved the ship X times
 
@@ -648,15 +795,18 @@ ENDIF
  AND #%00100000         \ exploding, so jump to high5 to highlight the cloud
  BNE high5
 
+IF _6502SP_VERSION
+
  LDA shpcol,X           \ Set A to the ship colour for this type, from the X-th
                         \ entry in the shpcol table
-
-IF _6502SP_VERSION
 
  JSR DOCOL              \ Send a #SETCOL command to the I/O processor to switch
                         \ to this colour
 
 ELIF _MASTER_VERSION
+
+ LDA shpcol,X           \ Set A to the ship colour for this type, from the X-th
+                        \ entry in the shpcol table
 
  STA COL                \ Switch to this colour
 
@@ -823,28 +973,31 @@ ENDIF
 
  JSR WPSHPS             \ Clear the ships from the scanner
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  TSX                    \ Transfer the stack pointer to X and store it in stack,
  STX stack              \ so we can restore it in the break handler
+
+ENDIF
 
  LDA #LO(NAME)          \ Change TR1 so it uses the universe name in NAME as the
  STA GTL2+1             \ default when no filename is entered
  LDA #HI(NAME)
  STA GTL2+2
 
- LDA #&11               \ Change token 8 in TKN1 to "File Name"
- STA token8
- LDA #&1E
- STA token8+1
- LDA #&B2
- STA token8+2
+ LDA #&11               \ Change token 8 in TKN1 from "Commander's Name" to
+ STA token8             \ "File Name" by changing the first three tokens to:
+ LDA #&1E               \
+ STA token8+1           \ ECHR 'F'
+ LDA #&B2               \ ECHR 'I'
+ STA token8+2           \ ETWO 'L', 'E'
+
+IF _6502SP_VERSION
 
  LDA #'U'               \ Change the directory to U
  STA S1%+3
  STA dirCommand+4
-
-IF _6502SP_VERSION
-
- STA DELI+9             \ Change the directory to U
+ STA DELI+9
 
  LDA #&4C               \ Stop MEBRK error handler from returning to the SVE
  STA SVE                \ routine, jump back here instead
@@ -853,16 +1006,22 @@ IF _6502SP_VERSION
  LDA #HI(ReturnToDiscMenu)
  STA SVE+2
 
+ JSR ChangeDirectory    \ Change directory to U
+
 ELIF _MASTER_VERSION
+
+ LDA #'U'               \ Change the directory to U
+ STA S1%+3
+ STA dirCommand+4
 
  LDA #LO(ReturnToDiscMenu) \ Stop BRBR error handler from returning to the SVE
  STA DEATH-2               \ routine, jump back here instead
  LDA #HI(ReturnToDiscMenu)
  STA DEATH-1
 
-ENDIF
-
  JSR ChangeDirectory    \ Change directory to U
+
+ENDIF
 
 \ ******************************************************************************
 \
@@ -882,10 +1041,6 @@ IF _6502SP_VERSION
 
  JSR ZEBC               \ Call ZEBC to zero-fill pages &B and &C
 
-ENDIF
-
-IF _6502SP_VERSION
-
  LDA #LO(MEBRK)         \ Set BRKV to point to the MEBRK routine, disabling
  SEI                    \ interrupts while we make the change and re-enabling
  STA BRKV               \ them once we are done. MEBRK is the BRKV handler for
@@ -893,9 +1048,7 @@ IF _6502SP_VERSION
  STA BRKV+1             \ handler in BRBR while disc access operations are
  CLI                    \ happening
 
-ENDIF
-
-IF _MASTER_VERSION
+ELIF _MASTER_VERSION
 
  JSR TRADE              \ Set the palette for trading screens and switch the
                         \ current colour to white
@@ -903,7 +1056,7 @@ IF _MASTER_VERSION
 ENDIF
 
  LDA #1                 \ Print extended token 1, the disc access menu, which
- JSR PrintToken         \ presents these options:
+ JSR PrintToken         \ presents these options on the BBC:
                         \
                         \   1. Load Universe
                         \   2. Save Universe {universe name}
@@ -911,6 +1064,14 @@ ENDIF
                         \   4. Delete A File
                         \   5. Play Universe
                         \   6. Exit
+                        \
+                        \ or these options on the Commodore 64:
+                        \
+                        \   1. Load Universe
+                        \   2. Save Universe {universe name}
+                        \   3. Change to {other media}
+                        \   4. Play Universe
+                        \   5. Exit
 
  JSR t                  \ Scan the keyboard until a key is pressed, returning
                         \ the ASCII code in A and X
@@ -918,25 +1079,53 @@ ENDIF
  CMP #'1'               \ If A < ASCII "1", jump to disc5 to exit as the key
  BCC disc5              \ press doesn't match a menu option
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  CMP #'4'               \ If "4" was not pressed, jump to disc1
  BNE disc1
 
-                        \ Option 4: Delete
+                        \ Option 4: Delete (BBC)
 
  JSR DeleteUniverse     \ Delete a file
+
+ELIF _C64_VERSION
+
+ CMP #'3'               \ If "3" was not pressed, jump to disc1
+ BNE disc1
+
+                        \ Option 3: Change to {other media} (Commodore 64)
+
+ LDA DTAPE              \ Flip the current device in DTAPE, so it contains:
+ EOR #%11111111         \
+ STA DTAPE              \   * 0 for tape
+                        \   * &FF for disk
+
+ENDIF
 
  JMP ReturnToDiscMenu   \ Show disc menu
 
 .disc1
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  CMP #'5'               \ If "5" was not pressed, jump to disc2 to skip the
  BNE disc2              \ following
 
-                        \ Option 5: Play universe
+ELIF _C64_VERSION
+
+ CMP #'4'               \ If "4" was not pressed, jump to disc2 to skip the
+ BNE disc2              \ following
+
+ENDIF
+
+                        \ Option 5: Play universe (BBC)
+                        \ Option 4: Play universe (Commodore 64)
 
  JMP PlayUniverse       \ Play the current universe file
 
 .disc2
+
+IF _6502SP_VERSION OR _MASTER_VERSION
 
  BCS disc5              \ If A >= ASCII "5", jump to disc5 to exit as the key
                         \ press is either option 6 (exit), or it doesn't match a
@@ -945,7 +1134,18 @@ ENDIF
  CMP #'2'               \ If A >= ASCII "2" (i.e. save or catalogue), skip to
  BCS disc3              \ disc3
 
-                        \ Option 1: Load
+ELIF _C64_VERSION
+
+ BCS disc5              \ If A >= ASCII "4", jump to disc5 to exit as the key
+                        \ press is either option 5 (exit), or it doesn't match a
+                        \ menu option (as we already checked for "4" above)
+
+ CMP #'2'               \ If A = ASCII "2" (i.e. save), skip to disc4
+ BEQ disc4
+
+ENDIF
+
+                        \ Option 1: Load (BBC and Commodore 64)
 
  JSR GTNMEW             \ If we get here then option 1 (load) was chosen, so
                         \ call GTNMEW to fetch the name of the commander file
@@ -956,12 +1156,14 @@ ENDIF
 
  JMP disc5              \ Jump to disc5 to return from the subroutine
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
 .disc3
 
  BEQ disc4              \ We get here following the CMP #'2' above, so this
                         \ jumps to disc4 if option 2 (save) was chosen
 
-                        \ Option 3: Catalogue
+                        \ Option 3: Catalogue (BBC)
 
  JSR CATS               \ Call CATS to ask for a drive number, catalogue that
                         \ disc and update the catalogue command at CTLI
@@ -971,9 +1173,11 @@ ENDIF
 
  JMP ReturnToDiscMenu   \ Show the disc menu again
 
+ENDIF
+
 .disc4
 
-                        \ Option 2: Save
+                        \ Option 2: Save (BBC and Commodore 64)
 
  JSR SaveUniverse       \ Save the universe file
 
@@ -981,7 +1185,8 @@ ENDIF
 
 .disc5
 
-                        \ Option 6: Exit
+                        \ Option 6: Exit (BBC)
+                        \ Option 5: Exit (Commodore 64)
 
  JSR RevertDiscMods     \ Reverse all the modifications we did above
 
@@ -1000,24 +1205,31 @@ ENDIF
 
 .RevertDiscMods
 
+IF _6502SP_VERSION
+
+ LDA #'E'               \ Change the directory back to E
+ STA S1%+3
+ STA dirCommand+4
+ STA DELI+9
+
+ JSR ChangeDirectory    \ Change directory to E
+
+ELIF _MASTER_VERSION
+
  LDA #'E'               \ Change the directory back to E
  STA S1%+3
  STA dirCommand+4
 
-IF _6502SP_VERSION
-
- STA DELI+9             \ Change the directory back to E
+ JSR ChangeDirectory    \ Change directory to E
 
 ENDIF
 
- JSR ChangeDirectory
-
- LDA #&CD               \ Revert token 8 in TKN1 to "Commander's Name"
- STA token8
- LDA #&70
- STA token8+1
- LDA #&04
- STA token8+2
+ LDA #&CD               \ Revert token 8 in TKN1 to "Commander's Name" by
+ STA token8             \ changing the first three tokens back to:
+ LDA #&70               \
+ STA token8+1           \ ETOK 154
+ LDA #&04               \ ECHR '`'
+ STA token8+2           \ ECHR 'S'
 
  LDA #LO(NA%)           \ Revert TR1 so it uses the commander name in NA% as the
  STA GTL2+1             \ default when no filename is entered
@@ -1048,6 +1260,10 @@ ELIF _MASTER_VERSION
 
  RTS                    \ Return from the subroutine
 
+ELIF _C64_VERSION
+
+ RTS                    \ Return from the subroutine
+
 ENDIF
 
 \ ******************************************************************************
@@ -1065,12 +1281,13 @@ IF _6502SP_VERSION
 
  JSR ZEBC               \ Call ZEBC to zero-fill pages &B and &C
 
- LDY #HI(K%)            \ Set up an OSFILE block at &0C00, containing:
+ LDY #HI(K%-2)          \ Set up an OSFILE block at &0C00, containing:
  STY &0C03              \
- STZ &0C02              \ Load address = K% in &0C02 to &0C05
- LDY #&03               \
- STY &0C0B              \ Length of file = &031D in &0C0A to &0C0D
- LDY #&1D
+ LDY #LO(K%-2)          \ Load address = K%-2 in &0C02 to &0C05
+ STY &0C02              \
+ LDY #&03               \ Length of file = &0321 in &0C0A to &0C0D
+ STY &0C0B
+ LDY #&21
  STY &0C0A
 
 ELIF _MASTER_VERSION
@@ -1079,6 +1296,8 @@ ELIF _MASTER_VERSION
 
 ENDIF
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  LDA #&FF               \ Call SaveLoadFile with A = &FF to load the universe
  JSR SaveLoadFile       \ file to address K%
 
@@ -1086,6 +1305,14 @@ ENDIF
                         \ entered during the call to SaveLoadFile and the file
                         \ wasn't loaded, so jump to load1 to skip the following
                         \ and return from the subroutine
+
+ELIF _C64_VERSION
+
+ JSR LoadUniverseC64    \ Load the universe file
+
+ BCS load1              \ If there was a loading error, skip the following
+
+ENDIF
 
  JSR StoreName          \ Transfer the universe filename from INWK to NAME, to
                         \ set it as the current filename
@@ -1104,7 +1331,16 @@ ENDIF
  LDY #NOSH+1
  JSR CopyBlock
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ FRIN+NOSH          \ Zero the slot terminator
+
+ELIF _C64_VERSION
+
+ LDA #0                 \ Zero the slot terminator
+ STA FRIN+NOSH
+
+ENDIF
 
  LDA #HI(K%+&2E4+21)    \ Copy NTY + 1 bytes from K%+&2E4+21 to MANY
  STA P+1
@@ -1120,7 +1356,7 @@ ENDIF
  LDA K%+&2E4+21+35      \ Copy 1 byte from K%+&2E4+21+35 to JUNK
  STA JUNK
 
- LDA K%+&2E4+21+36      \ Copy 2 bytes from K%+&2E4+21+36 SLSP to 
+ LDA K%+&2E4+21+36      \ Copy 2 bytes from K%+&2E4+21+36 to SLSP
  STA SLSP
  LDA K%+&2E4+21+37
  STA SLSP+1
@@ -1129,17 +1365,193 @@ IF _MASTER_VERSION
 
  JSR ConvertToMaster    \ Convert the loaded file so it works on the Master
 
+ELIF _C64_VERSION
+
+ JSR ConvertToC64       \ Convert the loaded file so it works on the Commodore
+                        \ 64
+
 ENDIF
 
  JSR ResetExplosions    \ Reset any explosions so they restart on loading
 
 .load1
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ currentSlot        \ Switch to slot 0
 
- JSR HideBulbs          \ Hide both dashboard bulbs
+ELIF _C64_VERSION
 
- RTS                    \ Return from the subroutine with the C flag set
+ LDA #0                 \ Switch to slot 0
+ STA currentSlot
+
+ENDIF
+
+ JMP HideBulbs          \ Hide both dashboard bulbs, returning from the
+                        \ subroutine using a tail call
+
+\ ******************************************************************************
+\
+\       Name: LoadUniverseC64
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Load and convert a universe file for the Commodore 64
+\
+\ ******************************************************************************
+
+IF _C64_VERSION
+
+.LoadUniverseC64
+
+ JSR OpenFile           \ Open a file for loading, returning the device number
+                        \ in X
+
+ LDA #1                 \ Call SETLFS to set the file parameters, with X set to
+ LDY #0                 \ the device number from above, and A and Y set to file
+ JSR SETLFS             \ number 1 and secondary address 0
+
+ LDX #LO(K%)            \ Set (Y X) to the load address of K%
+ LDY #HI(K%)
+
+ LDA #0                 \ Set A = 0 so the call to LOAD loads the file to memory
+                        \ (as opposed to verifying)
+
+ JSR LOAD               \ Call LOAD to load the file
+
+ PHP                    \ Store the C flag on the stack
+
+ JSR CloseFile          \ Close the file that was opened by OpenFile
+
+ PLP                    \ Retrieve the C flag from the stack
+
+ BCC loco1              \ If there was no error, jump to loco1 to return from
+                        \ the subroutine
+
+ LDA #255               \ Print token 255 ("{cr}{currently selected media}
+ JSR DETOK              \ ERROR")
+
+ JSR t                  \ Wait for a key press
+
+ SEC                    \ Set the C flag to indicate a failure
+
+.loco1
+
+ RTS                    \ Return from the subroutine
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: OpenFile
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Open a file
+\
+\ ------------------------------------------------------------------------------
+\
+\ This routine reverses the changes that are implemented in the GETDRV routine,
+\ which disables interrupts and pages the kernal ROM and I/O into main memory.
+\ GETDRV gets the system ready for file access, and this routine reverses the
+\ process.
+\
+\ It is based on the code in the routine at $8BC0, which is the Commodore 64
+\ equivalent of the GETDRV routine in the BBC versions.
+\
+\ ******************************************************************************
+
+IF _C64_VERSION
+
+.OpenFile
+
+ JSR SWAPZP             \ Call SWAPZP to save the top part of zero page
+
+ LDA #%00000110         \ Set A so we can page the kernal ROM and I/O into main
+                        \ memory below
+
+ SEI                    \ Disable interrupts
+
+ JSR SetMemory          \ Page the kernal ROM and I/O into main memory
+
+ LDA #0                 \ Clear bit 0 of the VIC Interrupt Control Register to
+ STA VIC_ICREG          \ disable the raster interrupt
+ 
+ CLI
+
+ LDA #%10000001         \ Set bit 0 of the CIA #1 Interrupt Control and Status
+ STA CIA1_ICSREG        \ Register to enable interrupts generated by a timer A
+                        \ underflow
+
+ LDA #%11000000         \ Set the system error display switch so we display both
+ JSR SETMSG             \ error and control messages
+
+ LDA NAMELEN1           \ Set A to the filename length that was set in GTNMEW
+
+ LDX #LO(INWK+5)        \ Set (Y X) to the address of the file name at INWK,
+ LDY #HI(INWK+5)        \ skipping the ":0.E." prefix
+
+ JSR SETNAM             \ Call SETNAM to set the name of file 2
+
+ LDX DTAPE              \ Set X to the correct device number for tape or disk,
+ INX                    \ taken from the table at deviceNumber, using the media
+ LDA deviceNumber,X     \ setting in DTAPE
+ TAX
+
+ RTS                    \ Return from the subroutine
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: CloseFile
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Close the file that was opened by OpenFile
+\
+\ ------------------------------------------------------------------------------
+\
+\ This routine reverses the changes that are implemented in the GETDRV routine,
+\ which disables interrupts and pages the kernal ROM and I/O into main memory.
+\ GETDRV gets the system ready for file access, and this routine reverses the
+\ process.
+\
+\ It is based on the code in the routine at $8C0D, which is the Commodore 64
+\ equivalent of the LOD routine in the BBC versions.
+\
+\ ******************************************************************************
+
+IF _C64_VERSION
+
+.CloseFile
+
+ LDA #%00000001         \ Clear bit 0 of the CIA #1 Interrupt Control and Status
+ STA CIA1_ICSREG        \ Register to disable interrupts generated by a timer A
+                        \ underflow
+
+ SEI                    \ Disable interrupts
+ 
+ LDX #0                 \ Set the screen part to the first part of the screen,
+ STX screenSection      \ above the mode switch, i.e. part 0, or the space view
+
+ INX                    \ Set bit 0 of the VIC Interrupt Control Register to
+ STX VIC_ICREG          \ enable the raster interrupt
+ 
+ LDA VIC_SCREG1         \ Clear bit 7 of the VIC Screen Control Register #1,
+ AND #%01111111         \ which contains bit 8 of the number of the raster line
+ STA VIC_SCREG1         \ at which we generate the interrupt
+ 
+ LDA #40                \ Set bits 0-7 of the number of the raster line at which
+ STA VIC_RASTER         \ we generate the interupt to 40 (we cleared bit 8 in
+                        \ the previous instruction)
+ 
+ LDA #%00000100         \ Page the kernal ROM and I/O out of main memory, so we
+ JSR SetMemory          \ switch back to a full 64K of RAM
+ 
+ CLI                    \ Re-enable interrupts
+
+ JMP SWAPZP             \ Call SWAPZP to restore the top part of zero page,
+                        \ returning from the subroutine using a tail call
+
+ENDIF
 
 \ ******************************************************************************
 \
@@ -1164,11 +1576,12 @@ IF _6502SP_VERSION
 
  JSR ZEBC               \ Call ZEBC to zero-fill pages &B and &C
 
- LDY #HI(K%)            \ Set up an OSFILE block at &0C00, containing:
+ LDY #HI(K%-2)          \ Set up an OSFILE block at &0C00, containing:
  STY &0C0B              \
- STZ &0C0A              \ Start address for save = K% in &0C0A to &0C0D
- LDY #HI(K%+&031F)      \
- STY &0C0F              \ End address for save = K%+&031F in &0C0E to &0C11
+ LDY #LO(K%-2)          \ Start address for save = K%-2 in &0C0A to &0C0D
+ STY &0C0A              \
+ LDY #HI(K%+&031F)      \ End address for save = K%+&031F in &0C0E to &0C11
+ STY &0C0F
  LDY #LO(K%+&031F)
  STY &0C0E
 
@@ -1213,12 +1626,6 @@ ENDIF
  LDA SLSP+1
  STA K%+&2E4+21+37
 
-IF _MASTER_VERSION
-
- JSR ConvertFromMaster  \ Convert the universe file so it can be saved
-
-ENDIF
-
 IF _6502SP_VERSION
 
  LDA #0                 \ Call SaveLoadFile with A = 0 to save the universe
@@ -1228,12 +1635,187 @@ IF _6502SP_VERSION
 
 ELIF _MASTER_VERSION
 
+ JSR ConvertFromMaster  \ Convert the universe file so it can be saved
+
  LDA #0                 \ Call SaveLoadFile with A = 0 to save the universe
  JSR SaveLoadFile       \ file with the filename we copied to INWK at the start
                         \ of this routine
 
  JMP ConvertToMaster    \ Convert the loaded file back again so it works on the
                         \ Master, returning from the subroutine using a tail
+                        \ call
+
+ELIF _C64_VERSION
+
+ JSR ConvertFromC64     \ Convert the universe file so it can be saved
+
+ JSR SaveUniverseC64    \ Save the universe file, returning from the subroutine
+                        \ using a tail call
+
+ JMP ConvertToC64       \ Convert the loaded file back again so it works on the
+                        \ Commodore 64, returning from the subroutine using a
+                        \ tail call
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: SwapWithLogData
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Swap the universe file with the log data, so we can save it (as
+\             otherwise the universe file clashes with the kernal ROM)
+\
+\ ******************************************************************************
+
+IF _C64_VERSION
+
+.SwapWithLogData
+
+ LDA #HI(K%)            \ Set P(1 0) to point to K%
+ STA P+1
+ LDA #LO(K%)    
+ STA P
+
+ LDA #HI(log)           \ Set Q(1 0) to point to the log tables
+ STA Q+1
+ LDA #LO(log)
+ STA Q
+
+ LDY #0                 \ Set Y = 0 to act as a byte counter
+
+.slog1
+
+ LDA (P),Y              \ Swap the Y-th byte of P(1 0) and the Y-th byte of
+ TAX                    \ Q(1 0)
+ LDA (Q),Y
+ STA (P),Y
+ TXA
+ STA (Q),Y
+
+ INY                    \ Increment the byte counter
+
+ BNE slog1              \ Loop back until we have swapped a whole page of data
+
+ INC P+1                \ Increment P(1 0) and Q(1 0) to point to the next page
+ INC Q+1                \ by incrementing their high bytes
+
+ LDA Q+1                \ Loop back to copy the next page, until the high byte
+ CMP #HI(log+$0400)     \ of Q(1 0) equals the high byte of log + $0400, at
+ BNE slog1              \ which point we have swapped four pages of data
+
+ RTS                    \ Return from the subroutine
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: SaveUniverseC64
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Save a universe file from the Commodore 64
+\
+\ ******************************************************************************
+
+IF _C64_VERSION
+
+.SaveUniverseC64
+
+ JSR SwapWithLogData    \ Swap the save file with the log tables
+
+ JSR OpenFile           \ Open a file for loading, returning the device number
+                        \ in X
+
+ LDA #0                 \ Call SETLFS to set the file parameters, with X set to
+ LDY #0                 \ the device number from above, and A and Y set to file
+ JSR SETLFS             \ number 0 and secondary address 0
+
+ LDX #LO(log)           \ Set RAND(1 0) to the save address of log
+ STX RAND
+ LDY #HI(log)
+ STY RAND+1
+
+ LDX #LO(log+$31F)      \ Set (Y X) to the address of the byte after the last
+ LDY #HI(log+$31F)      \ byte of the file to save
+
+ LDA #RAND              \ Set A to the address of RAND, where we stored the save
+                        \ address
+
+ JSR SAVE               \ Call SAVE to save the file
+
+ PHP                    \ Store the C flag on the stack
+
+ JSR CloseFile          \ Close the file that was opened by OpenFile
+
+ JSR SwapWithLogData    \ Swap the save file with the log tables
+
+ PLP                    \ Retrieve the C flag from the stack
+
+ BCC saco1              \ If there was no error, jump to saco1 to return from
+                        \ the subroutine
+
+ LDA #255               \ Print token 255 ("{cr}{currently selected media}
+ JSR DETOK              \ ERROR")
+
+ JSR t                  \ Wait for a key press
+
+ SEC                    \ Set the C flag to indicate a failure
+
+.saco1
+
+ RTS                    \ Return from the subroutine
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: ConvertFromC64
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Convert a Commodore 64 universe file to the save format
+\
+\ ******************************************************************************
+
+IF _C64_VERSION
+
+.ConvertFromC64
+
+                        \ We are saving a file from the Master version, so we
+                        \ need to make the following changes:
+                        \
+                        \   * Change any Cougars from type 32 to 33
+                        \
+                        \   * Fix the ship heap addresses in INWK+33 and INWK+34
+                        \     by subtracting &FFC0-&D000 (as the ship line heap
+                        \     descends from &D000 in the 6502SP version and from
+                        \     &FFC0 in the Commodore 64 version)
+
+ LDX #32                \ Set K = 32, to act as the search value
+ STX K
+
+ INX                    \ Set K+1 = 33, to act as the replacement value
+ STX K+1
+
+ LDX #0                 \ Set K+3 = 0, so we don't delete any ships from the
+ STX K+3                \ file
+
+ LDX #&D0               \ Set K+2 = -(&FF-&D0) - 1 = &D0, so we move the ship
+ STX K+2                \ heap addresses from &FFC0 to &D000
+
+ LDA #&0D               \ If the second slot contains the station, set A = &0D,
+ BIT FRIN+1             \ otherwise set A = &00, so that (A 0) is equal to the
+ BPL cofr1              \ correct heap address for the slot in the 6502 Second
+ LDA #&00               \ Processor version, which is at &0D00 for the station
+                        \ or &0000 for the sun
+
+.cofr1
+
+ STA K%+NI%+34          \ Set bytes #33 and #34 to point to the ship line heap
+ LDA #0                 \ for the space station or sun, as given in (A 0)
+ STA K%+NI%+33
+
+ JMP ConvertFile        \ Convert the Commodore 64 file into the correct format
+                        \ for saving, returning from the subroutine using a tail
                         \ call
 
 ENDIF
@@ -1273,8 +1855,84 @@ IF _MASTER_VERSION
  LDX #&C8               \ Set K+2 = &D0-&08 = &C8, so we move the ship heap
  STX K+2                \ addresses from &0800 to &D000
 
+ LDA #&0D               \ If the second slot contains the station, set A = &0D,
+ BIT FRIN+1             \ otherwise set A = &00, so that (A 0) is equal to the
+ BPL cofr1              \ correct heap address for the slot in the 6502 Second
+ LDA #&00               \ Processor version, which is at &0D00 for the station
+                        \ or &0000 for the sun
+
+.cofr1
+
+ STA K%+NI%+34          \ Set bytes #33 and #34 to point to the ship line heap
+ STZ K%+NI%+33          \ for the space station or sun, as given in (A 0)
+
  JMP ConvertFile        \ Convert the Master file into the correct format for
-                        \ saving
+                        \ saving, returning from the subroutine using a tail
+                        \ call
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: ConvertToC64
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Convert a loaded universe file so it works on a Commodore 64
+\
+\ ******************************************************************************
+
+IF _C64_VERSION
+
+.ConvertToC64
+
+                        \ We are loading a file into the Master version, so we
+                        \ need to make the following changes:
+                        \
+                        \   * Delete any Elite logos of type 32
+                        \
+                        \   * Change any Cougars from type 33 to 32
+                        \
+                        \   * Fix the ship heap addresses in INWK+33 and INWK+34
+                        \     by adding &FFC0-&D000 (as the ship line heap
+                        \     descends from &D000 in the 6502SP version and from
+                        \     &FFC0 in the Commodore 64 version)
+
+ LDX #33                \ Set K = 33, to act as the search value
+ STX K
+
+ DEX                    \ Set K+1 = 32, to act as the replacement value
+ STX K+1
+
+ STX K+3                \ Set K+3 = 32, so we delete the Elite logo from the
+                        \ 6502SP file (before doing the above search)
+
+ LDX #&2F               \ Set K+2 = &FF-&D0 = &2F, so we move the ship heap
+ STX K+2                \ addresses from &D000 to &FFC0 (as ConvertFile also
+                        \ adds $C0 in the Commodore 64 version)
+
+ JSR ConvertFile        \ Convert the loaded file so it works on the Commodore
+                        \ 64
+
+ LDA #0                 \ Clear the last ship slot, so it can act as a backstop
+ STA FRIN+NOSH
+
+ BIT FRIN+1             \ If the second slot contains the station, jump to coto1
+ BPL coto1              \ to set the correct line heap address
+
+ LDA #0                 \ This is the sun, so zero bytes #33 and #34 as the line
+ STA K%+NI%+33          \ heap value for the sun
+ STA K%+NI%+34
+
+ RTS                    \ Return from the subroutine
+ 
+.coto1
+
+ LDA #LO(LSO)           \ Set bytes #33 and #34 to point to LSO for the ship
+ STA K%+NI%+33          \ line heap for the space station
+ LDA #HI(LSO)
+ STA K%+NI%+34
+
+ RTS                    \ Return from the subroutine
 
 ENDIF
 
@@ -1315,14 +1973,26 @@ IF _MASTER_VERSION
  LDX #&38               \ Set K+2 = -(&D0-&08) = &38, so we move the ship heap
  STX K+2                \ addresses from &D000 to &0800
 
- JMP ConvertFile        \ Convert the loaded file so it works on the Master
+ JSR ConvertFile        \ Convert the loaded file so it works on the Master
 
  STZ FRIN+NOSH          \ Clear the last ship slot, so it can act as a backstop
+
+ BIT FRIN+1             \ If the second slot contains the station, jump to coto1
+ BPL coto1              \ to set the correct line heap address
+
+ STZ K%+NI%+33          \ This is the sun, so zero bytes #33 and #34 as the line
+ STZ K%+NI%+34          \ heap value for the sun
+
+ RTS                    \ Return from the subroutine
+ 
+.coto1
 
  LDA #LO(LSO)           \ Set bytes #33 and #34 to point to LSO for the ship
  STA K%+NI%+33          \ line heap for the space station
  LDA #HI(LSO)
  STA K%+NI%+34
+
+ RTS                    \ Return from the subroutine
 
 ENDIF
 
@@ -1363,10 +2033,21 @@ ENDIF
  TXS                    \ location for the 6502 stack, so this instruction
                         \ effectively resets the stack
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ ECMA               \ Set ECMA to zero so the call to RES2 doesn't shoe the
                         \ "E" bulb (we've been reusing the location of ECMA as
                         \ shiftCtrl to store the CTRL and SHIFT key presses, so
                         \ it could be non-zero at this point)
+
+ELIF _C64_VERSION
+
+ LDA #0                 \ Set ECMA to zero so the call to RES2 doesn't shoe the
+ STA ECMA               \ "E" bulb (we've been reusing the location of ECMA as
+                        \ shiftCtrl to store the CTRL and SHIFT key presses, so
+                        \ it could be non-zero at this point)
+
+ENDIF
 
  LDA #&60               \ Modify the JSR ZERO in RES2 so it's an RTS, which
  STA yu+3               \ stops RES2 from resetting the ship slots, ship heap
@@ -1599,6 +2280,14 @@ ENDIF
  ASL A
  ASL A
  STA ALTIT
+
+IF _C64_VERSION
+
+ LDA QQ11               \ If this is not a space view, then we do not want to
+ BEQ P%+3               \ update the dashboard as it is not being shown, so
+ RTS                    \ return from the subroutine
+
+ENDIF
 
  JSR DIALS              \ Update the dashboard
 
@@ -2078,6 +2767,36 @@ ENDIF
 
 \ ******************************************************************************
 \
+\       Name: CopyBlock
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Copy a small block of memory
+\
+\ ------------------------------------------------------------------------------
+\
+\ Arguments:
+\
+\   Y                   Number of bytes to copy - 1
+\
+\   P(1 0)              From address
+\
+\   Q(1 0)              To address
+\
+\ ******************************************************************************
+
+.CopyBlock
+
+ LDA (P),Y              \ Copy byte X from P(1 0) to Q(1 0)
+ STA (Q),Y
+
+ DEY                    \ Decrement the counter
+
+ BPL CopyBlock          \ Loop back until all X bytes are copied
+
+ RTS                    \ Return from the subroutine
+
+\ ******************************************************************************
+\
 \       Name: defaultName
 \       Type: Variable
 \   Category: Universe editor
@@ -2089,6 +2808,24 @@ ENDIF
 
  EQUS "MYSCENE"
  EQUB 13
+
+\ ******************************************************************************
+\
+\       Name: dirCommand
+\       Type: Variable
+\   Category: Universe editor
+\    Summary: The OS command string for changing the disc directory to E
+\
+\ ******************************************************************************
+
+IF _6502SP_VERSION OR _MASTER_VERSION
+
+.dirCommand
+
+ EQUS "DIR E"
+ EQUB 13
+
+ENDIF
 
 \ ******************************************************************************
 \
@@ -2105,12 +2842,12 @@ IF _MASTER_VERSION
 
 IF _SNG47
 
- EQUS "SAVE :1.U.MYSCENE 400 +31F 0 0"
+ EQUS "SAVE :1.U.MYSCENE 3FE +321 0 0"
  EQUB 13
 
 ELIF _COMPACT
 
- EQUS "SAVE MYSCENE 400 +31F 0 0"
+ EQUS "SAVE MYSCENE 3FE +321 0 0"
  EQUB 13
 
 ENDIF
@@ -2132,99 +2869,6 @@ IF _MASTER_VERSION
 
  EQUS "DELETE :1.U.MYSCENE"
  EQUB 13
-
-ENDIF
-
-\ ******************************************************************************
-\
-\       Name: TWIST
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Pitch the current ship by a small angle in a positive direction
-\
-\ ------------------------------------------------------------------------------
-\
-\ Arguments:
-\
-\   A                   Pitch direction
-\
-\ ******************************************************************************
-
-IF _MASTER_VERSION
-
-.TWIST2
-
- STA RAT2               \ Set the pitch direction in RAT2 to A
-
- LDX #15                \ Rotate (roofv_x, nosev_x) by a small angle (pitch)
- LDY #9                 \ in the direction given in RAT2
- JSR MVS5
-
- LDX #17                \ Rotate (roofv_y, nosev_y) by a small angle (pitch)
- LDY #11                \ in the direction given in RAT2
- JSR MVS5
-
- LDX #19                \ Rotate (roofv_z, nosev_z) by a small angle (pitch)
- LDY #13                \ in the direction given in RAT2 and return from the
- JMP MVS5               \ subroutine using a tail call
-
-ENDIF
-
-\ ******************************************************************************
-\
-\       Name: STORE
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Copy the ship data block at INWK back to the K% workspace
-\
-\ ------------------------------------------------------------------------------
-\
-\ Arguments:
-\
-\   INF                 The ship data block in the K% workspace to copy INWK to
-\
-\ ******************************************************************************
-
-IF _MASTER_VERSION
-
-.STORE
-
- LDY #(NI%-1)           \ Set a counter in Y so we can loop through the NI%
-                        \ bytes in the ship data block
-
-.DML2
-
- LDA INWK,Y             \ Load the Y-th byte of INWK and store it in the Y-th
- STA (INF),Y            \ byte of INF
-
- DEY                    \ Decrement the loop counter
-
- BPL DML2               \ Loop back for the next byte, until we have copied the
-                        \ last byte from INWK back to INF
-
- RTS                    \ Return from the subroutine
-
-ENDIF
-
-\ ******************************************************************************
-\
-\       Name: ZEBC
-\       Type: Subroutine
-\   Category: Universe editor
-\    Summary: Zero-fill pages &B and &C
-\
-\ ******************************************************************************
-
-IF _MASTER_VERSION
-
-.ZEBC
-
- LDX #&C                \ Call ZES1 with X = &C to zero-fill page &C
- JSR ZES1
-
- DEX                    \ Decrement X to &B
-
- JMP ZES1               \ Jump to ZES1 to zero-fill page &B
 
 ENDIF
 
@@ -2261,6 +2905,22 @@ ENDIF
  ECHR 'M'               \               "
  ECHR 'E'
  ETWO 'N', 'U'
+IF _C64_VERSION
+ ECHR ' '               \ For Commodore 64:
+ ECHR '('               \
+ EJMP 30                \ Token 1:      "{clear screen}
+ ECHR ')'               \                {draw box around title}
+                        \                {all caps}
+                        \                {tab 6} UNIVERSE MENU ({current media}){crlf}
+                        \                {lf}
+                        \                {sentence case}
+                        \                1. LOAD UNIVERSE{crlf}
+                        \                2. SAVE UNIVERSE {commander name}{crlf}
+                        \                3. CHANGE TO {other media}{crlf}
+                        \                4. PLAY UNIVERSE{crlf}
+                        \                5. EXIT{crlf}
+                        \               "
+ENDIF
  ETWO '-', '-'
  EJMP 10
  EJMP 2
@@ -2294,6 +2954,7 @@ ENDIF
  ECHR ' '
  EJMP 4
  ETWO '-', '-'
+IF _6502SP_VERSION OR _MASTER_VERSION
  ECHR '3'
  ECHR '.'
  ECHR ' '
@@ -2319,6 +2980,19 @@ ENDIF
  ETWO 'L', 'E'
  ETWO '-', '-'
  ECHR '5'
+ELIF _C64_VERSION
+ ECHR '3'
+ ECHR '.'
+ ECHR ' '
+ ECHR 'C'
+ ECHR 'H'
+ ETWO 'A', 'N'
+ ETWO 'G', 'E'
+ ETOK 201
+ EJMP 31
+ ETWO '-', '-'
+ ECHR '4'
+ENDIF
  ECHR '.'
  ECHR ' '
  ECHR 'P'
@@ -2332,7 +3006,11 @@ ENDIF
  ECHR 'R'
  ETWO 'S', 'E'
  ETWO '-', '-'
+IF _6502SP_VERSION OR _MASTER_VERSION
  ECHR '6'
+ELIF _C64_VERSION
+ ECHR '5'
+ENDIF
  ECHR '.'
  ECHR ' '
  ECHR 'E'

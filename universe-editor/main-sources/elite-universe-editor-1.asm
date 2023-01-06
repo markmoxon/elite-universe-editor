@@ -32,16 +32,25 @@
 \       Name: CheckShiftCtrl
 \       Type: Subroutine
 \   Category: Universe editor
-\    Summary: Check for SHIFT and CTRL
+\    Summary: Check for SHIFT and CTRL (or C= and CTRL on the Commodore 64)
 \
 \ ******************************************************************************
 
 .CheckShiftCtrl
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ shiftCtrl          \ We now test for SHIFT and CTRL and set bit 7 and 6 of
                         \ shiftCtrl accordingly, so zero the byte first
 
-IF _6502SP_VERSION
+ELIF _C64_VERSION
+
+ LDA #0                 \ We now test for C= and CTRL and set bit 7 and 6 of
+ STA shiftCtrl          \ shiftCtrl accordingly, so zero the byte first
+
+ENDIF
+
+IF _6502SP_VERSION OR _C64_VERSION
 
  JSR CTRL               \ Scan the keyboard to see if CTRL is currently pressed,
                         \ returning a negative value in A if it is
@@ -85,6 +94,10 @@ ELIF _COMPACT
 
 ENDIF
 
+ELIF _C64_VERSION
+
+ LDA keyLog+keyC64      \ Set A to &FF if the C= key is being pressed
+
 ENDIF
 
  CLC                    \ If SHIFT is being pressed, set the C flag, otherwise
@@ -117,19 +130,37 @@ ENDIF
 \
 \                         * 0 = do not change addresses
 \
-\                         * &C8 = Add &D000-&0800 to each address
+\                         * &C8 = Add &D000-&0800 to each address (&C800)
 \                                 (Save file from Master)
 \
-\                         * &38 = Subtract &D000-&0800 from each address
+\                         * &38 = Add -(&D000-&0800) to each address (&3800)
 \                                 (Load file on Master)
+\
+\                         * $D0 = Add -($FFC0-$D000) to each address ($D040)
+\                                 (Save file on Commodore 64)
+\
+\                         * $2F = Add $FFC0-$D000 to each address ($2FC0)
+\                                 (Load file on Commodore 64)
+\
+\                       Note that the Commodore 64 also adds &C0 to the low byte
 \
 \   K+3                 Ship number to delete (0 for no deletion)
 \
 \ ******************************************************************************
 
-IF _MASTER_VERSION
+IF _MASTER_VERSION OR _C64_VERSION
 
 .ConvertFile
+
+IF _C64_VERSION
+
+ LDX #$C0               \ Set the following, to cater for the Commodore 64:
+ BIT K+2                \
+ BPL P%+4               \   * If K+2 = $2F, set P = $C0 so we add $2FC0
+ LDX #$40               \
+ STX P                  \   * If K+2 = $D0, set P = $40 so we add $D040
+
+ENDIF
 
  LDX #2                 \ Set a counter in X to loop through all the ship slots,
                         \ not including the station
@@ -178,6 +209,8 @@ IF _MASTER_VERSION
  LDA UNIV+1,Y
  STA V+1
 
+IF _MASTER_VERSION
+
  LDY #34                \ Set A = INWK+34, the high byte of the ship heap
  LDA (V),Y              \ address
 
@@ -185,6 +218,26 @@ IF _MASTER_VERSION
  ADC K+2                \ address
 
  STA (V),Y              \ Update the high byte of the ship heap address
+
+ELIF _C64_VERSION
+
+ LDY #33                \ Set A = INWK+33, the low byte of the ship heap
+ LDA (V),Y              \ address
+
+ CLC                    \ Add $C0 or $40 to the low byte of the ship heap
+ ADC P
+
+ STA (V),Y              \ Update the low byte of the ship heap address
+
+ LDY #34                \ Set A = INWK+34, the high byte of the ship heap
+ LDA (V),Y              \ address
+
+ ADC K+2                \ Apply the delta to the high byte of the ship heap
+                        \ address
+
+ STA (V),Y              \ Update the high byte of the ship heap address
+
+ENDIF
 
 .conv4
 
@@ -195,11 +248,28 @@ IF _MASTER_VERSION
 
 .conv5
 
+IF _MASTER_VERSION
+
  LDA K%+&2E4+21+37      \ Apply the delta to the high byte of SLSP
  CLC              
  ADC K+2
  STA K%+&2E4+21+37
  STA SLSP+1
+
+ELIF _C64_VERSION
+
+ LDA K%+&2E4+21+36      \ Apply the delta + $C0 or $40 to SLSP, starting with
+ CLC                    \ the low bytes
+ ADC P
+ STA K%+&2E4+21+36
+ STA SLSP
+
+ LDA K%+&2E4+21+37      \ And then the high bytes
+ ADC K+2
+ STA K%+&2E4+21+37
+ STA SLSP+1
+
+ENDIF
 
  RTS                    \ Return from the subroutine
 
@@ -244,8 +314,19 @@ ENDIF
 
 .RotateShip
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PHX                    \ Store X and Y on the stack
  PHY
+
+ELIF _C64_VERSION
+
+ TXA                    \ Store X and Y on the stack
+ PHA
+ TYA
+ PHA
+
+ENDIF
 
  JSR MVS5               \ Rotate vector_x by a small angle
 
@@ -259,8 +340,19 @@ ENDIF
  INX
  INX
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  PHX                    \ Store X and Y on the stack
  PHY
+
+ELIF _C64_VERSION
+
+ TXA                    \ Store X and Y on the stack
+ PHA
+ TYA
+ PHA
+
+ENDIF
 
  JSR MVS5               \ Rotate vector_y by a small angle
 
@@ -308,7 +400,16 @@ ENDIF
 
 .hide2
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ showingBulb        \ Zero the bulb status byte
+
+ELIF _C64_VERSION
+
+ LDA #0                 \ Zero the bulb status byte
+ STA showingBulb
+
+ENDIF
 
  RTS                    \ Return from the subroutine
 
@@ -497,6 +598,15 @@ ELIF _MASTER_VERSION
  LDA #&29
  STA DOEXP+2
 
+ELIF _C64_VERSION
+
+ LDA #$A5               \ Revert DOEXP to its default behaviour of drawing the
+ STA DOEXP              \ cloud
+ LDA #$28
+ STA DOEXP+1
+ LDA #$29
+ STA DOEXP+2
+
 ENDIF
 
  RTS                    \ Return from the subroutine
@@ -528,7 +638,16 @@ ENDIF
  LDY #&FF               \ Set maximum number for gnum to 255
  STY QQ25
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ V                  \ Set seed counter in V to 0
+
+ELIF _C64_VERSION
+
+ LDA #0                 \ Set seed counter in V to 0
+ STA V
+
+ENDIF
 
  LDA #&60               \ Modify gnum so that errors return rather than jumping
  STA BAY2               \ to the inventory screen
@@ -568,28 +687,16 @@ ENDIF
  LDA #&A9               \ Revert the modification to gnum
  STA BAY2
 
-IF _6502SP_VERSION
-
- LDA #&2C               \ Disable the JSR TT110 in zZ
- STA zZ+8
-
-ELIF _MASTER_VERSION
-
- LDA #&2C               \ Disable the JSR TT110 in zZ
- STA zZ+6
-
-ENDIF
-
  STA jmp-3              \ Disable the JSR MESS in zZ
 
-IF _6502SP_VERSION
+IF _6502SP_VERSION OR _C64_VERSION
 
- JSR zZ+11              \ Call the modified zZ at the JSR TT111 to change
+ JSR zZ+11              \ Call the zZ routine at the JSR TT111 to change
                         \ galaxy without moving the selected system
 
 ELIF _MASTER_VERSION
 
- JSR zZ+9               \ Call the modified zZ to change galaxy to change
+ JSR zZ+9               \ Call the zZ routine at the JSR TT111 to change
                         \ galaxy without moving the selected system
 
 ENDIF
@@ -605,7 +712,16 @@ ENDIF
  LDA #70                \ Set the fuel level to 7 light years, for the chart
  STA QQ14               \ display
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  STZ KL                 \ Flush the key logger
+
+ELIF _C64_VERSION
+
+ LDA #0                 \ Flush the key logger
+ STA KL
+
+ENDIF
 
  LDA #f4                \ Jump to ForceChart, setting the key that's "pressed"
  JMP ForceChart         \ to red key f4 (so we show the Long-range Chart)
@@ -635,15 +751,18 @@ ENDIF
 
  LDX TYPE               \ Get the current ship type
 
+IF _6502SP_VERSION
+
  LDA shpcol,X           \ Set A to the ship colour for this type, from the X-th
                         \ entry in the shpcol table
-
-IF _6502SP_VERSION
 
  JSR DOCOL              \ Send a #SETCOL command to the I/O processor to switch
                         \ to this colour
 
 ELIF _MASTER_VERSION
+
+ LDA shpcol,X           \ Set A to the ship colour for this type, from the X-th
+                        \ entry in the shpcol table
 
  STA COL                \ Switch to this colour
 

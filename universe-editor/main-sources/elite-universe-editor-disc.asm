@@ -45,3 +45,5 @@ PUTFILE "universe-editor/universe-files/U.SHIPIDM.bin", "U.SHIPIDM", &000000, &0
 PUTFILE "universe-editor/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
 PUTFILE "universe-editor/other-files/README.txt", "README", &FFFFFF, &FFFFFF
 PUTFILE "universe-editor/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
+
+PUTFILE "universe-editor/basic-programs/B.CONVERT.bin", "B.CONVERT", &FF0E00, &FF8023

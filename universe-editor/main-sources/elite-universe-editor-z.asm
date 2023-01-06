@@ -54,6 +54,8 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 
 .rowOffsets
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
                         \ &7000
 
  EQUB &0B               \ Right column of A in AC
@@ -153,6 +155,70 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 
  EQUB &FF               \ End row
 
+ELIF _C64_VERSION
+
+                        \ $EF90
+
+ EQUB $23               \ Second row of A in AC
+ EQUB $24
+ EQUB $25
+ EQUB $26
+
+ EQUB $2C               \ Third row of C in AC
+ EQUB $2D
+
+ EQUB $FF               \ End row
+
+                        \ $F0D0
+
+ EQUB $29               \ First row of I in AI
+ EQUB $2B
+ EQUB $2C
+ EQUB $2D
+
+ EQUB $FF               \ End row
+
+                        \ $F210
+
+ EQUB $21               \ First row of I in IB
+ EQUB $22
+ EQUB $23
+ EQUB $24
+ EQUB $25
+
+ EQUB $29               \ First row of B in IB
+ EQUB $2A
+ EQUB $2B
+ EQUB $2C
+ EQUB $2D
+
+ EQUB $FF               \ End row
+
+                        \ $F350
+
+ EQUB $29               \ First row of O in CO
+ EQUB $2A
+ EQUB $2B
+ EQUB $2C
+
+ EQUB $FF               \ End row
+
+                        \ $F490
+
+ EQUB $21               \ First row of H in HS
+ EQUB $22
+ EQUB $23
+ EQUB $24
+ EQUB $25
+
+ EQUB $29               \ First row of S in HS
+ EQUB $2B
+ EQUB $2C
+ EQUB $2D
+
+ EQUB $FF               \ End row
+
+ENDIF
 
 \ ******************************************************************************
 \
@@ -169,6 +235,8 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 \ ******************************************************************************
 
 .editorRows
+
+IF _6502SP_VERSION OR _MASTER_VERSION
 
                         \ &7000
 
@@ -269,6 +337,70 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 
  EQUB &FF               \ End row
 
+ELIF _C64_VERSION
+
+                        \ $EF90
+
+ EQUB $11               \ Second row of A in AC
+ EQUB $11
+ EQUB $15
+ EQUB $11
+
+ EQUB $10               \ Third row of C in AC
+ EQUB $10
+
+ EQUB $FF               \ End row
+
+                        \ $F0D0
+
+ EQUB $10               \ First row of I in AI
+ EQUB $10
+ EQUB $10
+ EQUB $10
+
+ EQUB $FF               \ End row
+
+                        \ $F210
+
+ EQUB $11               \ First row of I in IB
+ EQUB $11
+ EQUB $11
+ EQUB $11
+ EQUB $11
+
+ EQUB $40               \ First row of B in IB
+ EQUB $10
+ EQUB $40
+ EQUB $10
+ EQUB $40
+
+ EQUB $FF               \ End row
+
+                        \ $F350
+
+ EQUB $10               \ First row of O in CO
+ EQUB $44
+ EQUB $44
+ EQUB $44
+
+ EQUB $FF               \ End row
+
+                        \ $F490
+
+ EQUB $11               \ First row of H in HS
+ EQUB $11
+ EQUB $15
+ EQUB $11
+ EQUB $11
+
+ EQUB $14               \ First row of S in HS
+ EQUB $14
+ EQUB $04
+ EQUB $14
+
+ EQUB $FF               \ End row
+
+ENDIF
 
 \ ******************************************************************************
 \
@@ -285,6 +417,8 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 \ ******************************************************************************
 
 .gameRows
+
+IF _6502SP_VERSION OR _MASTER_VERSION
 
                         \ &7000
 
@@ -385,6 +519,70 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 
  EQUB &FF               \ End row
 
+ELIF _C64_VERSION
+
+                        \ $EF90
+
+ EQUB $10               \ Second row of F in FS
+ EQUB $15
+ EQUB $10
+ EQUB $10
+
+ EQUB $14               \ Third row of S in FS
+ EQUB $04
+
+ EQUB $FF               \ End row
+
+                        \ $F0D0
+
+ EQUB $14               \ First row of S in AS
+ EQUB $14
+ EQUB $04
+ EQUB $14
+
+ EQUB $FF               \ End row
+
+                        \ $F210
+
+ EQUB $14               \ First row of F in FU
+ EQUB $10
+ EQUB $14
+ EQUB $10
+ EQUB $10
+
+ EQUB $44               \ First row of U in FU
+ EQUB $44
+ EQUB $44
+ EQUB $44
+ EQUB $10
+
+ EQUB $FF               \ End row
+
+                        \ $F350
+
+ EQUB $54               \ First row of T in CT
+ EQUB $10
+ EQUB $10
+ EQUB $10
+
+ EQUB $FF               \ End row
+
+                        \ $F490
+
+ EQUB $10               \ First row of L in LT
+ EQUB $10
+ EQUB $10
+ EQUB $10
+ EQUB $14
+
+ EQUB $54               \ First row of T in LT
+ EQUB $10
+ EQUB $10
+ EQUB $10
+
+ EQUB $FF               \ End row
+
+ENDIF
 
 \ ******************************************************************************
 \
@@ -459,8 +657,23 @@ MAGENTA_BLACK   = %00100010         \ 5, 0          0101, 0000
 
 .mod4
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  INC SCH                \ Set SC(1 0) = SC(1 0) + 2, to point to the next screen
  INC SCH                \ row
+
+ELIF _C64_VERSION
+
+ LDA SC                 \ Set SC(1 0) = SC(1 0) + $140, to point to the next
+ CLC                    \ screen row
+ ADC #$40
+ STA SC
+
+ LDA SCH
+ ADC #$01
+ STA SCH
+
+ENDIF
 
  RTS                    \ Return from the subroutine
 
@@ -482,6 +695,8 @@ IF _MASTER_VERSION
 
 ENDIF
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  LDA #MAGENTA_MAGENTA   \ Fix the incorrect colour in the A of AL (which is a
  STA &7A0C              \ bug in the original release), so we can tell from a
                         \ screenshot if the Universe Editor has been run (as
@@ -491,6 +706,15 @@ ENDIF
  STA SC
  LDA #&70
  STA SC+1
+
+ELIF _C64_VERSION
+
+ LDA #$90               \ Set SC(1 0) = &EF90
+ STA SC
+ LDA #&EF
+ STA SC+1
+
+ENDIF
 
  LDA #LO(rowOffsets)    \ Set P(1 0) = rowOffsets
  STA P
@@ -519,6 +743,34 @@ IF _MASTER_VERSION
 
 ENDIF
 
+IF _C64_VERSION
+
+                        \ The following instructions modify the screen RAM at
+                        \ $6400, which defines colour 1 in the upper nibble
+
+ LDA #$37               \ Set dashboard labels to cyan ($3 in the upper nibble)
+ STA $66D4
+ STA $66D5
+
+ LDA #$47               \ Set dashboard labels to purple ($4 in the upper
+ STA $66FC              \ nibble)
+ STA $66FD
+ STA $6724
+ STA $6725
+ STA $674C
+ STA $674D
+ STA $6774
+ STA $6775
+ STA $679C
+ STA $679D
+
+ LDA #0                 \ Zero dashboardActive so the following call overwrites
+ STA dashboardActive    \ the existing dashboard
+
+ JSR ShowDashboard      \ Copy the updated dashboard to the screen
+
+ENDIF
+
  RTS                    \ Return from the subroutine
 
 \ ******************************************************************************
@@ -539,10 +791,21 @@ IF _MASTER_VERSION
 
 ENDIF
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  LDA #0                 \ Set SC(1 0) = &7000
  STA SC
  LDA #&70
  STA SC+1
+
+ELIF _C64_VERSION
+
+ LDA #$90               \ Set SC(1 0) = &EF90
+ STA SC
+ LDA #&EF
+ STA SC+1
+
+ENDIF
 
  LDA #LO(rowOffsets)    \ Set P(1 0) = rowOffsets
  STA P
@@ -571,6 +834,105 @@ IF _MASTER_VERSION
 
 ENDIF
 
+IF _C64_VERSION
+
+                        \ The following instructions modify the screen RAM at
+                        \ $6400, which defines colour 1 in the upper nibble
+
+ LDA #$17               \ Set dashboard labels back to white
+ STA $66D4
+ STA $66D5
+ STA $66FC
+ STA $66FD
+
+ LDA #$37               \ Set dashboard labels back to cyan
+ STA $6724
+ STA $6725
+ STA $674C
+ STA $674D
+ STA $6774
+ STA $6775
+ STA $679C
+ STA $679D
+
+ LDA #0                 \ Zero dashboardActive so the following call overwrites
+ STA dashboardActive    \ the existing dashboard
+
+ JSR ShowDashboard      \ Copy the updated dashboard to the screen
+
+ENDIF
+
  RTS                    \ Return from the subroutine
+
+\ ******************************************************************************
+\
+\       Name: TWIST
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Pitch the current ship by a small angle in a positive direction
+\
+\ ------------------------------------------------------------------------------
+\
+\ Arguments:
+\
+\   A                   Pitch direction
+\
+\ ******************************************************************************
+
+IF _MASTER_VERSION OR _C64_VERSION
+
+.TWIST2
+
+ STA RAT2               \ Set the pitch direction in RAT2 to A
+
+ LDX #15                \ Rotate (roofv_x, nosev_x) by a small angle (pitch)
+ LDY #9                 \ in the direction given in RAT2
+ JSR MVS5
+
+ LDX #17                \ Rotate (roofv_y, nosev_y) by a small angle (pitch)
+ LDY #11                \ in the direction given in RAT2
+ JSR MVS5
+
+ LDX #19                \ Rotate (roofv_z, nosev_z) by a small angle (pitch)
+ LDY #13                \ in the direction given in RAT2 and return from the
+ JMP MVS5               \ subroutine using a tail call
+
+ENDIF
+
+\ ******************************************************************************
+\
+\       Name: STORE
+\       Type: Subroutine
+\   Category: Universe editor
+\    Summary: Copy the ship data block at INWK back to the K% workspace
+\
+\ ------------------------------------------------------------------------------
+\
+\ Arguments:
+\
+\   INF                 The ship data block in the K% workspace to copy INWK to
+\
+\ ******************************************************************************
+
+IF _MASTER_VERSION OR _C64_VERSION
+
+.STORE
+
+ LDY #(NI%-1)           \ Set a counter in Y so we can loop through the NI%
+                        \ bytes in the ship data block
+
+.DML2
+
+ LDA INWK,Y             \ Load the Y-th byte of INWK and store it in the Y-th
+ STA (INF),Y            \ byte of INF
+
+ DEY                    \ Decrement the loop counter
+
+ BPL DML2               \ Loop back for the next byte, until we have copied the
+                        \ last byte from INWK back to INF
+
+ RTS                    \ Return from the subroutine
+
+ENDIF
 
 .endUniverseEditorZ

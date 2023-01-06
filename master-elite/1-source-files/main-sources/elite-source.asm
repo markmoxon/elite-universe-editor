@@ -3051,8 +3051,8 @@ ENDIF
  STA VIA+&34            \ SHEILA &34 to switch main memory back into &3000-&7FFF
 
  LDA #6                 \ Set bits 0-3 of the ROM Select latch at SHEILA &30 to
- STA VIA+&30            \ 6, to switch sideways ROM bank 6 into into &8000-&BFFF
-                        \ in main memory (we already confirmed that this bank
+ STA VIA+&30            \ 6, to switch sideways ROM bank 6 into &8000-&BFFF in
+                        \ main memory (we already confirmed that this bank
                         \ contains RAM rather than ROM in the loader)
 
  RTS                    \ Return from the subroutine
@@ -22500,7 +22500,7 @@ LOAD_C% = LOAD% +P% - CODE%
                         \ about the stolen Constrictor)
 
  BNE BRPS               \ Jump to BRP via BRPS to print the extended token in A
-                        \ and show the Status Mode screen), returning from the
+                        \ and show the Status Mode screen, returning from the
                         \ subroutine using a tail call (this BNE is effectively
                         \ a JMP as A is never zero)
 
@@ -31519,13 +31519,17 @@ ENDIF
 \       Name: PLS22
 \       Type: Subroutine
 \   Category: Drawing planets
-\    Summary: Draw a circle or half-circle
+\    Summary: Draw an ellipse or half-ellipse
 \  Deep dive: The sine, cosine and arctan tables
+\             Drawing meridians and equators
+\             Drawing craters
 \
 \ ------------------------------------------------------------------------------
 \
-\ Draw a circle or half-circle, used for the planet's equator and meridian, or
-\ crater.
+\ Draw an ellipse or half-ellipse, to be used for the planet's equator and
+\ meridian (in which case we draw half an ellipse), or crater (in which case we
+\ draw a full ellipse). The shape that is drawn is a circle that has been
+\ squashed, as if the circle has been tilted at an angle away from the viewer.
 \
 \ This routine is called from parts 2 and 3 of PL9, and does the following:
 \
@@ -31543,11 +31547,11 @@ ENDIF
 \
 \   TGT                 The number of segments to draw:
 \
-\                         * 32 for a half circle (a meridian)
+\                         * 32 for a half ellipse (a meridian)
 \
-\                         * 64 for a half circle (a crater)
+\                         * 64 for a full ellipse (a crater)
 \
-\   CNT2                The starting segment for drawing the half-circle
+\   CNT2                The starting segment for drawing the half-ellipse
 \
 \ ******************************************************************************
 
@@ -46330,6 +46334,7 @@ ENDIF
 
 _6502SP_VERSION = FALSE
 _MASTER_VERSION = TRUE
+_C64_VERSION    = FALSE
 
 INCLUDE "../universe-editor/main-sources/elite-universe-editor-variables.asm"
 INCLUDE "../universe-editor/main-sources/elite-universe-editor-3.asm"

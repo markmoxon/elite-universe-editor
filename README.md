@@ -36,9 +36,17 @@ BBC Master Elite was written by Ian Bell and David Braben and is copyright &copy
 
 The BBC Master code on this site has been reconstructed from a disassembly of the version released on [Ian Bell's personal website](http://www.elitehomepage.org/).
 
+Commodore 64 Elite was written by Ian Bell and David Braben and published by Firebird, and is copyright &copy; D. Braben and I. Bell 1985.
+
+The code in the Commodore 64 flicker-free patch was reconstructed from a disassembly of the BBC Master version released on [Ian Bell's personal website](http://www.elitehomepage.org/).
+
+The Commodore 64 game disks in this repository are very similar to those released on [Ian Bell's personal website](http://www.elitehomepage.org/), but to ensure accuracy to the released versions, I've used disk images from the [Commodore 64 Preservation Project](https://archive.org/details/C64_Preservation_Project_10th_Anniversary_Collection) (it turns out that the disk images on Ian Bell's site differ slightly from the official versions). The Commodore Plus/4 version is based on the disk image from Ian Bell's site.
+
 The commentary and Universe Editor code is copyright &copy; Mark Moxon. Any misunderstandings or mistakes in the documentation are entirely my fault.
 
 Huge thanks are due to the original authors for not only creating such an important piece of my childhood, but also for releasing the source code for us to play with; to Paul Brink for his annotated disassembly; and to Kieran Connell for his [BeebAsm version](https://github.com/kieranhj/elite-beebasm), which I forked as the original basis for this project. You can find more information about this project in the [accompanying website's project page](https://www.bbcelite.com/about_site/about_this_project.html).
+
+Also, a big thumbs up to Kroc Camen for his epic [Elite Harmless](https://github.com/Kroc/elite-harmless) project, which is a really useful reference for anyone exploring the C64 binaries. Finally, thanks to the gurus in this [Lemon64 forum thread](https://www.lemon64.com/forum/viewtopic.php?t=67762&start=90) for their sage advice.
 
 The following archives from Ian Bell's personal website form the basis for this project:
 
@@ -68,6 +76,8 @@ If you want to browse the source in an IDE, you might find the following useful.
 
 * The source code for the main Elite game (which the Universe Editor modifies) is in the [6502sp-elite](6502sp-elite) and [master-elite](master-elite) folders. The annotated source files in these folders contain both the original Acornsoft code and all of the modifications made to hook the Universe Editor into the game, so you can look through the source to see exactly what's changed in order to add the Universe Editor. Any code that I've removed from the original version is commented out in the source files, so when they are assembled they produce the Universe Editor binaries, while still containing details of all the modifications. You can find all the diffs by searching the sources for `Mod:`.
 
+* The Commodore 64 version doesn't contain source for the original game, but instead patches the original game binaries to add the Universe Editor. It uses the same patching approach as the [c64-elite-flicker-free](https://github.com/markmoxon/c64-elite-flicker-free) repository, so take a look at the documentation there for more details on the patching process. The Universe Editor uses the same source files on all platforms, but there are some extra routines required by the Commodore 64 version, which can be found in the [c64-elite/src](c64-elite/src) folder.
+
 * There are loads of routines and variables in Elite - literally hundreds. You can find them in the source files by searching for the following: `Type: Subroutine`, `Type: Variable`, `Type: Workspace` and `Type: Macro`.
 
 * If you know the name of a routine, you can find it by searching for `Name: <name>`, as in `Name: SCAN` (for the 3D scanner routine) or `Name: LL9` (for the ship-drawing routine).
@@ -86,7 +96,9 @@ There are three main folders in this repository.
 
 * [master-elite](master-elite) contains the source code for BBC Master Elite, modified to hook in the Universe Editor.
 
-The latter two are heavily based on the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm).
+* [c64-elite](c64-elite) contains the original disk images for Commodore 64 Elite, which we extract and modify to hook in the Universe Editor.
+
+The middle two are heavily based on the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm).
 
 ## Building the Elite Universe Editor from the source
 
@@ -100,7 +112,11 @@ You will need the following to build the Elite Universe Editor from the source:
 
 * Mac and Linux users may need to install `make` if it isn't already present (for Windows users, `make.exe` is included in this repository).
 
-Builds are supported for both Windows and Mac/Linux systems. In all cases the build process is defined in the `Makefile` provided. Let's look at how to build the Elite Universe Editor from the source.
+* For the Commodore 64 build, you will also need c1541 from the VICE emulator, which can be downloaded from the [VICE site](https://vice-emu.sourceforge.io).
+
+Builds are supported for both Windows and Mac/Linux systems, but please note that Windows only builds the BBC version. To build the Commodore 64 version as well, you will need to be on a Mac or Linux box. The process may work on the Windows Subsystem for Linux, but I haven't tested it.
+
+In all cases the build process is defined in the `Makefile` provided. Let's look at how to build the Elite Universe Editor from the source.
 
 ### Windows
 
@@ -112,7 +128,7 @@ All being well, doing the following:
 make.bat
 ```
 
-will produce a file called `elite-universe-editor.ssd` in the project folder that contains the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
+will produce a file called `bbc-elite-universe-editor.ssd` in the project folder that contains the BBC version of the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
 
 ### Mac and Linux
 
@@ -124,7 +140,7 @@ All being well, doing the following:
 make
 ```
 
-will produce a file called `elite-universe-editor.ssd` in the project folder that contains the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
+will produce three files in the project folder called `bbc-elite-universe-editor.ssd`, `c64-elite-universe-editor-ntsc.ssd` and `c64-elite-universe-editor-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
 
 ---
 
