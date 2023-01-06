@@ -140,7 +140,7 @@ All being well, doing the following:
 make
 ```
 
-will produce three files in the project folder called `bbc-elite-universe-editor.ssd`, `c64-elite-universe-editor-ntsc.ssd` and `c64-elite-universe-editor-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
+will produce three files in the project folder called `elite-universe-editor-bbc.ssd`, `elite-universe-editor-c64-ntsc.ssd` and `elite-universe-editor-c64-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
 
 ---
 

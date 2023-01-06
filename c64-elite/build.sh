@@ -32,8 +32,8 @@ $python ../src/elite-modify.py ntsc
 $c1541 \
     -format "elite uni editor,1" \
             d64 \
-            ../../c64-elite-universe-editor-ntsc.d64 \
-    -attach ../../c64-elite-universe-editor-ntsc.d64 \
+            ../../elite-universe-editor-c64-ntsc.d64 \
+    -attach ../../elite-universe-editor-c64-ntsc.d64 \
     -write firebird \
     -write gma1.modified gma1 \
     -write gma3 \
@@ -65,8 +65,8 @@ $python ../src/elite-modify.py pal
 $c1541 \
     -format "elite uni editor,1" \
             d64 \
-            ../../c64-elite-universe-editor-pal.d64 \
-    -attach ../../c64-elite-universe-editor-pal.d64 \
+            ../../elite-universe-editor-c64-pal.d64 \
+    -attach ../../elite-universe-editor-c64-pal.d64 \
     -write firebird \
     -write byebyejulie \
     -write gma1.modified gma1 \
