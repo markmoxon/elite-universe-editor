@@ -709,9 +709,9 @@ IF _6502SP_VERSION OR _MASTER_VERSION
 
 ELIF _C64_VERSION
 
- LDA #$90               \ Set SC(1 0) = &EF90
+ LDA #$90               \ Set SC(1 0) = $EF90
  STA SC
- LDA #&EF
+ LDA #$EF
  STA SC+1
 
 ENDIF
@@ -800,9 +800,9 @@ IF _6502SP_VERSION OR _MASTER_VERSION
 
 ELIF _C64_VERSION
 
- LDA #$90               \ Set SC(1 0) = &EF90
+ LDA #$90               \ Set SC(1 0) = $EF90
  STA SC
- LDA #&EF
+ LDA #$EF
  STA SC+1
 
 ENDIF

@@ -84,7 +84,7 @@ ELIF _MASTER_VERSION
 
 ELIF _C64_VERSION
 
- LDA #&60               \ Modify DIALS to skip calling COMPAS at the end
+ LDA #$60               \ Modify DIALS to skip calling COMPAS at the end
  STA PZW2-3
 
  JSR EditorDashboard    \ Switch to the Universe Editor dashboard
@@ -223,7 +223,7 @@ ELIF _C64_VERSION
 
  JSR GameDashboard      \ Switch to the main game dashboard
 
- LDA #&4C               \ Re-enable the call to COMPAS at the end of DIALS
+ LDA #$4C               \ Re-enable the call to COMPAS at the end of DIALS
  STA PZW2-3
 
  RTS                    \ Return from the subroutine
@@ -1735,8 +1735,8 @@ IF _C64_VERSION
  LDY #HI(log)
  STY RAND+1
 
- LDX #LO(log+$31F)      \ Set (Y X) to the address of the byte after the last
- LDY #HI(log+$31F)      \ byte of the file to save
+ LDX #LO(log+$031F)     \ Set (Y X) to the address of the byte after the last
+ LDY #HI(log+$031F)     \ byte of the file to save
 
  LDA #RAND              \ Set A to the address of RAND, where we stored the save
                         \ address
@@ -1786,9 +1786,9 @@ IF _C64_VERSION
                         \   * Change any Cougars from type 32 to 33
                         \
                         \   * Fix the ship heap addresses in INWK+33 and INWK+34
-                        \     by subtracting &FFC0-&D000 (as the ship line heap
-                        \     descends from &D000 in the 6502SP version and from
-                        \     &FFC0 in the Commodore 64 version)
+                        \     by subtracting $FFC0-$D000 (as the ship line heap
+                        \     descends from $D000 in the 6502SP version and from
+                        \     $FFC0 in the Commodore 64 version)
 
  LDX #32                \ Set K = 32, to act as the search value
  STX K
@@ -1799,13 +1799,13 @@ IF _C64_VERSION
  LDX #0                 \ Set K+3 = 0, so we don't delete any ships from the
  STX K+3                \ file
 
- LDX #&D0               \ Set K+2 = -(&FF-&D0) - 1 = &D0, so we move the ship
- STX K+2                \ heap addresses from &FFC0 to &D000
+ LDX #$D0               \ Set K+2 = -($FF-$D0) - 1 = $D0, so we move the ship
+ STX K+2                \ heap addresses from $FFC0 to $D000
 
- LDA #&0D               \ If the second slot contains the station, set A = &0D,
- BIT FRIN+1             \ otherwise set A = &00, so that (A 0) is equal to the
+ LDA #$0D               \ If the second slot contains the station, set A = $0D,
+ BIT FRIN+1             \ otherwise set A = $00, so that (A 0) is equal to the
  BPL cofr1              \ correct heap address for the slot in the 6502 Second
- LDA #&00               \ Processor version, which is at &0D00 for the station
+ LDA #$00               \ Processor version, which is at $0D00 for the station
                         \ or &0000 for the sun
 
 .cofr1
@@ -1893,9 +1893,9 @@ IF _C64_VERSION
                         \   * Change any Cougars from type 33 to 32
                         \
                         \   * Fix the ship heap addresses in INWK+33 and INWK+34
-                        \     by adding &FFC0-&D000 (as the ship line heap
-                        \     descends from &D000 in the 6502SP version and from
-                        \     &FFC0 in the Commodore 64 version)
+                        \     by adding $FFC0-$D000 (as the ship line heap
+                        \     descends from $D000 in the 6502SP version and from
+                        \     $FFC0 in the Commodore 64 version)
 
  LDX #33                \ Set K = 33, to act as the search value
  STX K
@@ -1906,8 +1906,8 @@ IF _C64_VERSION
  STX K+3                \ Set K+3 = 32, so we delete the Elite logo from the
                         \ 6502SP file (before doing the above search)
 
- LDX #&2F               \ Set K+2 = &FF-&D0 = &2F, so we move the ship heap
- STX K+2                \ addresses from &D000 to &FFC0 (as ConvertFile also
+ LDX #$2F               \ Set K+2 = $FF-$D0 = &2F, so we move the ship heap
+ STX K+2                \ addresses from $D000 to $FFC0 (as ConvertFile also
                         \ adds $C0 in the Commodore 64 version)
 
  JSR ConvertFile        \ Convert the loaded file so it works on the Commodore
@@ -2911,7 +2911,8 @@ IF _C64_VERSION
  EJMP 30                \ Token 1:      "{clear screen}
  ECHR ')'               \                {draw box around title}
                         \                {all caps}
-                        \                {tab 6} UNIVERSE MENU ({current media}){crlf}
+                        \                {tab 6} UNIVERSE MENU ({current media})
+                        \                {crlf}
                         \                {lf}
                         \                {sentence case}
                         \                1. LOAD UNIVERSE{crlf}
