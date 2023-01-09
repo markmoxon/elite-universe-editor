@@ -17174,7 +17174,7 @@ Saving file '3-assembled-output/BCODE.unprot.bin'
      B9A3   A9 0F      LDA #&0F
      B9A5   85 11      STA &11
      B9A7   A9 80      LDA #&80
-     B9A9   86 13      STX &13
+     B9A9   85 13      STA &13
 .promptColumn
      B9AB   A9 0D      LDA #&0D
      B9AD   20 79 4A   JSR &4A79

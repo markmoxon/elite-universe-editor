@@ -38827,7 +38827,7 @@ End macro FACE
      F1B9   A9 0F      LDA #&0F
      F1BB   20 CE 33   JSR &33CE
      F1BE   A9 80      LDA #&80
-     F1C0   86 71      STX &71
+     F1C0   85 71      STA &71
 .promptColumn
      F1C2   A9 0D      LDA #&0D
      F1C4   20 8B 33   JSR &338B

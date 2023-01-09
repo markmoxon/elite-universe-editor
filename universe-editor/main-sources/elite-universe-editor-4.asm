@@ -450,7 +450,7 @@ ELIF _MASTER_VERSION
 ENDIF
 
  LDA #%10000000         \ Set bit 7 of QQ17 to switch to Sentence Case
- STX QQ17
+ STA QQ17
 
 .promptColumn
 

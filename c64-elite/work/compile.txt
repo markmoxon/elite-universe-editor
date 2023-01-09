@@ -1159,7 +1159,7 @@
      BFCE   A9 00      LDA #&00
      BFD0   8D 8B 04   STA &048B
      BFD3   A9 80      LDA #&80
-     BFD5   86 34      STX &34
+     BFD5   85 34      STA &34
 .promptColumn
      BFD7   A9 0D      LDA #&0D
      BFD9   20 25 6A   JSR &6A25
