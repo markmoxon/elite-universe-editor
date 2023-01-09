@@ -132,6 +132,8 @@ make.bat
 
 will produce a file called `elite-universe-editor-bbc.ssd` in the [`universe-editor-disks`](universe-editor-disks) folder that contains the BBC version of the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
 
+Note that the Windows build will terminate with an error after the BBC disc image is created. This is because the Commodore 64 build only works on Mac and Linux.
+
 ### Mac and Linux
 
 The build process uses a standard GNU `Makefile`, so you just need to install `make` if your system doesn't already have it. If BeebAsm or Python are not on your path, then you can either fix this, or you can edit the `Makefile` and change the `BEEBASM` and `PYTHON` variables in the first two lines to point to their locations. You also need to change directory to the repository folder (i.e. the same folder as `Makefile`).
