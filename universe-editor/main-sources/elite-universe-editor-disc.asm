@@ -41,7 +41,7 @@ PUTFILE "universe-editor/universe-files/U.BOXART2.bin", "U.BOXART2", &000000, &0
 PUTFILE "universe-editor/universe-files/U.BOXARTC.bin", "U.BOXARTC", &000000, &000000
 PUTFILE "universe-editor/universe-files/U.MANUAL.bin", "U.MANUAL", &000000, &000000
 PUTFILE "universe-editor/universe-files/U.SHIPID.bin", "U.SHIPID", &000000, &000000
-PUTFILE "universe-editor/universe-files/U.SHIPIDM.bin", "U.SHIPIDM", &000000, &000000
+PUTFILE "universe-editor/universe-files/U.SHIPID6.bin", "U.SHIPID6", &000000, &000000
 PUTFILE "universe-editor/universe-files/U.SHIPIDC.bin", "U.SHIPIDC", &000000, &000000
 
 PUTFILE "universe-editor/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
