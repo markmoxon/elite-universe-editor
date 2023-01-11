@@ -42,8 +42,10 @@ $c1541 \
     -write gma6.encrypted gma6 \
     -write ../../universe-editor/universe-files/u.boxart1.bin "boxart1" \
     -write ../../universe-editor/universe-files/u.boxart2.bin "boxart2" \
+    -write ../../universe-editor/universe-files/u.boxartc.bin "boxartc" \
     -write ../../universe-editor/universe-files/u.manual.bin "manual" \
     -write ../../universe-editor/universe-files/u.shipid.bin "shipid" \
+    -write ../../universe-editor/universe-files/u.shipidc.bin "shipidc" \
     -write ../../universe-editor/other-files/readme64.txt "readme,s"
 
 # Next, we build the PAL version
@@ -77,6 +79,8 @@ $c1541 \
     -write gma6.encrypted gma6 \
     -write ../../universe-editor/universe-files/u.boxart1.bin "boxart1" \
     -write ../../universe-editor/universe-files/u.boxart2.bin "boxart2" \
+    -write ../../universe-editor/universe-files/u.boxartc.bin "boxartc" \
     -write ../../universe-editor/universe-files/u.manual.bin "manual" \
     -write ../../universe-editor/universe-files/u.shipid.bin "shipid" \
+    -write ../../universe-editor/universe-files/u.shipidc.bin "shipidc" \
     -write ../../universe-editor/other-files/readme64.txt "readme,s"
