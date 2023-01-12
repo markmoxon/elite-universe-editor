@@ -174,7 +174,9 @@ To find out more about the above steps, take a look at the following files, whic
 
 * The [`elite-universe-editor-c64.asm`](c64-elite/src/elite-universe-editor-c64.asm) file is assembled by BeebAsm and produces a binary file called `editor.bin` that contains the bulk of the code that implements the Universe Editor. This binary file is then ready to be injected into the game binary to implement the Universe Editor patch.
 
-* The [`elite-modify.py`](src/elite-modify.py) script modifies the game binary and applies the Universe Editor patch. It does this by:
+* The [`elite-flicker-free.asm`](c64-elite/src/elite-flicker-free.asm) file is assembled by BeebAsm and produces a number of binary files. These contain the bulk of the code that implements the flicker-free algorithm, which is also included in the Universe Editor. These code blocks are saved as binary files that are ready to be injected into the game binary to implement the patch.
+
+* The [`elite-modify.py`](c64-elite/src/elite-modify.py) script modifies the game binary and applies the Universe Editor and flicker-free patches. It does this by:
 
   * Loading the main binary into memory
   * Decrypting it
