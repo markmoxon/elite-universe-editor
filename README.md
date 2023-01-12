@@ -1,6 +1,8 @@
 # Elite Universe Editor
 
-![The Elite Universe Editor](https://www.bbcelite.com/images/github/elite-universe-editor-home-screen.png)
+![The Elite Universe Editor on the BBC Micro](https://www.bbcelite.com/images/github/elite-universe-editor-home-screen.png)
+
+![The Elite Universe Editor on the Commodore 64](https://www.bbcelite.com/images/github/elite-universe-editor-home-screen-c64.png)
 
 This repository contains source code for the Elite Universe Editor on the BBC Master, the BBC Micro with a 6502 Second Processor and the Commodore 64.
 
@@ -8,7 +10,9 @@ The Elite Universe Editor allows you to create your own universes in classic BBC
 
 This repository contains the full source code for the Universe Editor, which you can build yourself on a modern computer. See below for more details on [browsing the source code](#browsing-the-source-in-an-ide) and [building the Elite Universe Editor from the source](#building-the-elite-universe-editor-from-the-source).
 
-![Creating the screenshot from the original box in the Elite Universe Editor](https://www.bbcelite.com/images/github/elite-universe-editor-boxart-2.png)
+![Creating the screenshot from the original BBC Micro box in the Elite Universe Editor](https://www.bbcelite.com/images/github/elite-universe-editor-boxart-2.png)
+
+![Creating the screenshot from the original Commodore 64 box in the Elite Universe Editor](https://www.bbcelite.com/images/github/elite-universe-editor-boxart-c.png)
 
 ## Contents
 
