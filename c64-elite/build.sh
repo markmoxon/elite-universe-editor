@@ -12,6 +12,9 @@ cd "$(dirname "$0")"
 rm -fr work
 mkdir work
 
+# Get the current date for the build filename
+CURRENTDATE=`date +%Y-%m-%d`
+
 # First, we build the NTSC version
 cd work
 
@@ -46,7 +49,8 @@ $c1541 \
     -write ../../universe-editor/universe-files/u.manual.bin "manual" \
     -write ../../universe-editor/universe-files/u.shipid.bin "shipid" \
     -write ../../universe-editor/universe-files/u.shipidc.bin "shipidc" \
-    -write ../../universe-editor/other-files/readme64.txt "readme,s"
+    -write ../../universe-editor/other-files/readme64.txt "readme,s" \
+    -write ../../universe-editor/other-files/empty.txt "build ${CURRENTDATE},s"
 
 # Next, we build the PAL version
 cd work
@@ -83,4 +87,5 @@ $c1541 \
     -write ../../universe-editor/universe-files/u.manual.bin "manual" \
     -write ../../universe-editor/universe-files/u.shipid.bin "shipid" \
     -write ../../universe-editor/universe-files/u.shipidc.bin "shipidc" \
-    -write ../../universe-editor/other-files/readme64.txt "readme,s"
+    -write ../../universe-editor/other-files/readme64.txt "readme,s" \
+    -write ../../universe-editor/other-files/empty.txt "build ${CURRENTDATE},s"
