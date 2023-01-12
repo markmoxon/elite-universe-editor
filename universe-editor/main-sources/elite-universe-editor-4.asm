@@ -43,6 +43,8 @@
  LDA QQ1
  STA NA%+10
 
+IF _6502SP_VERSION OR _MASTER_VERSION
+
  JSR CHECK              \ Call CHECK to calculate the checksum for the last
                         \ saved commander and return it in A
 
@@ -51,6 +53,22 @@
 
  EOR #&A9               \ Store the checksum EOR &A9 in CHK2, the penultimate
  STA CHK2               \ byte of the last saved commander block
+
+ELIF _C64_VERSION
+
+ JSR CHECK2             \ Call CHECK2 to calculate the second checksum for the
+                        \ last saved commander and return it in A
+
+ STA CHK2               \ Store the second checksum in CHK2, the penultimate
+                        \ byte of the last saved commander block
+
+ JSR CHECK              \ Call CHECK to calculate the checksum for the last
+                        \ saved commander and return it in A
+
+ STA CHK                \ Store the checksum in CHK, which is at the end of the
+                        \ last saved commander block
+
+ENDIF
 
  RTS                    \ Return from the subroutine
 

@@ -201,7 +201,7 @@ f2              = $3A   \ Show left view = f5/f7 key
 f3              = $3D   \ Show right view = f7/f8 key
 f4              = $35   \ Show the long-range chart = "4"
 
-\ Game cnfiguration variables
+\ Game configuration variables
 
 NI%             = 37
 NOSH            = 10
@@ -216,8 +216,6 @@ GREEN2          = %11111111
 
 \ Commodore 64 system variables and routines
 
-CPU_PORT        = $0001
-
 VIC_SCREG1      = $D011
 VIC_RASTER      = $D012
 VIC_ICREG       = $D01A
@@ -226,16 +224,8 @@ CIA1_PORTA      = $DC00
 CIA1_ICSREG     = $DC0D
 
 SETMSG          = $FF90
-READST          = $FFB7
 SETLFS          = $FFBA
 SETNAM          = $FFBD
-OPEN            = $FFC0
-CLOSE           = $FFC3
-CHKIN           = $FFC6
-CHKOUT          = $FFC9
-CLRCHN          = $FFCC
-CHRIN           = $FFCF
-CHROUT          = $FFD2
 LOAD            = $FFD5
 SAVE            = $FFD8
 
@@ -307,8 +297,6 @@ tek             = $04F1
 SLSP            = $04F2
 QQ2             = $04F4
 QQ14            = $04A6
-CHK2            = $04E3
-CHK             = $04E4
 QQ25            = $04ED
 QQ3             = $0500
 QQ4             = $0501
@@ -324,6 +312,8 @@ DTEN            = $23A0
 MT19            = $24ED
 S1%             = $25A6
 NA%             = $25AB
+CHK2            = $25FE
+CHK             = $25FF
 UNIV            = $28A4
 NLIN4           = $28DC
 MVT3            = $2D69
@@ -382,6 +372,7 @@ BR1             = $8882
 DFAULT          = $88F0
 TITLE           = $8920
 CHECK           = $89EB
+CHECK2          = $89F9 \ Unique to Commodore 64
 JAMESON         = $8A0C
 GTL2            = $8A2F \ STA GTL2+1 in ShowDiscMenu/RevertDiscMods
 GTNMEW          = $8A38
