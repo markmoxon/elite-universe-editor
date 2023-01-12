@@ -26,6 +26,8 @@ This repository contains the full source code for the Universe Editor, which you
   * [Windows](#windows)
   * [Mac and Linux](#mac-and-linux)
 
+* [The Commodore 64 patching process](#the-commodore-64-patching-process)
+
 ## Acknowledgements
 
 6502 Second Processor Elite was written by Ian Bell and David Braben and is copyright &copy; Acornsoft 1985.
@@ -100,7 +102,9 @@ There are five main folders in this repository.
 
 * [universe-editor-disks](universe-editor-disks) contains the disk images produced by the build process. These disks contain the Universe Editor.
 
-The middle two are heavily based on the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm).
+The [6502sp-elite](6502sp-elite) and [master-elite](master-elite) folders are heavily based on the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm).
+
+The [c64-elite](c64-elite) folder uses a patching process that's described in [The Commodore 64 patching process](#the-commodore-64-patching-process) below.
 
 ## Building the Elite Universe Editor from the source
 
@@ -145,6 +149,37 @@ make
 ```
 
 will produce three files in the [`universe-editor-disks`](universe-editor-disks) folder called `elite-universe-editor-bbc.ssd`, `elite-universe-editor-c64-ntsc.ssd` and `elite-universe-editor-c64-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
+
+## The Commodore 64 patching process
+
+The BBC version of the Elite Universe Editor is built from scratch using the annotated source code for Elite with the Universe Editor added into the source (see the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm) repositories for the original sources).
+
+We don't have access to the source code for the Commodore 64 version of Elite, so in order to add the Universe Editor, we have to do the following:
+
+* Extract the game binaries from the original Commodore 64 .g64 disk image (using c1541 from the VICE emulator)
+
+* Assemble the additional code that's required for the Universe Editor (using BeebAsm as the source for the Universe Editor is shared between both platforms)
+
+* Inject this new code into the game binaries and disable any copy protection code (using Python)
+
+* Create a new disk image containing the modified game binaries (using c1541 once again)
+
+To find out more about the above steps, take a look at the following files, which contain lots of comments about how the process works:
+
+* The [`build.sh`](c64-elite/build.sh) script controls the build. Read this for an overview of the patching process.
+
+* The [`elite-universe-editor-c64.asm`](c64-elite/src/elite-universe-editor-c64.asm) file is assembled by BeebAsm and produces a binary file called `editor.bin` that contains the bulk of the code that implements the Universe Editor. This binary file is then ready to be injected into the game binary to implement the Universe Editor patch.
+
+* The [`elite-modify.py`](src/elite-modify.py) script modifies the game binary and applies the Universe Editor patch. It does this by:
+
+  * Loading the main binary into memory
+  * Decrypting it
+  * Patching it by injecting the output from BeebAsm and making a number of other modifications to the code
+  * Encrypting the modified code
+  * Saving out the encrypted and modified binary
+  * Disabling any copy protection from the original disk
+
+This approach is very similar to the patching process used to create the flicker-free version of Commodore 64 Elite. See the [c64-elite-flicker-free repository](https://github.com/markmoxon/c64-elite-flicker-free) for details.
 
 ---
 
