@@ -1,6 +1,7 @@
 BEEBASM?=beebasm
 PYTHON?=python
 
+.PHONY:all
 all:
 	+$(MAKE) encrypt -C 6502sp-elite
 	+$(MAKE) encrypt -C master-elite
