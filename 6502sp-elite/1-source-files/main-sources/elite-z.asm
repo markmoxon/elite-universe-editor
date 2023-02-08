@@ -6459,10 +6459,10 @@ ENDMACRO
  EQUW HANGER            \            248 (&F8)     8 = Display the hangar
  EQUW SOMEPROT          \            249 (&F9)     9 = Copy protection
 
-                        \ --- Mod: Original Acornsoft code removed: ----------->
+                        \ --- Mod: Code removed for Universe Editor: ---------->
 
-\ EQUW SAFE             \            250 (&FA)    10 = Do nothing
-\ EQUW SAFE             \            251 (&FB)    11 = Do nothing
+\EQUW SAFE              \            250 (&FA)    10 = Do nothing
+\EQUW SAFE              \            251 (&FB)    11 = Do nothing
 
                         \ --- And replaced by: -------------------------------->
 

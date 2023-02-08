@@ -41,7 +41,7 @@ GUARD &C000             \ Guard against assembling over MOS memory
 \
 \ ******************************************************************************
 
-                        \ --- Mod: Original Acornsoft code removed: ----------->
+                        \ --- Mod: Code removed for Universe Editor: ---------->
 
 \Q% = _REMOVE_CHECKSUMS \ Set Q% to TRUE to max out the default commander, FALSE
                         \ for the standard default commander (this is set to
@@ -49,7 +49,7 @@ GUARD &C000             \ Guard against assembling over MOS memory
 
                         \ --- And replaced by: -------------------------------->
 
-Q% = TRUE               \ The Universe Editor has with a maxed-out default
+Q% = TRUE               \ The Universe Editor starts with a maxed-out default
                         \ commander
 
                         \ --- End of replacement ------------------------------>
@@ -31542,6 +31542,8 @@ ENDIF
 \       Type: Subroutine
 \   Category: Drawing planets
 \    Summary: Draw a half-ellipse
+\  Deep dive: Drawing ellipses
+\             Drawing meridians and equators
 \
 \ ------------------------------------------------------------------------------
 \
@@ -31562,7 +31564,7 @@ ENDIF
 \       Type: Subroutine
 \   Category: Drawing planets
 \    Summary: Draw an ellipse or half-ellipse
-\  Deep dive: The sine, cosine and arctan tables
+\  Deep dive: Drawing ellipses
 \             Drawing meridians and equators
 \             Drawing craters
 \
@@ -36250,17 +36252,17 @@ ENDIF
  LDA #10                \ Print a line feed to move the text cursor down a line
  JSR TT26
 
-                        \ --- Mod: Original Acornsoft code removed: ----------->
+                        \ --- Mod: Code removed for Universe Editor: ---------->
 
-\ LDA #6                \ Move the text cursor to column 6 again
-\ STA XC
-
-\ LDA PATG              \ If PATG = 0, skip the following two lines, which
-\ BEQ awe               \ print the author credits (PATG can be toggled by
-                        \ pausing the game and pressing "X")
-
-\ LDA #13               \ Print extended token 13 ("BY D.BRABEN & I.BELL")
-\ JSR DETOK
+\LDA #6                 \ Move the text cursor to column 6 again
+\STA XC
+\
+\LDA PATG               \ If PATG = 0, skip the following two lines, which
+\BEQ awe                \ print the author credits (PATG can be toggled by
+\                       \ pausing the game and pressing "X")
+\
+\LDA #13                \ Print extended token 13 ("BY D.BRABEN & I.BELL")
+\JSR DETOK
 
                         \ --- And replaced by: -------------------------------->
 
@@ -46435,13 +46437,13 @@ PRINT "S.ELTH ", ~CODE_H%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_H%
 PRINT "S.BCODE ", ~CODE%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD%
 SAVE "3-assembled-output/BCODE.unprot.bin", CODE%, P%, LOAD%
 
-                        \ --- Mod: Code added for Universe Editor: ------------>
-
 \ ******************************************************************************
 \
 \ Save EDITOR.unprot.bin
 \
 \ ******************************************************************************
+
+                        \ --- Mod: Code added for Universe Editor: ------------>
 
 CODE_EDITOR% = &B200
 LOAD_EDITOR% = &B200
@@ -46454,11 +46456,15 @@ INCLUDE "../universe-editor/main-sources/elite-universe-editor-4.asm"
 
 SAVE "3-assembled-output/EDITOR.unprot.bin", CODE_EDITOR%, P%, LOAD_EDITOR%
 
+                        \ --- End of added code ------------------------------->
+
 \ ******************************************************************************
 \
 \ Save EDITORZ.unprot.bin
 \
 \ ******************************************************************************
+
+                        \ --- Mod: Code added for Universe Editor: ------------>
 
 CODE_EDITORZ% = &9D95
 LOAD_EDITORZ% = &9D95

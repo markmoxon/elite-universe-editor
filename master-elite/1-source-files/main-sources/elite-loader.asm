@@ -447,19 +447,19 @@ ENDIF
  LDA #%00001001         \ Clear bits 1 and 2 of the Access Control Register at
  STA VIA+&34            \ SHEILA &34 to switch main memory back into &3000-&7FFF
 
-                        \ --- Mod: Original Acornsoft code removed: ----------->
+                        \ --- Mod: Code removed for Universe Editor: ---------->
 
                         \ We now want to copy &33 pages of memory (&3300 bytes)
                         \ from &2200-&54FF to &7F00-&B1FF in main memory
 
-\ LDX #&33              \ Set a page counter in X to copy &33 pages
+\LDX #&33               \ Set a page counter in X to copy &33 pages
 
                         \ --- And replaced by: -------------------------------->
 
                         \ We now want to copy &41 pages of memory (&4100 bytes)
                         \ from &2200-&62FF to &7F00-&BFFF in main memory
 
- LDX #&41               \ Set a page counter in X to copy &33 pages
+ LDX #&41               \ Set a page counter in X to copy &41 pages
 
                         \ --- End of replacement ------------------------------>
 
@@ -878,16 +878,17 @@ ENDIF
 \       Type: Subroutine
 \   Category: Maths (Arithmetic)
 \    Summary: Calculate (A P) = A * A
+\  Deep dive: Shift-and-add multiplication
 \
 \ ------------------------------------------------------------------------------
 \
-\ Do the following multiplication of unsigned 8-bit numbers:
+\ Do the following multiplication of signed 8-bit numbers:
 \
 \   (A P) = A * A
 \
-\ This uses the same approach as routine SQUA2 in the main game code, which
-\ itself uses the MU11 routine to do the multiplication. See those routines for
-\ more details.
+\ This uses a similar approach to routine SQUA2 in the main game code, which
+\ itself uses the MU11 routine to do the multiplication. However, this version
+\ first ensures that A is positive, so it can support signed numbers.
 \
 \ ******************************************************************************
 
