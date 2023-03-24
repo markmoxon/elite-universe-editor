@@ -62,7 +62,7 @@
  EQUS "---------------------------------------"
  EQUB 10, 13
 
-SAVE "universe-editor/other-files/README.txt", readme, P%
+ SAVE "universe-editor/other-files/README.txt", readme, P%
 
 MACRO CAP x
  EQUB x + 128
@@ -134,4 +134,4 @@ ENDMACRO
  EQUS "---------------------------------------"
  EQUB 13
 
-SAVE "universe-editor/other-files/README64.txt", readmeC64, P%
+ SAVE "universe-editor/other-files/README64.txt", readmeC64, P%

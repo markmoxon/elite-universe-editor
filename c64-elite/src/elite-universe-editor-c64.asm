@@ -29,11 +29,11 @@
 \
 \ ******************************************************************************
 
-_6502SP_VERSION = FALSE
-_MASTER_VERSION = FALSE
-_C64_VERSION    = TRUE
+ _6502SP_VERSION = FALSE
+ _MASTER_VERSION = FALSE
+ _C64_VERSION    = TRUE
 
-INCLUDE "../../universe-editor/main-sources/elite-universe-editor-variables.asm"
+ INCLUDE "../../universe-editor/main-sources/elite-universe-editor-variables.asm"
 
 \ ******************************************************************************
 \
@@ -41,10 +41,10 @@ INCLUDE "../../universe-editor/main-sources/elite-universe-editor-variables.asm"
 \
 \ ******************************************************************************
 
-CODE% = &B72D
-LOAD% = &B72D
+ CODE% = &B72D
+ LOAD% = &B72D
 
-ORG CODE%
+ ORG CODE%
 
 \ ******************************************************************************
 \
@@ -211,11 +211,11 @@ ORG CODE%
 
  RTS                    \ Return from the subroutine
 
-INCLUDE "../../universe-editor/main-sources/elite-universe-editor-3.asm"
-INCLUDE "../../universe-editor/main-sources/elite-universe-editor-1.asm"
-INCLUDE "../../universe-editor/main-sources/elite-universe-editor-2.asm"
-INCLUDE "../../universe-editor/main-sources/elite-universe-editor-4.asm"
-INCLUDE "../../universe-editor/main-sources/elite-universe-editor-z.asm"
+ INCLUDE "../../universe-editor/main-sources/elite-universe-editor-3.asm"
+ INCLUDE "../../universe-editor/main-sources/elite-universe-editor-1.asm"
+ INCLUDE "../../universe-editor/main-sources/elite-universe-editor-2.asm"
+ INCLUDE "../../universe-editor/main-sources/elite-universe-editor-4.asm"
+ INCLUDE "../../universe-editor/main-sources/elite-universe-editor-z.asm"
 
 \ ******************************************************************************
 \
@@ -223,4 +223,4 @@ INCLUDE "../../universe-editor/main-sources/elite-universe-editor-z.asm"
 \
 \ ******************************************************************************
 
-SAVE "editor.bin", CODE%, P%, LOAD%
+ SAVE "editor.bin", CODE%, P%, LOAD%

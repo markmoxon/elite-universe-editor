@@ -26,13 +26,13 @@
 \
 \ ******************************************************************************
 
-INCLUDE "1-source-files/main-sources/elite-build-options.asm"
+ INCLUDE "1-source-files/main-sources/elite-build-options.asm"
 
-_SOURCE_DISC            = (_VARIANT = 1)
-_SNG45                  = (_VARIANT = 2)
-_EXECUTIVE              = (_VARIANT = 3)
+ _SOURCE_DISC           = (_VARIANT = 1)
+ _SNG45                 = (_VARIANT = 2)
+ _EXECUTIVE             = (_VARIANT = 3)
 
-GUARD &4000             \ Guard against assembling over screen memory
+ GUARD &4000            \ Guard against assembling over screen memory
 
 \ ******************************************************************************
 \
@@ -40,17 +40,17 @@ GUARD &4000             \ Guard against assembling over screen memory
 \
 \ ******************************************************************************
 
-N% = 77                 \ N% is set to the number of bytes in the VDU table, so
+ N% = 77                \ N% is set to the number of bytes in the VDU table, so
                         \ we can loop through them in the loader below
 
-VIA = &FE00             \ Memory-mapped space for accessing internal hardware,
+ VIA = &FE00            \ Memory-mapped space for accessing internal hardware,
                         \ such as the video ULA, 6845 CRTC and 6522 VIAs (also
                         \ known as SHEILA)
 
-OSWRCH = &FFEE          \ The address for the OSWRCH routine
-OSBYTE = &FFF4          \ The address for the OSBYTE routine
-OSWORD = &FFF1          \ The address for the OSWORD routine
-OSCLI = &FFF7           \ The address for the OSCLI routine
+ OSWRCH = &FFEE         \ The address for the OSWRCH routine
+ OSBYTE = &FFF4         \ The address for the OSBYTE routine
+ OSWORD = &FFF1         \ The address for the OSWORD routine
+ OSCLI = &FFF7          \ The address for the OSCLI routine
 
 \ ******************************************************************************
 \
@@ -62,7 +62,7 @@ OSCLI = &FFF7           \ The address for the OSCLI routine
 \
 \ ******************************************************************************
 
-ORG &0090
+ ORG &0090
 
 .ZP
 
@@ -102,7 +102,7 @@ ELIF _SOURCE_DISC
 
 ENDIF
 
-ORG CODE%
+ ORG CODE%
 
 \ ******************************************************************************
 \
@@ -282,11 +282,11 @@ ENDIF
 
 MACRO FNE I%
 
-  LDX #LO(E%+I%*14)     \ Set (Y X) to point to the I%-th set of envelope data
-  LDY #HI(E%+I%*14)     \ in E%
+ LDX #LO(E%+I%*14)      \ Set (Y X) to point to the I%-th set of envelope data
+ LDY #HI(E%+I%*14)      \ in E%
 
-  LDA #8                \ Call OSWORD with A = 8 to set up sound envelope I%
-  JSR OSWORD
+ LDA #8                 \ Call OSWORD with A = 8 to set up sound envelope I%
+ JSR OSWORD
 
 ENDMACRO
 
@@ -802,17 +802,21 @@ ENDIF
                         \ In terms of signed 8-bit integers, this is a random
                         \ number from -32 to 31. Let's call it r7
 
- ADC YY                 \ Set X = A + YY
- TAX                    \       = r7 + r6
+ ADC YY                 \ Set A = A + YY
+                        \       = r7 + r6
 
- JSR SQUA2              \ Set (A P) = r7 * r7
+ TAX                    \ Set X = A
+                        \       = r6 + r7
+
+ JSR SQUA2              \ Set (A P) = A * A
+                        \           = (r6 + r7)^2
 
  TAY                    \ Set Y = A
-                        \       = r7 * r7 / 256
+                        \       = (r6 + r7)^2 / 256
 
  ADC ZP+1               \ Set A = A + ZP+1
-                        \       = r7^2 / 256 + (r5^2 + r6^2) / 256
-                        \       = (r5^2 + r6^2 + r7^2) / 256
+                        \       = (r6 + r7)^2 / 256 + (r5^2 + r6^2) / 256
+                        \       = ((r6 + r7)^2 + r5^2 + r6^2) / 256
 
  BCS PLC3               \ If the addition overflowed, jump down to PLC3 to skip
                         \ to the next pixel
@@ -824,16 +828,29 @@ ENDIF
  BCC PLC3
 
  TYA                    \ Set A = Y + T
- ADC T                  \       = r7^2 / 256 + r6^2 / 256
-                        \       = (r6^2 + r7^2) / 256
+ ADC T                  \       = (r6 + r7)^2 / 256 + r6^2 / 256
+                        \       = ((r6 + r7)^2 + r6^2) / 256
 
- CMP #16                \ If A > 16, skip to PL1 to plot the pixel
+ CMP #16                \ If A >= 16, skip to PL1 to plot the pixel
  BCS PL1
 
- LDA ZP                 \ If ZP is positive (50% chance), jump down to PLC3 to
+ LDA ZP                 \ If ZP is positive (i.e. r5 < 128), jump down to PLC3 to
  BPL PLC3               \ skip to the next pixel
 
 .PL1
+
+                        \ If we get here then the following is true:
+                        \
+                        \   32 <= ((r6 + r7)^2 + r5^2 + r6^2) / 256 < 80
+                        \
+                        \ and either this is true:
+                        \
+                        \   ((r6 + r7)^2 + r6^2) / 256 >= 16
+                        \
+                        \ or both these are true:
+                        \
+                        \   ((r6 + r7)^2 + r6^2) / 256 < 16
+                        \   r5 >= 128
 
  LDA YY                 \ Set A = YY
                         \       = r6
@@ -854,8 +871,12 @@ ENDIF
                         \   x = r5 + r7
                         \   y = r5
                         \
-                        \   32 <= (r5^2 + r6^2 + r7^2) / 256 <= 79
-                        \   Draw 50% fewer pixels when (r6^2 + r7^2) / 256 <= 16
+                        \   32 <= ((r6 + r7)^2 + r5^2 + r6^2) / 256 < 80
+                        \
+                        \   Either: ((r6 + r7)^2 + r6^2) / 256 >= 16
+                        \
+                        \   Or:     ((r6 + r7)^2 + r6^2) / 256 <  16
+                        \           r5 >= 128
                         \
                         \ which is what we want
 
@@ -1264,5 +1285,5 @@ ENDIF
 \
 \ ******************************************************************************
 
-PRINT "S.ELITE ", ~CODE%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD%
-SAVE "3-assembled-output/ELITE.bin", CODE%, P%, LOAD%
+ PRINT "S.ELITE ", ~CODE%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD%
+ SAVE "3-assembled-output/ELITE.bin", CODE%, P%, LOAD%

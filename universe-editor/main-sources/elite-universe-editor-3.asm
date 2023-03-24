@@ -564,7 +564,7 @@ ENDIF
 
 IF _6502SP_VERSION
 
-ORG K%-2
+ ORG K%-2
 
 .prgAddress
 

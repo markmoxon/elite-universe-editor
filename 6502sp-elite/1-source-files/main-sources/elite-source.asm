@@ -37,16 +37,16 @@
 \
 \ ******************************************************************************
 
-INCLUDE "1-source-files/main-sources/elite-build-options.asm"
+ INCLUDE "1-source-files/main-sources/elite-build-options.asm"
 
-CPU 1                   \ Switch to 65C02 assembly, as this code runs on the
+ CPU 1                  \ Switch to 65C02 assembly, as this code runs on the
                         \ 6502 Second Processor
 
-_SOURCE_DISC            = (_VARIANT = 1)
-_SNG45                  = (_VARIANT = 2)
-_EXECUTIVE              = (_VARIANT = 3)
+ _SOURCE_DISC           = (_VARIANT = 1)
+ _SNG45                 = (_VARIANT = 2)
+ _EXECUTIVE             = (_VARIANT = 3)
 
-GUARD &F800             \ Guard against assembling over MOS memory
+ GUARD &F800            \ Guard against assembling over MOS memory
 
 \ ******************************************************************************
 \
@@ -71,156 +71,156 @@ GUARD &F800             \ Guard against assembling over MOS memory
 
                         \ --- And replaced by: -------------------------------->
 
-Q% = TRUE               \ The Universe Editor starts with a maxed-out default
+ Q% = TRUE              \ The Universe Editor starts with a maxed-out default
                         \ commander
 
                         \ --- End of replacement ------------------------------>
 
-D% = &D000              \ The address where the ship blueprints get moved to
+ D% = &D000             \ The address where the ship blueprints get moved to
                         \ after loading, so they go from &D000 to &F200
 
-LS% = D%-1              \ The start of the descending ship line heap
+ LS% = D%-1             \ The start of the descending ship line heap
 
-NOST = 18               \ The number of stardust particles in normal space (this
+ NOST = 18              \ The number of stardust particles in normal space (this
                         \ goes down to 3 in witchspace)
 
-NOSH = 20               \ The maximum number of ships in our local bubble of
+ NOSH = 20              \ The maximum number of ships in our local bubble of
                         \ universe
 
-NTY = 34                \ The number of different ship types
+ NTY = 34               \ The number of different ship types
 
-MSL = 1                 \ Ship type for a missile
-SST = 2                 \ Ship type for a Coriolis space station
-ESC = 3                 \ Ship type for an escape pod
-PLT = 4                 \ Ship type for an alloy plate
-OIL = 5                 \ Ship type for a cargo canister
-AST = 7                 \ Ship type for an asteroid
-SPL = 8                 \ Ship type for a splinter
-SHU = 9                 \ Ship type for a Shuttle
-CYL = 11                \ Ship type for a Cobra Mk III
-ANA = 14                \ Ship type for an Anaconda
-HER = 15                \ Ship type for a rock hermit (asteroid)
-COPS = 16               \ Ship type for a Viper
-SH3 = 17                \ Ship type for a Sidewinder
-KRA = 19                \ Ship type for a Krait
-ADA = 20                \ Ship type for a Adder
-WRM = 23                \ Ship type for a Worm
-CYL2 = 24               \ Ship type for a Cobra Mk III (pirate)
-ASP = 25                \ Ship type for an Asp Mk II
-THG = 29                \ Ship type for a Thargoid
-TGL = 30                \ Ship type for a Thargon
-CON = 31                \ Ship type for a Constrictor
-LGO = 32                \ Ship type for the Elite logo
-COU = 33                \ Ship type for a Cougar
-DOD = 34                \ Ship type for a Dodecahedron ("Dodo") space station
+ MSL = 1                \ Ship type for a missile
+ SST = 2                \ Ship type for a Coriolis space station
+ ESC = 3                \ Ship type for an escape pod
+ PLT = 4                \ Ship type for an alloy plate
+ OIL = 5                \ Ship type for a cargo canister
+ AST = 7                \ Ship type for an asteroid
+ SPL = 8                \ Ship type for a splinter
+ SHU = 9                \ Ship type for a Shuttle
+ CYL = 11               \ Ship type for a Cobra Mk III
+ ANA = 14               \ Ship type for an Anaconda
+ HER = 15               \ Ship type for a rock hermit (asteroid)
+ COPS = 16              \ Ship type for a Viper
+ SH3 = 17               \ Ship type for a Sidewinder
+ KRA = 19               \ Ship type for a Krait
+ ADA = 20               \ Ship type for a Adder
+ WRM = 23               \ Ship type for a Worm
+ CYL2 = 24              \ Ship type for a Cobra Mk III (pirate)
+ ASP = 25               \ Ship type for an Asp Mk II
+ THG = 29               \ Ship type for a Thargoid
+ TGL = 30               \ Ship type for a Thargon
+ CON = 31               \ Ship type for a Constrictor
+ LGO = 32               \ Ship type for the Elite logo
+ COU = 33               \ Ship type for a Cougar
+ DOD = 34               \ Ship type for a Dodecahedron ("Dodo") space station
 
-JL = ESC                \ Junk is defined as starting from the escape pod
+ JL = ESC               \ Junk is defined as starting from the escape pod
 
-JH = SHU+2              \ Junk is defined as ending before the Cobra Mk III
+ JH = SHU+2             \ Junk is defined as ending before the Cobra Mk III
                         \
                         \ So junk is defined as the following: escape pod,
                         \ alloy plate, cargo canister, asteroid, splinter,
                         \ Shuttle or Transporter
 
-PACK = SH3              \ The first of the eight pack-hunter ships, which tend
+ PACK = SH3             \ The first of the eight pack-hunter ships, which tend
                         \ to spawn in groups. With the default value of PACK the
                         \ pack-hunters are the Sidewinder, Mamba, Krait, Adder,
                         \ Gecko, Cobra Mk I, Worm and Cobra Mk III (pirate)
 
-POW = 15                \ Pulse laser power
+ POW = 15               \ Pulse laser power
 
-Mlas = 50               \ Mining laser power
+ Mlas = 50              \ Mining laser power
 
-Armlas = INT(128.5+1.5*POW) \ Military laser power
+ Armlas = INT(128.5+1.5*POW)  \ Military laser power
 
-NI% = 37                \ The number of bytes in each ship's data block (as
+ NI% = 37               \ The number of bytes in each ship's data block (as
                         \ stored in INWK and K%)
 
-BRKV = &0202            \ The break vector that we intercept to enable us to
+ BRKV = &0202           \ The break vector that we intercept to enable us to
                         \ handle and display system errors
 
-OSWRCH = &FFEE          \ The address for the OSWRCH routine
-OSBYTE = &FFF4          \ The address for the OSBYTE routine
-OSWORD = &FFF1          \ The address for the OSWORD routine
-OSFILE = &FFDD          \ The address for the OSFILE routine
-OSCLI = &FFF7           \ The address for the OSCLI routine
+ OSWRCH = &FFEE         \ The address for the OSWRCH routine
+ OSBYTE = &FFF4         \ The address for the OSBYTE routine
+ OSWORD = &FFF1         \ The address for the OSWORD routine
+ OSFILE = &FFDD         \ The address for the OSFILE routine
+ OSCLI = &FFF7          \ The address for the OSCLI routine
 
-DOFE21 = 131            \ The OSWRCH number for the #DOFE21 command
-DOhfx = 132             \ The OSWRCH number for the #DOhfx command
-SETXC = 133             \ The OSWRCH number for the #SETXC command
-SETYC = 134             \ The OSWRCH number for the #SETYC command
-clyns = 135             \ The OSWRCH number for the #clyns command
-RDPARAMS = 136          \ The OSWRCH number for the #RDPARAMS command
-DODIALS = 138           \ The OSWRCH number for the #DODIALS command
-VIAE = 139              \ The OSWRCH number for the #VIAE command
-DOBULB = 140            \ The OSWRCH number for the #DOBULB command
-DOCATF = 141            \ The OSWRCH number for the #DOCATF command
-SETCOL = 142            \ The OSWRCH number for the #SETCOL command
-SETVDU19 = 143          \ The OSWRCH number for the #SETVDU19 command
-DOsvn = 144             \ The OSWRCH number for the #DOsvn command
-printcode = 146         \ The OSWRCH number for the #printcode command
-prilf = 147             \ The OSWRCH number for the #prilf command
+ DOFE21 = 131           \ The OSWRCH number for the #DOFE21 command
+ DOhfx = 132            \ The OSWRCH number for the #DOhfx command
+ SETXC = 133            \ The OSWRCH number for the #SETXC command
+ SETYC = 134            \ The OSWRCH number for the #SETYC command
+ clyns = 135            \ The OSWRCH number for the #clyns command
+ RDPARAMS = 136         \ The OSWRCH number for the #RDPARAMS command
+ DODIALS = 138          \ The OSWRCH number for the #DODIALS command
+ VIAE = 139             \ The OSWRCH number for the #VIAE command
+ DOBULB = 140           \ The OSWRCH number for the #DOBULB command
+ DOCATF = 141           \ The OSWRCH number for the #DOCATF command
+ SETCOL = 142           \ The OSWRCH number for the #SETCOL command
+ SETVDU19 = 143         \ The OSWRCH number for the #SETVDU19 command
+ DOsvn = 144            \ The OSWRCH number for the #DOsvn command
+ printcode = 146        \ The OSWRCH number for the #printcode command
+ prilf = 147            \ The OSWRCH number for the #prilf command
 
-DOmsbar = 242           \ The OSWORD number for the #DOmsbar command
-wscn = 243              \ The OSWORD number for the #wscn command
-onescan = 244           \ The OSWORD number for the #onescan command
-DOdot = 245             \ The OSWORD number for the #DOdot command
-DODKS4 = 246            \ The OSWORD number for the #DODKS4 command
+ DOmsbar = 242          \ The OSWORD number for the #DOmsbar command
+ wscn = 243             \ The OSWORD number for the #wscn command
+ onescan = 244          \ The OSWORD number for the #onescan command
+ DOdot = 245            \ The OSWORD number for the #DOdot command
+ DODKS4 = 246           \ The OSWORD number for the #DODKS4 command
 
-X = 128                 \ The centre x-coordinate of the 256 x 192 space view
-Y = 96                  \ The centre y-coordinate of the 256 x 192 space view
+ X = 128                \ The centre x-coordinate of the 256 x 192 space view
+ Y = 96                 \ The centre y-coordinate of the 256 x 192 space view
 
-f0 = &20                \ Internal key number for red key f0 (Launch, Front)
-f1 = &71                \ Internal key number for red key f1 (Buy Cargo, Rear)
-f2 = &72                \ Internal key number for red key f2 (Sell Cargo, Left)
-f3 = &73                \ Internal key number for red key f3 (Equip Ship, Right)
-f4 = &14                \ Internal key number for red key f4 (Long-range Chart)
-f5 = &74                \ Internal key number for red key f5 (Short-range Chart)
-f6 = &75                \ Internal key number for red key f6 (Data on System)
-f7 = &16                \ Internal key number for red key f7 (Market Price)
-f8 = &76                \ Internal key number for red key f8 (Status Mode)
-f9 = &77                \ Internal key number for red key f9 (Inventory)
+ f0 = &20               \ Internal key number for red key f0 (Launch, Front)
+ f1 = &71               \ Internal key number for red key f1 (Buy Cargo, Rear)
+ f2 = &72               \ Internal key number for red key f2 (Sell Cargo, Left)
+ f3 = &73               \ Internal key number for red key f3 (Equip Ship, Right)
+ f4 = &14               \ Internal key number for red key f4 (Long-range Chart)
+ f5 = &74               \ Internal key number for red key f5 (Short-range Chart)
+ f6 = &75               \ Internal key number for red key f6 (Data on System)
+ f7 = &16               \ Internal key number for red key f7 (Market Price)
+ f8 = &76               \ Internal key number for red key f8 (Status Mode)
+ f9 = &77               \ Internal key number for red key f9 (Inventory)
 
-YELLOW  = %00001111     \ Four mode 1 pixels of colour 1 (yellow)
-RED     = %11110000     \ Four mode 1 pixels of colour 2 (red, magenta or white)
-CYAN    = %11111111     \ Four mode 1 pixels of colour 3 (cyan or white)
-GREEN   = %10101111     \ Four mode 1 pixels of colour 3, 1, 3, 1 (cyan/yellow)
-WHITE   = %11111010     \ Four mode 1 pixels of colour 3, 2, 3, 2 (cyan/red)
-MAGENTA = RED           \ Four mode 1 pixels of colour 2 (red, magenta or white)
-DUST    = WHITE         \ Four mode 1 pixels of colour 3, 2, 3, 2 (cyan/red)
+ YELLOW  = %00001111    \ Four mode 1 pixels of colour 1 (yellow)
+ RED     = %11110000    \ Four mode 1 pixels of colour 2 (red, magenta or white)
+ CYAN    = %11111111    \ Four mode 1 pixels of colour 3 (cyan or white)
+ GREEN   = %10101111    \ Four mode 1 pixels of colour 3, 1, 3, 1 (cyan/yellow)
+ WHITE   = %11111010    \ Four mode 1 pixels of colour 3, 2, 3, 2 (cyan/red)
+ MAGENTA = RED          \ Four mode 1 pixels of colour 2 (red, magenta or white)
+ DUST    = WHITE        \ Four mode 1 pixels of colour 3, 2, 3, 2 (cyan/red)
 
-RED2    = %00000011     \ Two mode 2 pixels of colour 1    (red)
-GREEN2  = %00001100     \ Two mode 2 pixels of colour 2    (green)
-YELLOW2 = %00001111     \ Two mode 2 pixels of colour 3    (yellow)
-BLUE2   = %00110000     \ Two mode 2 pixels of colour 4    (blue)
-MAG2    = %00110011     \ Two mode 2 pixels of colour 5    (magenta)
-CYAN2   = %00111100     \ Two mode 2 pixels of colour 6    (cyan)
-WHITE2  = %00111111     \ Two mode 2 pixels of colour 7    (white)
-STRIPE  = %00100011     \ Two mode 2 pixels of colour 5, 1 (magenta/red)
+ RED2    = %00000011    \ Two mode 2 pixels of colour 1    (red)
+ GREEN2  = %00001100    \ Two mode 2 pixels of colour 2    (green)
+ YELLOW2 = %00001111    \ Two mode 2 pixels of colour 3    (yellow)
+ BLUE2   = %00110000    \ Two mode 2 pixels of colour 4    (blue)
+ MAG2    = %00110011    \ Two mode 2 pixels of colour 5    (magenta)
+ CYAN2   = %00111100    \ Two mode 2 pixels of colour 6    (cyan)
+ WHITE2  = %00111111    \ Two mode 2 pixels of colour 7    (white)
+ STRIPE  = %00100011    \ Two mode 2 pixels of colour 5, 1 (magenta/red)
 
-NRU% = 0                \ The number of planetary systems with extended system
+ NRU% = 0               \ The number of planetary systems with extended system
                         \ description overrides in the RUTOK table. The value of
                         \ this variable is 0 in the original source, but this
                         \ appears to be a bug, as it should really be 26
 
-VE = &57                \ The obfuscation byte used to hide the extended tokens
+ VE = &57               \ The obfuscation byte used to hide the extended tokens
                         \ table from crackers viewing the binary code
 
-LL = 30                 \ The length of lines (in characters) of justified text
+ LL = 30                \ The length of lines (in characters) of justified text
                         \ in the extended tokens system
 
-W2 = 16                 \ The horizontal character spacing in the scroll text
+ W2 = 16                \ The horizontal character spacing in the scroll text
                         \ (i.e. the difference in x-coordinate between the
                         \ left edges of adjacent characters in words)
 
-WY = 12                 \ The vertical spacing between points in the scroll text
+ WY = 12                \ The vertical spacing between points in the scroll text
                         \ grid for each character
 
-W2Y = 2.5*WY            \ The vertical line spacing in the scroll text (i.e. the
+ W2Y = 2.5*WY           \ The vertical line spacing in the scroll text (i.e. the
                         \ difference in y-coordinate between the tops of the
                         \ characters in adjacent lines)
 
-D = 80                  \ The distance from the camera (z-coordinate) of the
+ D = 80                 \ The distance from the camera (z-coordinate) of the
                         \ bottom of the visible part of the Star Wars scroll
                         \ text
 
@@ -235,7 +235,7 @@ D = 80                  \ The distance from the camera (z-coordinate) of the
 \
 \ ******************************************************************************
 
-ORG &0000
+ ORG &0000
 
 .ZP
 
@@ -826,7 +826,7 @@ ORG &0000
                         \ of the in-flight message in MESS, so it can be erased
                         \ from the screen at the correct time
 
-ORG &00D1
+ ORG &00D1
 
 .T
 
@@ -845,7 +845,7 @@ ORG &00D1
 
  SKIP 2                 \ Temporary storage, used in a number of places
 
-PRINT "Zero page variables from ", ~ZP, " to ", ~P%
+ PRINT "Zero page variables from ", ~ZP, " to ", ~P%
 
 \ ******************************************************************************
 \
@@ -862,7 +862,7 @@ PRINT "Zero page variables from ", ~ZP, " to ", ~P%
 \
 \ ******************************************************************************
 
-ORG &0100
+ ORG &0100
 
 .XX3
 
@@ -885,10 +885,10 @@ ORG &0100
 \
 \ ******************************************************************************
 
-CODE_WORDS% = &0400
-LOAD_WORDS% = &81B0
+ CODE_WORDS% = &0400
+ LOAD_WORDS% = &81B0
 
-ORG CODE_WORDS%
+ ORG CODE_WORDS%
 
 \ ******************************************************************************
 \
@@ -917,11 +917,11 @@ ORG CODE_WORDS%
 
 MACRO CHAR x
 
-  IF x = '`'
-    EQUB 39 EOR 35
-  ELSE
-    EQUB x EOR 35
-  ENDIF
+ IF x = '`'
+   EQUB 39 EOR 35
+ ELSE
+   EQUB x EOR 35
+ ENDIF
 
 ENDMACRO
 
@@ -954,38 +954,38 @@ ENDMACRO
 
 MACRO TWOK t, k
 
-  IF t = 'A' AND k = 'L' : EQUB 128 EOR 35 : ENDIF
-  IF t = 'L' AND k = 'E' : EQUB 129 EOR 35 : ENDIF
-  IF t = 'X' AND k = 'E' : EQUB 130 EOR 35 : ENDIF
-  IF t = 'G' AND k = 'E' : EQUB 131 EOR 35 : ENDIF
-  IF t = 'Z' AND k = 'A' : EQUB 132 EOR 35 : ENDIF
-  IF t = 'C' AND k = 'E' : EQUB 133 EOR 35 : ENDIF
-  IF t = 'B' AND k = 'I' : EQUB 134 EOR 35 : ENDIF
-  IF t = 'S' AND k = 'O' : EQUB 135 EOR 35 : ENDIF
-  IF t = 'U' AND k = 'S' : EQUB 136 EOR 35 : ENDIF
-  IF t = 'E' AND k = 'S' : EQUB 137 EOR 35 : ENDIF
-  IF t = 'A' AND k = 'R' : EQUB 138 EOR 35 : ENDIF
-  IF t = 'M' AND k = 'A' : EQUB 139 EOR 35 : ENDIF
-  IF t = 'I' AND k = 'N' : EQUB 140 EOR 35 : ENDIF
-  IF t = 'D' AND k = 'I' : EQUB 141 EOR 35 : ENDIF
-  IF t = 'R' AND k = 'E' : EQUB 142 EOR 35 : ENDIF
-  IF t = 'A' AND k = '?' : EQUB 143 EOR 35 : ENDIF
-  IF t = 'E' AND k = 'R' : EQUB 144 EOR 35 : ENDIF
-  IF t = 'A' AND k = 'T' : EQUB 145 EOR 35 : ENDIF
-  IF t = 'E' AND k = 'N' : EQUB 146 EOR 35 : ENDIF
-  IF t = 'B' AND k = 'E' : EQUB 147 EOR 35 : ENDIF
-  IF t = 'R' AND k = 'A' : EQUB 148 EOR 35 : ENDIF
-  IF t = 'L' AND k = 'A' : EQUB 149 EOR 35 : ENDIF
-  IF t = 'V' AND k = 'E' : EQUB 150 EOR 35 : ENDIF
-  IF t = 'T' AND k = 'I' : EQUB 151 EOR 35 : ENDIF
-  IF t = 'E' AND k = 'D' : EQUB 152 EOR 35 : ENDIF
-  IF t = 'O' AND k = 'R' : EQUB 153 EOR 35 : ENDIF
-  IF t = 'Q' AND k = 'U' : EQUB 154 EOR 35 : ENDIF
-  IF t = 'A' AND k = 'N' : EQUB 155 EOR 35 : ENDIF
-  IF t = 'T' AND k = 'E' : EQUB 156 EOR 35 : ENDIF
-  IF t = 'I' AND k = 'S' : EQUB 157 EOR 35 : ENDIF
-  IF t = 'R' AND k = 'I' : EQUB 158 EOR 35 : ENDIF
-  IF t = 'O' AND k = 'N' : EQUB 159 EOR 35 : ENDIF
+ IF t = 'A' AND k = 'L' : EQUB 128 EOR 35 : ENDIF
+ IF t = 'L' AND k = 'E' : EQUB 129 EOR 35 : ENDIF
+ IF t = 'X' AND k = 'E' : EQUB 130 EOR 35 : ENDIF
+ IF t = 'G' AND k = 'E' : EQUB 131 EOR 35 : ENDIF
+ IF t = 'Z' AND k = 'A' : EQUB 132 EOR 35 : ENDIF
+ IF t = 'C' AND k = 'E' : EQUB 133 EOR 35 : ENDIF
+ IF t = 'B' AND k = 'I' : EQUB 134 EOR 35 : ENDIF
+ IF t = 'S' AND k = 'O' : EQUB 135 EOR 35 : ENDIF
+ IF t = 'U' AND k = 'S' : EQUB 136 EOR 35 : ENDIF
+ IF t = 'E' AND k = 'S' : EQUB 137 EOR 35 : ENDIF
+ IF t = 'A' AND k = 'R' : EQUB 138 EOR 35 : ENDIF
+ IF t = 'M' AND k = 'A' : EQUB 139 EOR 35 : ENDIF
+ IF t = 'I' AND k = 'N' : EQUB 140 EOR 35 : ENDIF
+ IF t = 'D' AND k = 'I' : EQUB 141 EOR 35 : ENDIF
+ IF t = 'R' AND k = 'E' : EQUB 142 EOR 35 : ENDIF
+ IF t = 'A' AND k = '?' : EQUB 143 EOR 35 : ENDIF
+ IF t = 'E' AND k = 'R' : EQUB 144 EOR 35 : ENDIF
+ IF t = 'A' AND k = 'T' : EQUB 145 EOR 35 : ENDIF
+ IF t = 'E' AND k = 'N' : EQUB 146 EOR 35 : ENDIF
+ IF t = 'B' AND k = 'E' : EQUB 147 EOR 35 : ENDIF
+ IF t = 'R' AND k = 'A' : EQUB 148 EOR 35 : ENDIF
+ IF t = 'L' AND k = 'A' : EQUB 149 EOR 35 : ENDIF
+ IF t = 'V' AND k = 'E' : EQUB 150 EOR 35 : ENDIF
+ IF t = 'T' AND k = 'I' : EQUB 151 EOR 35 : ENDIF
+ IF t = 'E' AND k = 'D' : EQUB 152 EOR 35 : ENDIF
+ IF t = 'O' AND k = 'R' : EQUB 153 EOR 35 : ENDIF
+ IF t = 'Q' AND k = 'U' : EQUB 154 EOR 35 : ENDIF
+ IF t = 'A' AND k = 'N' : EQUB 155 EOR 35 : ENDIF
+ IF t = 'T' AND k = 'E' : EQUB 156 EOR 35 : ENDIF
+ IF t = 'I' AND k = 'S' : EQUB 157 EOR 35 : ENDIF
+ IF t = 'R' AND k = 'I' : EQUB 158 EOR 35 : ENDIF
+ IF t = 'O' AND k = 'N' : EQUB 159 EOR 35 : ENDIF
 
 ENDMACRO
 
@@ -1014,7 +1014,7 @@ ENDMACRO
 
 MACRO CONT n
 
-  EQUB n EOR 35
+ EQUB n EOR 35
 
 ENDMACRO
 
@@ -1050,15 +1050,15 @@ ENDMACRO
 
 MACRO RTOK n
 
-  IF n >= 0 AND n <= 95
-    t = n + 160
-  ELIF n >= 128
-    t = n - 114
-  ELSE
-    t = n
-  ENDIF
+ IF n >= 0 AND n <= 95
+  t = n + 160
+ ELIF n >= 128
+  t = n - 114
+ ELSE
+  t = n
+ ENDIF
 
-  EQUB t EOR 35
+ EQUB t EOR 35
 
 ENDMACRO
 
@@ -2268,11 +2268,20 @@ ENDIF
 \
 \ ------------------------------------------------------------------------------
 \
-\ To calculate the following:
+\ This lookup table contains sine values for the first half of a circle, from 0
+\ to 180 degrees (0 to PI radians). In terms of circle or ellipse line segments,
+\ there are 64 segments in a circle, so this contains sine values for segments
+\ 0 to 31.
+\
+\ In terms of segments, to calculate the sine of the angle at segment x, we look
+\ up the value in SNE + x, and to calculate the cosine of the angle we look up
+\ the value in SNE + ((x + 16) mod 32).
+\
+\ In terms of radians, to calculate the following:
 \
 \   sin(theta) * 256
 \
-\ where theta is in radians, look up the value in:
+\ where theta is in radians, we look up the value in:
 \
 \   SNE + (theta * 10)
 \
@@ -2290,17 +2299,17 @@ ENDIF
 
 .SNE
 
-FOR I%, 0, 31
-
- N = ABS(SIN((I% / 64) * 2 * PI))
-
- IF N >= 1
-  EQUB 255
- ELSE
-  EQUB INT(256 * N + 0.5)
- ENDIF
-
-NEXT
+ FOR I%, 0, 31
+ 
+  N = ABS(SIN((I% / 64) * 2 * PI))
+ 
+  IF N >= 1
+   EQUB 255
+  ELSE
+   EQUB INT(256 * N + 0.5)
+  ENDIF
+ 
+ NEXT
 
 \ ******************************************************************************
 \
@@ -2312,36 +2321,45 @@ NEXT
 \
 \ ------------------------------------------------------------------------------
 \
-\ To calculate the following:
+\ This table contains lookup values for arctangent calculations involving angles
+\ in the range 0 to 45 degrees (or 0 to PI / 4 radians).
+\
+\ To calculate the value of theta in the following:
 \
 \   theta = arctan(t)
 \
-\ where 0 <= t < 1, look up the value in:
+\ where 0 <= t < 1, we look up the value in:
 \
 \   ACT + (t * 32)
 \
-\ The result will be an integer representing the angle in radians, with 256
-\ representing a full circle of 2 * PI radians.
+\ The result will be an integer representing the angle in radians, where 256
+\ represents a full circle of 360 degrees (2 * PI radians). The result of the
+\ lookup will therefore be an integer in the range 0 to 31, as this represents
+\ 0 to 45 degrees (0 to PI / 4 radians).
 \
-\ The table does not support values of t >= 1 or t < 0 directly, but we can use
-\ the following calculations instead:
+\ The table does not support values of t >= 1 or t < 0 directly, so if we need
+\ to calculate the arctangent for an angle greater than 45 degrees, we can apply
+\ the following calculation to the result from the table:
 \
 \   * For t > 1, arctan(t) = 64 - arctan(1 / t)
 \
+\ For negative values of t where -1 < t < 0, we can apply the following
+\ calculation to the result from the table:
+\
 \   * For t < 0, arctan(-t) = 128 - arctan(t)
 \
-\ If t < -1, we can do the first one to get arctan(|t|), then the second to get
-\ arctan(-|t|).
+\ Finally, if t < -1, we can do the first calculation to get arctan(|t|), and
+\ the second to get arctan(-|t|).
 \
 \ ******************************************************************************
 
 .ACT
 
-FOR I%, 0, 31
+ FOR I%, 0, 31
 
- EQUB INT((128 / PI) * ATN(I% / 32) + 0.5)
+  EQUB INT((128 / PI) * ATN(I% / 32) + 0.5)
 
-NEXT
+ NEXT
 
 \ ******************************************************************************
 \
@@ -2349,15 +2367,15 @@ NEXT
 \
 \ ******************************************************************************
 
-PRINT "WORDS"
-PRINT "Assembled at ", ~CODE_WORDS%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_WORDS%)
-PRINT "Execute at ", ~LOAD_WORDS%
-PRINT "Reload at ", ~LOAD_WORDS%
+ PRINT "WORDS"
+ PRINT "Assembled at ", ~CODE_WORDS%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_WORDS%)
+ PRINT "Execute at ", ~LOAD_WORDS%
+ PRINT "Reload at ", ~LOAD_WORDS%
 
-PRINT "S.WORDS ",~CODE_WORDS%," ",~P%," ",~LOAD_WORDS%," ",~LOAD_WORDS%
-SAVE "3-assembled-output/WORDS.bin", CODE_WORDS%, P%, LOAD_WORDS%
+ PRINT "S.WORDS ",~CODE_WORDS%," ",~P%," ",~LOAD_WORDS%," ",~LOAD_WORDS%
+ SAVE "3-assembled-output/WORDS.bin", CODE_WORDS%, P%, LOAD_WORDS%
 
 \ ******************************************************************************
 \
@@ -2369,7 +2387,7 @@ SAVE "3-assembled-output/WORDS.bin", CODE_WORDS%, P%, LOAD_WORDS%
 \
 \ ******************************************************************************
 
-ORG &0800
+ ORG &0800
 
 .UP
 
@@ -2971,8 +2989,8 @@ ORG &0800
                         \
                         \ The enhanced versions of Elite set ENGY to 2 as the
                         \ reward for completing mission 2, where we receive a
-                        \ naval energy unit that recharges 50% faster than a
-                        \ standard energy unit, i.e. by 3 each time
+                        \ special naval energy unit that recharges at a fast
+                        \ rate than a standard energy unit, i.e. by 3 each time
 
 .DKCMP
 
@@ -3091,7 +3109,7 @@ ORG &0800
                         \ copied from here to the last saved commander block at
                         \ NA%, CHK and CHK2 get overwritten
 
-NT% = SVC + 2 - TP      \ This sets the variable NT% to the size of the current
+ NT% = SVC + 2 - TP     \ This sets the variable NT% to the size of the current
                         \ commander data block, which starts at TP and ends at
                         \ SVC+2 (inclusive)
 
@@ -3286,7 +3304,7 @@ NT% = SVC + 2 - TP      \ This sets the variable NT% to the size of the current
 \
 \ ******************************************************************************
 
-ORG &0D00
+ ORG &0D00
 
 .WP
 
@@ -3406,7 +3424,7 @@ ORG &0D00
                         \ the scroll text lines onto the Star Wars perspective
                         \ view and then onto the screen
 
-PRINT "WP workspace from  ", ~WP," to ", ~P%
+ PRINT "WP workspace from  ", ~WP," to ", ~P%
 
 \ ******************************************************************************
 \
@@ -3541,18 +3559,18 @@ ENDIF
 
                         \ --- Mod: Code added for Universe Editor: ------------>
 
-_6502SP_VERSION = TRUE
-_MASTER_VERSION = FALSE
-_C64_VERSION    = FALSE
+ _6502SP_VERSION = TRUE
+ _MASTER_VERSION = FALSE
+ _C64_VERSION    = FALSE
 
-ORG &0E3C
+ ORG &0E3C
 
-INCLUDE "../universe-editor/main-sources/elite-universe-editor-variables.asm"
-INCLUDE "../universe-editor/main-sources/elite-universe-editor-1.asm"
+ INCLUDE "../universe-editor/main-sources/elite-universe-editor-variables.asm"
+ INCLUDE "../universe-editor/main-sources/elite-universe-editor-1.asm"
 
-SKIPTO &1000
+ SKIPTO &1000
 
-SAVE "3-assembled-output/EDITOR1.bin", &0E3C, &1000, &0E3C
+ SAVE "3-assembled-output/EDITOR1.bin", &0E3C, &1000, &0E3C
 
                         \ --- End of added code ------------------------------->
 
@@ -3564,12 +3582,12 @@ SAVE "3-assembled-output/EDITOR1.bin", &0E3C, &1000, &0E3C
 \
 \ ******************************************************************************
 
-CODE% = &1000
-LOAD% = &1000
+ CODE% = &1000
+ LOAD% = &1000
 
-ORG CODE%
+ ORG CODE%
 
-LOAD_A% = LOAD%
+ LOAD_A% = LOAD%
 
 \ ******************************************************************************
 \
@@ -4413,7 +4431,7 @@ ENDIF
                         \ the RL indicator on the dashboard goes to the right).
                         \ This rolls our ship to the right (clockwise), but we
                         \ actually implement this by rolling everything else
-                        \ to the left (anticlockwise), so a positive roll rate
+                        \ to the left (anti-clockwise), so a positive roll rate
                         \ in JSTX translates to a negative roll angle alpha
 
  TXA                    \ Set A and Y to the roll rate but with the sign bit
@@ -5205,8 +5223,7 @@ ENDIF
 
 .GOIN
 
-                        \ If we arrive here, either the docking computer has
-                        \ been activated, or we just docked successfully
+                        \ If we arrive here, we just docked successfully
 
  JMP DOENTRY            \ Go to the docking bay (i.e. show the ship hangar)
 
@@ -7349,15 +7366,15 @@ ENDIF
 \
 \ ******************************************************************************
 
-PRINT "ELITE A"
-PRINT "Assembled at ", ~S1%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - S1%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_A%
+ PRINT "ELITE A"
+ PRINT "Assembled at ", ~S1%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - S1%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_A%
 
-PRINT "S.ELTA ", ~S1%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_A%
-SAVE "3-assembled-output/ELTA.bin", S1%, P%, LOAD%
+ PRINT "S.ELTA ", ~S1%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_A%
+ SAVE "3-assembled-output/ELTA.bin", S1%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -7367,8 +7384,8 @@ SAVE "3-assembled-output/ELTA.bin", S1%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_B% = P%
-LOAD_B% = LOAD% + P% - CODE%
+ CODE_B% = P%
+ LOAD_B% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
 \
@@ -7388,11 +7405,11 @@ LOAD_B% = LOAD% + P% - CODE%
 
 .UNIV
 
-FOR I%, 0, NOSH
+ FOR I%, 0, NOSH
 
- EQUW K% + I% * NI%     \ Address of block no. I%, of size NI%, in workspace K%
+  EQUW K% + I% * NI%    \ Address of block no. I%, of size NI%, in workspace K%
 
-NEXT
+ NEXT
 
 \ ******************************************************************************
 \
@@ -10888,7 +10905,7 @@ ENDIF
                         \ modify this instruction (the default value of DTW7 is
                         \ an "A")
 
-DTW7 = MT16 + 1         \ Point DTW7 to the second byte of the instruction above
+ DTW7 = MT16 + 1        \ Point DTW7 to the second byte of the instruction above
                         \ so that modifying DTW7 changes the value loaded into A
 
                         \ Fall through into TT26 to print the character in A
@@ -11640,15 +11657,15 @@ ENDIF
 \
 \ ******************************************************************************
 
-PRINT "ELITE B"
-PRINT "Assembled at ", ~CODE_B%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_B%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_B%
+ PRINT "ELITE B"
+ PRINT "Assembled at ", ~CODE_B%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_B%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_B%
 
-PRINT "S.ELTB ", ~CODE_B%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_B%
-SAVE "3-assembled-output/ELTB.bin", CODE_B%, P%, LOAD%
+ PRINT "S.ELTB ", ~CODE_B%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_B%
+ SAVE "3-assembled-output/ELTB.bin", CODE_B%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -11658,8 +11675,8 @@ SAVE "3-assembled-output/ELTB.bin", CODE_B%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_C% = P%
-LOAD_C% = LOAD% +P% - CODE%
+ CODE_C% = P%
+ LOAD_C% = LOAD% +P% - CODE%
 
 \ ******************************************************************************
 \
@@ -15561,6 +15578,11 @@ LOAD_C% = LOAD% +P% - CODE%
 \ multiplication process. See the deep dive on "Multiplication using logarithms"
 \ for more details.
 \
+\ Returns:
+\
+\   C flag              The C flag is clear if A = 0, or set if we return a
+\                       result from one of the log tables
+\
 \ ******************************************************************************
 
 .FMLTU
@@ -15603,7 +15625,10 @@ LOAD_C% = LOAD% +P% - CODE%
 
  BCC MU3again           \ If the addition fitted into one byte and didn't carry,
                         \ then La + Lq < 256, so we jump to MU3again to return a
-                        \ result of 0
+                        \ result of 0 and the C flag clear
+
+                        \ If we get here then the C flag is set, ready for when
+                        \ we return from the subroutine below
 
  TAX                    \ Otherwise La + Lq >= 256, so we return the A-th entry
  LDA antilog,X          \ from the antilog table
@@ -15625,7 +15650,10 @@ LOAD_C% = LOAD% +P% - CODE%
 
  BCC MU3again           \ If the addition fitted into one byte and didn't carry,
                         \ then La + Lq < 256, so we jump to MU3again to return a
-                        \ result of 0
+                        \ result of 0 and the C flag clear
+
+                        \ If we get here then the C flag is set, ready for when
+                        \ we return from the subroutine below
 
  TAX                    \ Otherwise La + Lq >= 256, so we return the A-th entry
  LDA antilogODD,X       \ from the antilogODD table
@@ -16865,9 +16893,11 @@ LOAD_C% = LOAD% +P% - CODE%
  LDA DJD                \ If keyboard auto-recentre is disabled, then
  BNE RE2+2              \ jump to RE2+2 to restore A and return
 
- LDX #128               \ If keyboard auto-recentre is enabled, set X to 128
- BMI RE2+2              \ (the middle of our range) and jump to RE2+2 to
-                        \ restore A and return
+ LDX #128               \ If we get here then keyboard auto-recentre is enabled,
+ BMI RE2+2              \ so set X to 128 (the middle of our range) and jump to
+                        \ RE2+2 to restore A and return from the subroutine
+                        \ (this BMI is effectively a JMP as bit 7 of X is always
+                        \ set)
 
 \ ******************************************************************************
 \
@@ -16888,6 +16918,10 @@ LOAD_C% = LOAD% +P% - CODE%
 \ length Q, so:
 \
 \   tan(A) = P / Q
+\
+\ The result in A is an integer representing the angle in radians. The routine
+\ returns values in the range 0 to 128, which covers 0 to 180 degrees (or 0 to
+\ PI radians).
 \
 \ ******************************************************************************
 
@@ -16980,7 +17014,10 @@ LOAD_C% = LOAD% +P% - CODE%
 
 .ARS1
 
-                        \ This routine fetches arctan(A / Q) from the ACT table
+                        \ This routine fetches arctan(A / Q) from the ACT table,
+                        \ so A will be set to an integer in the range 0 to 31
+                        \ that represents an angle from 0 to 45 degrees (or 0 to
+                        \ PI / 4 radians)
 
  JSR LL28               \ Call LL28 to calculate:
                         \
@@ -17344,9 +17381,11 @@ ENDIF
  ORA #%00000100         \ both bits 2 and 3 are now set)
  STA TP
 
- LDA #2                 \ Set ENGY to 2 so our energy banks recharge at twice
- STA ENGY               \ the speed, as our mission reward is a special navy
-                        \ energy unit
+ LDA #2                 \ Set ENGY to 2 so our energy banks recharge at a faster
+ STA ENGY               \ rate, as our mission reward is a special navy energy
+                        \ unit that recharges at a rate of 3 units of energy on
+                        \ each iteration of the main loop, compared to a rate of
+                        \ 2 units of energy for the standard energy unit
 
  INC TALLY+1            \ Award 256 kill points for completing the mission
 
@@ -17711,15 +17750,15 @@ ENDIF
 \
 \ ******************************************************************************
 
-PRINT "ELITE C"
-PRINT "Assembled at ", ~CODE_C%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_C%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_C%
+ PRINT "ELITE C"
+ PRINT "Assembled at ", ~CODE_C%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_C%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_C%
 
-PRINT "S.ELTC ", ~CODE_C%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_C%
-SAVE "3-assembled-output/ELTC.bin", CODE_C%, P%, LOAD%
+ PRINT "S.ELTC ", ~CODE_C%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_C%
+ SAVE "3-assembled-output/ELTC.bin", CODE_C%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -17729,8 +17768,8 @@ SAVE "3-assembled-output/ELTC.bin", CODE_C%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_D% = P%
-LOAD_D% = LOAD% + P% - CODE%
+ CODE_D% = P%
+ LOAD_D% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
 \
@@ -21243,7 +21282,7 @@ ENDIF
 
 .TT151
 
- PHA                    \ Store the item number on the stack and in QQ14+4
+ PHA                    \ Store the item number on the stack and in QQ19+4
  STA QQ19+4
 
  ASL A                  \ Store the item number * 4 in QQ19, so this will act as
@@ -21828,7 +21867,7 @@ ENDIF
 \ Thargoids. Using our escape pod will be fatal, and our position on the
 \ galactic chart is in-between systems. It is a scary place...
 \
-\ There is a 1% chance that this routine is called from TT18 instead of doing
+\ There is a 0.78% chance that this routine is called from TT18 instead of doing
 \ a normal hyperspace, or we can manually trigger a mis-jump by holding down
 \ CTRL after first enabling the "author display" configuration option ("X") when
 \ paused.
@@ -21844,7 +21883,7 @@ ENDIF
 .ptg
 
  LSR COK                \ Set bit 0 of the competition flags in COK, so that the
- SEC                    \ copmpetition code will include the fact that we have
+ SEC                    \ competition code will include the fact that we have
  ROL COK                \ manually forced a mis-jump into witchspace
 
 .MJP
@@ -21872,7 +21911,8 @@ ENDIF
 
 .MJP1
 
- JSR GTHG               \ Call GTHG to spawn a Thargoid ship
+ JSR GTHG               \ Call GTHG to spawn a Thargoid ship and a Thargon
+                        \ companion
 
  LDA #3                 \ Fetch the number of Thargoid ships from MANY+THG, and
  CMP MANY+THG           \ if it is less than or equal to 3, loop back to MJP1 to
@@ -21971,8 +22011,8 @@ ENDIF
 
  JSR DORND              \ Set A and X to random numbers
 
- CMP #253               \ If A >= 253 (1% chance) then jump to MJP to trigger a
- BCS MJP                \ mis-jump into witchspace
+ CMP #253               \ If A >= 253 (0.78% chance) then jump to MJP to trigger
+ BCS MJP                \ a mis-jump into witchspace
 
  JSR hyp1+3             \ Jump straight to the system at (QQ9, QQ10) without
                         \ first calculating which system is closest
@@ -22061,7 +22101,8 @@ ENDIF
  LDA #255               \ Set the view number in QQ11 to 255
  STA QQ11
 
- JSR HFS1               \ Call HFS1 to draw 8 concentric rings
+ JSR HFS1               \ Call HFS1 to draw 8 concentric rings to remove the
+                        \ launch tunnel that we drew above
 
 .NLUNCH
 
@@ -23069,15 +23110,15 @@ ENDIF
 \
 \ ******************************************************************************
 
-PRINT "ELITE D"
-PRINT "Assembled at ", ~CODE_D%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_D%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_D%
+ PRINT "ELITE D"
+ PRINT "Assembled at ", ~CODE_D%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_D%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_D%
 
-PRINT "S.ELTD ", ~CODE_D%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_D%
-SAVE "3-assembled-output/ELTD.bin", CODE_D%, P%, LOAD%
+ PRINT "S.ELTD ", ~CODE_D%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_D%
+ SAVE "3-assembled-output/ELTD.bin", CODE_D%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -23087,8 +23128,8 @@ SAVE "3-assembled-output/ELTD.bin", CODE_D%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_E% = P%
-LOAD_E% = LOAD% + P% - CODE%
+ CODE_E% = P%
+ LOAD_E% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
 \
@@ -26012,12 +26053,12 @@ LOAD_E% = LOAD% + P% - CODE%
  BCS PL2                \ seen, so jump to PL2 to remove it from the screen,
                         \ returning from the subroutine using a tail call
 
- ORA INWK+7             \ Set A to z_sign OR z_hi to get the maximum of the two
+ ORA INWK+7             \ Set A to 0 if both z_sign and z_hi are 0
 
- BEQ PL2                \ If the maximum is 0, then the planet/sun is too close
-                        \ to be shown, so jump to PL2 to remove it from the
-                        \ screen, returning from the subroutine using a tail
-                        \ call
+ BEQ PL2                \ If both z_sign and z_hi are 0, then the planet/sun is
+                        \ too close to be shown, so jump to PL2 to remove it
+                        \ from the screen, returning from the subroutine using a
+                        \ tail call
 
  JSR PROJ               \ Project the planet/sun onto the screen, returning the
                         \ centre's coordinates in K3(1 0) and K4(1 0)
@@ -26047,8 +26088,9 @@ LOAD_E% = LOAD% + P% - CODE%
  LDA K+1                \ If the high byte of the reduced radius is zero, jump
  BEQ PL82               \ to PL82, as K contains the radius on its own
 
- LDA #248               \ Otherwise set K = 248, to use as our one-byte radius
- STA K
+ LDA #248               \ Otherwise set K = 248, to round up the radius in
+ STA K                  \ K(1 0) to the nearest integer (if we consider the low
+                        \ byte to be the fractional part)
 
 .PL82
 
@@ -26147,8 +26189,8 @@ LOAD_E% = LOAD% + P% - CODE%
 \ ******************************************************************************
 
  LDA K                  \ If the planet's radius is less than 6, the planet is
- CMP #6                 \ too small to show a crater, so jump to PL20 to return
- BCC PL20               \ from the subroutine
+ CMP #6                 \ too small to show a meridian, so jump to PL20 to
+ BCC PL20               \ return from the subroutine
 
  LDA INWK+14            \ Set P = -nosev_z_hi
  EOR #%10000000
@@ -26161,7 +26203,9 @@ LOAD_E% = LOAD% + P% - CODE%
                         \   CNT2 = arctan(P / A) / 4
                         \        = arctan(-nosev_z_hi / roofv_z_hi) / 4
                         \
-                        \ and give the result the opposite sign to nosev_z_hi
+                        \ and do the following if nosev_z_hi >= 0:
+                        \
+                        \   CNT2 = CNT2 + PI
 
  LDX #9                 \ Set X to 9 so the call to PLS1 divides nosev_x
 
@@ -26197,7 +26241,9 @@ LOAD_E% = LOAD% + P% - CODE%
                         \   CNT2 = arctan(P / A) / 4
                         \        = arctan(-nosev_z_hi / sidev_z_hi) / 4
                         \
-                        \ and give the result the opposite sign to nosev_z_hi
+                        \ and do the following if nosev_z_hi >= 0:
+                        \
+                        \   CNT2 = CNT2 + PI
 
  LDX #21                \ Set X to 21 so the call to PLS5 divides sidev_x
 
@@ -26276,7 +26322,7 @@ LOAD_E% = LOAD% + P% - CODE%
  STA P                  \ Calculate:
  LDA K4                 \
  SEC                    \   K4(1 0) = K4(1 0) - (Y A)
- SBC P                  \           = 222 * roofv_x / z - y-coordinate of planet
+ SBC P                  \           = 222 * roofv_y / z - y-coordinate of planet
  STA K4                 \             centre
                         \
                         \ starting with the low bytes
@@ -26459,24 +26505,51 @@ LOAD_E% = LOAD% + P% - CODE%
 \
 \ Draw an ellipse or half-ellipse, to be used for the planet's equator and
 \ meridian (in which case we draw half an ellipse), or crater (in which case we
-\ draw a full ellipse). The shape that is drawn is a circle that has been
-\ squashed, as if the circle has been tilted at an angle away from the viewer.
+\ draw a full ellipse).
 \
-\ This routine is called from parts 2 and 3 of PL9, and does the following:
+\ The ellipse is defined by a centre point, plus two conjugate radius vectors,
+\ u and v, where:
 \
-\   K6(1 0) = K3(1 0) + (XX16 K2) * cos(CNT2) + (XX16+2 K2+2) * sin(CNT2)
+\   u = [ u_x ]       v = [ v_x ]
+\       [ u_y ]           [ v_y ]
 \
-\   (T X) = - |XX16+1 K2+1| * cos(CNT2) - |XX16+3 K2+3| * sin(CNT2)
+\ The individual components of these 2D vectors (i.e. u_x, u_y etc.) are 16-bit
+\ sign-magnitude numbers, where the high bytes contain only the sign bit (in
+\ bit 7), with bits 0 to 6 being clear. This means that as we store u_x as
+\ (XX16 K2), for example, we know that |u_x| = K2.
 \
-\ It then calls BLINE to set the following:
+\ This routine calls BLINE to draw each line segment in the ellipse, passing the
+\ coordinates as follows:
 \
-\   K6(3 2) = K4(1 0) - |XX16+1 K2+1| * cos(CNT2) - |XX16+3 K2+3| * sin(CNT2)
+\   K6(1 0) = K3(1 0) + u_x * cos(CNT2) + v_x * sin(CNT2)
 \
-\ and draw a circle segment to these coordinates.
+\   K6(3 2) = K4(1 0) - u_y * cos(CNT2) - v_y * sin(CNT2)
+\
+\ The y-coordinates are negated because BLINE expects pixel coordinates but the
+\ u and v vectors are extracted from the orientation vector. The y-axis runs
+\ in the opposite direction in 3D space to that on the screen, so we need to
+\ negate the 3D space coordinates before we can combine them with the ellipse's
+\ centre coordinates.
 \
 \ Arguments:
 \
 \   K(1 0)              The planet's radius
+\
+\   K3(1 0)             The pixel x-coordinate of the centre of the ellipse
+\
+\   K4(1 0)             The pixel y-coordinate of the centre of the ellipse
+\
+\   (XX16 K2)           The x-component of u (i.e. u_x), where XX16 contains
+\                       just the sign of the sign-magnitude number
+\
+\   (XX16+1 K2+1)       The y-component of u (i.e. u_y), where XX16+1 contains
+\                       just the sign of the sign-magnitude number
+\
+\   (XX16+2 K2+2)       The x-component of v (i.e. v_x), where XX16+2 contains
+\                       just the sign of the sign-magnitude number
+\
+\   (XX16+3 K2+3)       The y-component of v (i.e. v_y), where XX16+3 contains
+\                       just the sign of the sign-magnitude number
 \
 \   TGT                 The number of segments to draw:
 \
@@ -26498,79 +26571,150 @@ LOAD_E% = LOAD% + P% - CODE%
 
 .PLL4
 
- LDA CNT2               \ Set A = CNT2 mod 32
- AND #31
- TAX
+ LDA CNT2               \ Set X = CNT2 mod 32
+ AND #31                \
+ TAX                    \ So X is the starting segment, reduced to the range 0
+                        \ to 32, so as there are 64 segments in the circle, this
+                        \ reduces the starting angle to 0 to 180 degrees, so we
+                        \ can use X as an index into the sine table (which only
+                        \ contains values for segments 0 to 31)
+                        \
+                        \ Also, because CNT2 mod 32 is in the range 0 to 180
+                        \ degrees, we know that sin(CNT2 mod 32) is always
+                        \ positive, or to put it another way:
+                        \
+                        \   sin(CNT2 mod 32) = |sin(CNT2)|
 
- LDA SNE,X              \ Set Q = sin(CNT2)
- STA Q
+ LDA SNE,X              \ Set Q = sin(X)
+ STA Q                  \       = sin(CNT2 mod 32)
+                        \       = |sin(CNT2)|
 
  LDA K2+2               \ Set A = K2+2
-                        \       = |roofv_x / z|
+                        \       = |v_x|
 
  JSR FMLTU              \ Set R = A * Q / 256
- STA R                  \       = |roofv_x / z| * sin(CNT2) / 256
+ STA R                  \       = |v_x| * |sin(CNT2)|
 
  LDA K2+3               \ Set A = K2+3
-                        \       = |roofv_y / z|
+                        \       = |v_y|
 
  JSR FMLTU              \ Set K = A * Q / 256
- STA K                  \       = |roofv_y / z| * sin(CNT2) / 256
+ STA K                  \       = |v_y| * |sin(CNT2)|
 
  LDX CNT2               \ If CNT2 >= 33 then this sets the C flag, otherwise
- CPX #33                \ it's clear
+ CPX #33                \ it's clear, so this means that:
+                        \
+                        \   * C is clear if the segment starts in the first half
+                        \     of the circle, 0 to 180 degrees
+                        \
+                        \   * C is set if the segment starts in the second half
+                        \     of the circle, 180 to 360 degrees
+                        \
+                        \ In other words, the C flag contains the sign bit for
+                        \ sin(CNT2), which is positive for 0 to 180 degrees
+                        \ and negative for 180 to 360 degrees
 
- LDA #0                 \ Shift the C flag into the sign bit of XX16+5, so:
- ROR A                  \
- STA XX16+5             \   XX16+5 = +ve if CNT2 < 33
-                        \            -ve if CNT2 >= 33
+ LDA #0                 \ Shift the C flag into the sign bit of XX16+5, so
+ ROR A                  \ XX16+5 has the correct sign for sin(CNT2)
+ STA XX16+5             \
+                        \ Because we set the following above:
+                        \
+                        \   K = |v_y| * |sin(CNT2)|
+                        \   R = |v_x| * |sin(CNT2)|
+                        \
+                        \ we can add XX16+5 as the high byte to give us the
+                        \ following:
+                        \
+                        \   (XX16+5 K) = |v_y| * sin(CNT2)
+                        \   (XX16+5 R) = |v_x| * sin(CNT2)
 
- LDA CNT2               \ Set A = (CNT2 + 16) mod 32
- CLC
- ADC #16
- AND #31
- TAX
+ LDA CNT2               \ Set X = (CNT2 + 16) mod 32
+ CLC                    \
+ ADC #16                \ So we can use X as a lookup index into the SNE table
+ AND #31                \ to get the cosine (as there are 16 segments in a
+ TAX                    \ quarter-circle)
+                        \
+                        \ Also, because the sine table only contains positive
+                        \ values, we know that sin((CNT2 + 16) mod 32) will
+                        \ always be positive, or to put it another way:
+                        \
+                        \   sin((CNT2 + 16) mod 32) = |cos(CNT2)|
 
- LDA SNE,X              \ Set Q = sin(CNT2 + 16)
- STA Q                  \       = cos(CNT2)
+ LDA SNE,X              \ Set Q = sin(X)
+ STA Q                  \       = sin((CNT2 + 16) mod 32)
+                        \       = |cos(CNT2)|
 
  LDA K2+1               \ Set A = K2+1
-                        \       = |nosev_y / z|
+                        \       = |u_y|
 
  JSR FMLTU              \ Set K+2 = A * Q / 256
- STA K+2                \         = |nosev_y / z| * cos(CNT2) / 256
+ STA K+2                \         = |u_y| * |cos(CNT2)|
 
  LDA K2                 \ Set A = K2
-                        \       = |nosev_x / z|
+                        \       = |u_x|
 
  JSR FMLTU              \ Set P = A * Q / 256
- STA P                  \       = |nosev_x / z| * cos(CNT2) / 256
+ STA P                  \       = |u_x| * |cos(CNT2)|
+                        \
+                        \ The call to FMLTU also sets the C flag, so in the
+                        \ following, ADC #15 adds 16 rather than 15
 
- LDA CNT2               \ If (CNT2 + 15) mod 64 >= 33 then this sets the C flag,
- ADC #15                \ otherwise it's clear
- AND #63
- CMP #33
+ LDA CNT2               \ If (CNT2 + 16) mod 64 >= 33 then this sets the C flag,
+ ADC #15                \ otherwise it's clear, so this means that:
+ AND #63                \
+ CMP #33                \   * C is clear if the segment starts in the first or
+                        \     last quarter of the circle, 0 to 90 degrees or 270
+                        \     to 360 degrees
+                        \
+                        \   * C is set if the segment starts in the second or
+                        \     third quarter of the circle, 90 to 270 degrees
+                        \
+                        \ In other words, the C flag contains the sign bit for
+                        \ cos(CNT2), which is positive for 0 to 90 degrees or
+                        \ 270 to 360 degrees, and negative for 90 to 270 degrees
 
  LDA #0                 \ Shift the C flag into the sign bit of XX16+4, so:
- ROR A                  \
- STA XX16+4             \   XX16+4 = +ve if (CNT2 + 15) mod 64 < 33,
-                        \            -ve if (CNT2 + 15) mod 64 >= 33
+ ROR A                  \ XX16+4 has the correct sign for cos(CNT2)
+ STA XX16+4             \
+                        \ Because we set the following above:
+                        \
+                        \   K+2 = |u_y| * |cos(CNT2)|
+                        \   P   = |u_x| * |cos(CNT2)|
+                        \
+                        \ we can add XX16+4 as the high byte to give us the
+                        \ following:
+                        \
+                        \   (XX16+4 K+2) = |u_y| * cos(CNT2)
+                        \   (XX16+4 P)   = |u_x| * cos(CNT2)
 
- LDA XX16+5             \ Set S = the sign of (roofv_x / z * CNT2 < 33 sign)
- EOR XX16+2
- STA S
+ LDA XX16+5             \ Set S = the sign of XX16+2 * XX16+5
+ EOR XX16+2             \       = the sign of v_x * XX16+5
+ STA S                  \
+                        \ So because we set this above:
+                        \
+                        \   (XX16+5 R) = |v_x| * sin(CNT2)
+                        \
+                        \ we now have this:
+                        \
+                        \   (S R) = v_x * sin(CNT2)
 
- LDA XX16+4             \ Set A = the sign of (nosev_x / z * CNT2 + 15 < 33
- EOR XX16               \ sign)
+ LDA XX16+4             \ Set A = the sign of XX16 * XX16+4
+ EOR XX16               \       = the sign of u_x * XX16+4
+                        \
+                        \ So because we set this above:
+                        \
+                        \   (XX16+4 P)   = |u_x| * cos(CNT2)
+                        \
+                        \ we now have this:
+                        \
+                        \   (A P) = u_x * cos(CNT2)
 
  JSR ADD                \ Set (A X) = (A P) + (S R)
-                        \           =   (nosev_x / z) * cos(CNT2)
-                        \             + (roofv_x / z) * sin(CNT2)
+                        \           = u_x * cos(CNT2) + v_x * sin(CNT2)
 
  STA T                  \ Store the high byte in T, so the result is now:
                         \
-                        \   (T X) =  (nosev_x / z) * cos(CNT2)
-                        \           + (roofv_x / z) * sin(CNT2)
+                        \   (T X) = u_x * cos(CNT2) + v_x * sin(CNT2)
 
  BPL PL42               \ If the result is positive, jump down to PL42
 
@@ -26593,31 +26737,58 @@ LOAD_E% = LOAD% + P% - CODE%
 
  LDA T                  \ And then doing the high bytes, so we now get:
  ADC K3+1               \
- STA K6+1               \  K6(1 0) = K3(1 0) + (nosev_x / z) * cos(CNT2)
-                        \           + (roofv_x / z) * sin(CNT2)
+ STA K6+1               \   K6(1 0) = K3(1 0) + (T X)
+                        \           = K3(1 0) + u_x * cos(CNT2)
+                        \                     + v_x * sin(CNT2)
+                        \
+                        \ K3(1 0) is the x-coordinate of the centre of the
+                        \ ellipse, so we now have the correct x-coordinate for
+                        \ our ellipse segment that we can pass to BLINE below
 
- LDA K                  \ Set R = K = |roofv_y / z| * sin(CNT2) / 256
+ LDA K                  \ Set R = K = |v_y| * sin(CNT2)
  STA R
 
- LDA XX16+5             \ Set S = the sign of (roofv_y / z * CNT2 < 33 sign)
- EOR XX16+3
- STA S
+ LDA XX16+5             \ Set S = the sign of XX16+3 * XX16+5
+ EOR XX16+3             \       = the sign of v_y * XX16+5
+ STA S                  \
+                        \ So because we set this above:
+                        \
+                        \   (XX16+5 K) = |v_y| * sin(CNT2)
+                        \
+                        \ and we just set R = K, we now have this:
+                        \
+                        \   (S R) = v_y * sin(CNT2)
 
- LDA K+2                \ Set P = K+2 = |nosev_y / z| * cos(CNT2) / 256
+ LDA K+2                \ Set P = K+2 = |u_y| * cos(CNT2)
  STA P
 
- LDA XX16+4             \ Set A = the sign of (nosev_y / z * CNT2 + 15 < 33
- EOR XX16+1             \ sign)
+ LDA XX16+4             \ Set A = the sign of XX16+1 * XX16+4
+ EOR XX16+1             \       = the sign of u_y * XX16+4
+                        \
+                        \ So because we set this above:
+                        \
+                        \   (XX16+4 K+2) = |u_y| * cos(CNT2)
+                        \
+                        \ and we just set P = K+2, we now have this:
+                        \
+                        \   (A P) = u_y * cos(CNT2)
 
  JSR ADD                \ Set (A X) = (A P) + (S R)
-                        \           =   |nosev_y / z| * cos(CNT2)
-                        \             + |roofv_y / z| * sin(CNT2)
+                        \           =  u_y * cos(CNT2) + v_y * sin(CNT2)
 
  EOR #%10000000         \ Store the negated high byte in T, so the result is
  STA T                  \ now:
                         \
-                        \   (T X) = - |nosev_y / z| * cos(CNT2)
-                        \           - |roofv_y / z| * sin(CNT2)
+                        \   (T X) = - u_y * cos(CNT2) - v_y * sin(CNT2)
+                        \
+                        \ This negation is necessary because BLINE expects us
+                        \ to pass pixel coordinates, where y-coordinates get
+                        \ larger as we go down the screen; u_y and v_y, on the
+                        \ other hand, are extracted from the orientation
+                        \ vectors, where y-coordinates get larger as we go up
+                        \ in space, so to rectify this we need to negate the
+                        \ result in (T X) before we can add it to the
+                        \ y-coordinate of the ellipse's centre in BLINE
 
  BPL PL43               \ If the result is positive, jump down to PL43
 
@@ -26634,11 +26805,27 @@ LOAD_E% = LOAD% + P% - CODE%
 
 .PL43
 
+                        \ We now call BLINE to draw the ellipse line segment
+                        \
+                        \ The first few instructions of BLINE do the following:
+                        \
+                        \   K6(3 2) = K4(1 0) + (T X)
+                        \
+                        \ which gives:
+                        \
+                        \   K6(3 2) = K4(1 0) - u_y * cos(CNT2)
+                        \                     - v_y * sin(CNT2)
+                        \
+                        \ K4(1 0) is the pixel y-coordinate of the centre of the
+                        \ ellipse, so this gives us the correct y-coordinate for
+                        \ our ellipse segment (we already calculated the
+                        \ x-coordinate in K3(1 0) above)
+
  JSR BLINE              \ Call BLINE to draw this segment, which also returns
                         \ the updated value of CNT in A
 
  CMP TGT                \ If CNT > TGT then jump to PL40 to stop drawing the
- BEQ P%+4               \ circle (which is how we draw half-circles)
+ BEQ P%+4               \ ellipse (which is how we draw half-ellipses)
  BCS PL40
 
  LDA CNT2               \ Set CNT2 = (CNT2 + STP) mod 64
@@ -27981,8 +28168,15 @@ LOAD_E% = LOAD% + P% - CODE%
 \
 \   CNT2 = arctan(P / A) / 4
 \
-\ giving the result the opposite sign to nosev_z_hi. This is called with the
-\ following arguments when calculating the equator and meridian for planets:
+\ and do the following if nosev_z_hi >= 0:
+\
+\   CNT2 = CNT2 + 32
+\
+\ which is the equivalent of adding 180 degrees to the result (or PI radians),
+\ as there are 64 segments in a full circle.
+\
+\ This routine is called with the following arguments when calculating the
+\ equator and meridian for planets:
 \
 \   * A = roofv_z_hi, P = -nosev_z_hi
 \
@@ -28001,11 +28195,27 @@ LOAD_E% = LOAD% + P% - CODE%
                         \
                         \   A = arctan(P / Q)
                         \       arctan(P / A)
+                        \
+                        \ The result in A will be in the range 0 to 128, which
+                        \ represents an angle of 0 to 180 degrees (or 0 to PI
+                        \ radians)
 
  LDX INWK+14            \ If nosev_z_hi is negative, skip the following
- BMI P%+4               \ instruction
+ BMI P%+4               \ instruction to leave the angle in A as a positive
+                        \ integer in the range 0 to 128 (so when we calculate
+                        \ CNT2 below, it will be in the right half of the
+                        \ anti-clockwise that we describe when drawing circles,
+                        \ i.e. from 6 o'clock, through 3 o'clock and on to 12
+                        \ o'clock)
 
- EOR #%10000000         \ nosev_z_hi is positive, so make the arctan negative
+ EOR #%10000000         \ If we get here then nosev_z_hi is positive, so flip
+                        \ bit 7 of the angle in A, which is the same as adding
+                        \ 128 to give a result in the range 129 to 256 (i.e. 129
+                        \ to 0), or 180 to 360 degrees (so when we calculate
+                        \ CNT2 below, it will be in the left half of the
+                        \ anti-clockwise that we describe when drawing circles,
+                        \ i.e. from 12 o'clock, through 9 o'clock and on to 6
+                        \ o'clock)
 
  LSR A                  \ Set CNT2 = A / 4
  LSR A
@@ -28341,15 +28551,15 @@ LOAD_E% = LOAD% + P% - CODE%
 \
 \ ******************************************************************************
 
-PRINT "ELITE E"
-PRINT "Assembled at ", ~CODE_E%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_E%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_E%
+ PRINT "ELITE E"
+ PRINT "Assembled at ", ~CODE_E%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_E%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_E%
 
-PRINT "S.ELTE ", ~CODE_E%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_E%
-SAVE "3-assembled-output/ELTE.bin", CODE_E%, P%, LOAD%
+ PRINT "S.ELTE ", ~CODE_E%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_E%
+ SAVE "3-assembled-output/ELTE.bin", CODE_E%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -28359,8 +28569,8 @@ SAVE "3-assembled-output/ELTE.bin", CODE_E%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_F% = P%
-LOAD_F% = LOAD% + P% - CODE%
+ CODE_F% = P%
+ LOAD_F% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
 \
@@ -32746,7 +32956,7 @@ ENDIF
 \ ------------------------------------------------------------------------------
 \
 \ We do this by dividing each of the three coordinates by the length of the
-\ vector, which we can calculate using Pythagoras. Once normalised, 96 (&E0) is
+\ vector, which we can calculate using Pythagoras. Once normalised, 96 (&60) is
 \ used to represent a value of 1, and 96 with bit 7 set (&E0) is used to
 \ represent -1. This enables us to represent fractional values of less than 1
 \ using integers.
@@ -34614,26 +34824,26 @@ ENDIF
 
 MACRO ITEM price, factor, units, quantity, mask
 
-  IF factor < 0
-    s = 1 << 7
-  ELSE
-    s = 0
-  ENDIF
+ IF factor < 0
+  s = 1 << 7
+ ELSE
+  s = 0
+ ENDIF
 
-  IF units = 't'
-    u = 0
-  ELIF units = 'k'
-    u = 1 << 5
-  ELSE
-    u = 1 << 6
-  ENDIF
+ IF units = 't'
+  u = 0
+ ELIF units = 'k'
+  u = 1 << 5
+ ELSE
+  u = 1 << 6
+ ENDIF
 
-  e = ABS(factor)
+ e = ABS(factor)
 
-  EQUB price
-  EQUB s + u + e
-  EQUB quantity
-  EQUB mask
+ EQUB price
+ EQUB s + u + e
+ EQUB quantity
+ EQUB mask
 
 ENDMACRO
 
@@ -35336,15 +35546,15 @@ ENDMACRO
 \
 \ ******************************************************************************
 
-PRINT "ELITE F"
-PRINT "Assembled at ", ~CODE_F%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_F%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_F%
+ PRINT "ELITE F"
+ PRINT "Assembled at ", ~CODE_F%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_F%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_F%
 
-PRINT "S.ELTF ", ~CODE_F%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_F%
-SAVE "3-assembled-output/ELTF.bin", CODE_F%, P%, LOAD%
+ PRINT "S.ELTF ", ~CODE_F%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_F%
+ SAVE "3-assembled-output/ELTF.bin", CODE_F%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -35354,8 +35564,8 @@ SAVE "3-assembled-output/ELTF.bin", CODE_F%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_G% = P%
-LOAD_G% = LOAD% + P% - CODE%
+ CODE_G% = P%
+ LOAD_G% = LOAD% + P% - CODE%
 
 IF _MATCH_ORIGINAL_BINARIES
 
@@ -38419,11 +38629,11 @@ ENDIF
 \
 \                         * Negative (bit 7 set) = top right to bottom left
 \
-\   T                   The type of slope:
+\   T                   The gradient of slope:
 \
-\                         * 0 if it's more vertical than horizontal
+\                         * 0 if it's a shallow slope
 \
-\                         * &FF if it's more horizontal than vertical
+\                         * &FF if it's a steep slope
 \
 \ Returns:
 \
@@ -38604,11 +38814,19 @@ ENDIF
 \
 \ Calculate the following:
 \
-\   * If T = 0  (more vertical than horizontal), (Y X) = (S x1_lo) * XX12+2
+\   * If T = 0, this is a shallow slope, so calculate (Y X) = (S x1_lo) * XX12+2
 \
-\   * If T <> 0 (more horizontal than vertical), (Y X) = (S x1_lo) / XX12+2
+\   * If T <> 0, this is a steep slope, so calculate (Y X) = (S x1_lo) / XX12+2
 \
 \ giving (Y X) the opposite sign to the slope direction in XX12+3.
+\
+\ Arguments:
+\
+\   T                   The gradient of slope:
+\
+\                         * 0 if it's a shallow slope
+\
+\                         * &FF if it's a steep slope
 \
 \ Other entry points:
 \
@@ -38636,9 +38854,8 @@ ENDIF
 
  PHA                    \ Store A on the stack so we can use it later
 
- LDX T                  \ If T is non-zero, so it's more horizontal than
- BNE LL121              \ vertical, jump down to LL121 to calculate this
-                        \ instead:
+ LDX T                  \ If T is non-zero, then it's a steep slope, so jump
+ BNE LL121              \ down to LL121 to calculate this instead:
                         \
                         \   (Y X) = (S R) / Q
 
@@ -38709,9 +38926,9 @@ ENDIF
 \
 \ Calculate the following:
 \
-\   * If T = 0,  calculate (Y X) = (S R) / XX12+2
+\   * If T = 0, this is a shallow slope, so calculate (Y X) = (S R) / XX12+2
 \
-\   * If T <> 0, calculate (Y X) = (S R) * XX12+2
+\   * If T <> 0, this is a steep slope, so calculate (Y X) = (S R) * XX12+2
 \
 \ giving (Y X) the opposite sign to the slope direction in XX12+3.
 \
@@ -38724,6 +38941,12 @@ ENDIF
 \                         * Bit 7 clear means top left to bottom right
 \
 \                         * Bit 7 set means top right to bottom left
+\
+\   T                   The gradient of slope:
+\
+\                         * 0 if it's a shallow slope
+\
+\                         * &FF if it's a steep slope
 \
 \ Other entry points:
 \
@@ -38752,8 +38975,8 @@ ENDIF
 
  PHA                    \ Store A on the stack so we can use it later
 
- LDX T                  \ If T is non-zero, so it's more horizontal than
- BNE LL122              \ vertical, jump up to LL122 to calculate this instead:
+ LDX T                  \ If T is non-zero, then it's a steep slope, so jump up
+ BNE LL122              \ to LL122 to calculate this instead:
                         \
                         \   (Y X) = (S R) * Q
 
@@ -39229,7 +39452,7 @@ ENDIF
                         \ We now keep halving |delta_x| and |delta_y| until
                         \ both of them have zero in their high bytes
 
- TAX                    \ IF |delta_x_hi| is non-zero, skip the following
+ TAX                    \ If |delta_x_hi| is non-zero, skip the following
  BNE LL112
 
  LDX XX12+5             \ If |delta_y_hi| = 0, jump down to LL113 (as both
@@ -39257,6 +39480,9 @@ ENDIF
  CMP XX12+4             \ vertical than horizontal, jump to LL114
  BCC LL114
 
+                        \ If we get here then our line is more horizontal than
+                        \ vertical, so it is a shallow slope
+
  STA Q                  \ Set Q = delta_x_lo
 
  LDA XX12+4             \ Set A = delta_y_lo
@@ -39270,6 +39496,9 @@ ENDIF
 
 .LL114
 
+                        \ If we get here then our line is more vertical than
+                        \ horizontal, so it is a steep slope
+
  LDA XX12+4             \ Set Q = delta_y_lo
  STA Q
  LDA XX12+2             \ Set A = delta_x_lo
@@ -39279,7 +39508,8 @@ ENDIF
                         \   R = 256 * A / Q
                         \     = 256 * delta_x_lo / delta_y_lo
 
- DEC T                  \ T was set to 0 above, so this sets T = &FF
+ DEC T                  \ T was set to 0 above, so this sets T = &FF when our
+                        \ line is steep
 
 \ ******************************************************************************
 \
@@ -39296,11 +39526,11 @@ ENDIF
 \ clipping.
 \
 \ If we get here, then R has been set to the gradient of the line (x1, y1) to
-\ (x2, y2), with T indicating the type of slope:
+\ (x2, y2), with T indicating the gradient of slope:
 \
-\   * 0   = it's more vertical than horizontal
+\   * 0   = shallow slope (more horizontal than vertical)
 \
-\   * &FF = it's more horizontal than vertical
+\   * &FF = steep slope (more vertical than horizontal)
 \
 \ and XX13 has been set as follows:
 \
@@ -39416,15 +39646,15 @@ ENDIF
 \
 \ ******************************************************************************
 
-PRINT "ELITE G"
-PRINT "Assembled at ", ~CODE_G%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_G%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_G%
+ PRINT "ELITE G"
+ PRINT "Assembled at ", ~CODE_G%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_G%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_G%
 
-PRINT "S.ELTG ", ~CODE_G%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_G%
-SAVE "3-assembled-output/ELTG.bin", CODE_G%, P%, LOAD%
+ PRINT "S.ELTG ", ~CODE_G%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_G%
+ SAVE "3-assembled-output/ELTG.bin", CODE_G%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -39434,8 +39664,8 @@ SAVE "3-assembled-output/ELTG.bin", CODE_G%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_H% = P%
-LOAD_H% = LOAD% + P% - CODE%
+ CODE_H% = P%
+ LOAD_H% = LOAD% + P% - CODE%
 
 \CATLOD                 \ These instructions are commented out in the original
 \DEC CTLDL+8            \ source
@@ -41676,15 +41906,15 @@ ENDIF
 \
 \ ******************************************************************************
 
-PRINT "ELITE H"
-PRINT "Assembled at ", ~CODE_H%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_H%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_H%
+ PRINT "ELITE H"
+ PRINT "Assembled at ", ~CODE_H%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_H%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_H%
 
-PRINT "S.ELTH ", ~CODE_H%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_H%
-SAVE "3-assembled-output/ELTH.bin", CODE_H%, P%, LOAD%
+ PRINT "S.ELTH ", ~CODE_H%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_H%
+ SAVE "3-assembled-output/ELTH.bin", CODE_H%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -41694,8 +41924,8 @@ SAVE "3-assembled-output/ELTH.bin", CODE_H%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_I% = P%
-LOAD_I% = LOAD% + P% - CODE%
+ CODE_I% = P%
+ LOAD_I% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
 \
@@ -41838,7 +42068,7 @@ LOAD_I% = LOAD% + P% - CODE%
 
                         \ --- And replaced by: -------------------------------->
 
-INCLUDE "../universe-editor/main-sources/elite-universe-editor-2.asm"
+ INCLUDE "../universe-editor/main-sources/elite-universe-editor-2.asm"
 
                         \ --- End of replacement ------------------------------>
 
@@ -41850,15 +42080,15 @@ INCLUDE "../universe-editor/main-sources/elite-universe-editor-2.asm"
 \
 \ ******************************************************************************
 
-PRINT "ELITE I"
-PRINT "Assembled at ", ~CODE_I%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_I%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_I%
+ PRINT "ELITE I"
+ PRINT "Assembled at ", ~CODE_I%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_I%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_I%
 
-PRINT "S.ELTI ", ~CODE_I%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_H%
-SAVE "3-assembled-output/ELTI.bin", CODE_I%, P%, LOAD%
+ PRINT "S.ELTI ", ~CODE_I%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_H%
+ SAVE "3-assembled-output/ELTI.bin", CODE_I%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -41868,8 +42098,8 @@ SAVE "3-assembled-output/ELTI.bin", CODE_I%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_J% = P%
-LOAD_J% = LOAD% + P% - CODE%
+ CODE_J% = P%
+ LOAD_J% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
 \
@@ -41896,7 +42126,7 @@ LOAD_J% = LOAD% + P% - CODE%
 
 MACRO EJMP n
 
-  EQUB n EOR VE
+ EQUB n EOR VE
 
 ENDMACRO
 
@@ -41927,11 +42157,11 @@ ENDMACRO
 
 MACRO ECHR x
 
-  IF x = '`'
-    EQUB 39 EOR VE
-  ELSE
-    EQUB x EOR VE
-  ENDIF
+ IF x = '`'
+  EQUB 39 EOR VE
+ ELSE
+  EQUB x EOR VE
+ ENDIF
 
 ENDMACRO
 
@@ -41961,7 +42191,7 @@ ENDMACRO
 
 MACRO ETOK n
 
-  EQUB n EOR VE
+ EQUB n EOR VE
 
 ENDMACRO
 
@@ -41996,48 +42226,48 @@ ENDMACRO
 
 MACRO ETWO t, k
 
-  IF t = '-' AND k = '-' : EQUB 215 EOR VE : ENDIF
-  IF t = 'A' AND k = 'B' : EQUB 216 EOR VE : ENDIF
-  IF t = 'O' AND k = 'U' : EQUB 217 EOR VE : ENDIF
-  IF t = 'S' AND k = 'E' : EQUB 218 EOR VE : ENDIF
-  IF t = 'I' AND k = 'T' : EQUB 219 EOR VE : ENDIF
-  IF t = 'I' AND k = 'L' : EQUB 220 EOR VE : ENDIF
-  IF t = 'E' AND k = 'T' : EQUB 221 EOR VE : ENDIF
-  IF t = 'S' AND k = 'T' : EQUB 222 EOR VE : ENDIF
-  IF t = 'O' AND k = 'N' : EQUB 223 EOR VE : ENDIF
-  IF t = 'L' AND k = 'O' : EQUB 224 EOR VE : ENDIF
-  IF t = 'N' AND k = 'U' : EQUB 225 EOR VE : ENDIF
-  IF t = 'T' AND k = 'H' : EQUB 226 EOR VE : ENDIF
-  IF t = 'N' AND k = 'O' : EQUB 227 EOR VE : ENDIF
+ IF t = '-' AND k = '-' : EQUB 215 EOR VE : ENDIF
+ IF t = 'A' AND k = 'B' : EQUB 216 EOR VE : ENDIF
+ IF t = 'O' AND k = 'U' : EQUB 217 EOR VE : ENDIF
+ IF t = 'S' AND k = 'E' : EQUB 218 EOR VE : ENDIF
+ IF t = 'I' AND k = 'T' : EQUB 219 EOR VE : ENDIF
+ IF t = 'I' AND k = 'L' : EQUB 220 EOR VE : ENDIF
+ IF t = 'E' AND k = 'T' : EQUB 221 EOR VE : ENDIF
+ IF t = 'S' AND k = 'T' : EQUB 222 EOR VE : ENDIF
+ IF t = 'O' AND k = 'N' : EQUB 223 EOR VE : ENDIF
+ IF t = 'L' AND k = 'O' : EQUB 224 EOR VE : ENDIF
+ IF t = 'N' AND k = 'U' : EQUB 225 EOR VE : ENDIF
+ IF t = 'T' AND k = 'H' : EQUB 226 EOR VE : ENDIF
+ IF t = 'N' AND k = 'O' : EQUB 227 EOR VE : ENDIF
 
-  IF t = 'A' AND k = 'L' : EQUB 228 EOR VE : ENDIF
-  IF t = 'L' AND k = 'E' : EQUB 229 EOR VE : ENDIF
-  IF t = 'X' AND k = 'E' : EQUB 230 EOR VE : ENDIF
-  IF t = 'G' AND k = 'E' : EQUB 231 EOR VE : ENDIF
-  IF t = 'Z' AND k = 'A' : EQUB 232 EOR VE : ENDIF
-  IF t = 'C' AND k = 'E' : EQUB 233 EOR VE : ENDIF
-  IF t = 'B' AND k = 'I' : EQUB 234 EOR VE : ENDIF
-  IF t = 'S' AND k = 'O' : EQUB 235 EOR VE : ENDIF
-  IF t = 'U' AND k = 'S' : EQUB 236 EOR VE : ENDIF
-  IF t = 'E' AND k = 'S' : EQUB 237 EOR VE : ENDIF
-  IF t = 'A' AND k = 'R' : EQUB 238 EOR VE : ENDIF
-  IF t = 'M' AND k = 'A' : EQUB 239 EOR VE : ENDIF
-  IF t = 'I' AND k = 'N' : EQUB 240 EOR VE : ENDIF
-  IF t = 'D' AND k = 'I' : EQUB 241 EOR VE : ENDIF
-  IF t = 'R' AND k = 'E' : EQUB 242 EOR VE : ENDIF
-  IF t = 'A' AND k = '?' : EQUB 243 EOR VE : ENDIF
-  IF t = 'E' AND k = 'R' : EQUB 244 EOR VE : ENDIF
-  IF t = 'A' AND k = 'T' : EQUB 245 EOR VE : ENDIF
-  IF t = 'E' AND k = 'N' : EQUB 246 EOR VE : ENDIF
-  IF t = 'B' AND k = 'E' : EQUB 247 EOR VE : ENDIF
-  IF t = 'R' AND k = 'A' : EQUB 248 EOR VE : ENDIF
-  IF t = 'L' AND k = 'A' : EQUB 249 EOR VE : ENDIF
-  IF t = 'V' AND k = 'E' : EQUB 250 EOR VE : ENDIF
-  IF t = 'T' AND k = 'I' : EQUB 251 EOR VE : ENDIF
-  IF t = 'E' AND k = 'D' : EQUB 252 EOR VE : ENDIF
-  IF t = 'O' AND k = 'R' : EQUB 253 EOR VE : ENDIF
-  IF t = 'Q' AND k = 'U' : EQUB 254 EOR VE : ENDIF
-  IF t = 'A' AND k = 'N' : EQUB 255 EOR VE : ENDIF
+ IF t = 'A' AND k = 'L' : EQUB 228 EOR VE : ENDIF
+ IF t = 'L' AND k = 'E' : EQUB 229 EOR VE : ENDIF
+ IF t = 'X' AND k = 'E' : EQUB 230 EOR VE : ENDIF
+ IF t = 'G' AND k = 'E' : EQUB 231 EOR VE : ENDIF
+ IF t = 'Z' AND k = 'A' : EQUB 232 EOR VE : ENDIF
+ IF t = 'C' AND k = 'E' : EQUB 233 EOR VE : ENDIF
+ IF t = 'B' AND k = 'I' : EQUB 234 EOR VE : ENDIF
+ IF t = 'S' AND k = 'O' : EQUB 235 EOR VE : ENDIF
+ IF t = 'U' AND k = 'S' : EQUB 236 EOR VE : ENDIF
+ IF t = 'E' AND k = 'S' : EQUB 237 EOR VE : ENDIF
+ IF t = 'A' AND k = 'R' : EQUB 238 EOR VE : ENDIF
+ IF t = 'M' AND k = 'A' : EQUB 239 EOR VE : ENDIF
+ IF t = 'I' AND k = 'N' : EQUB 240 EOR VE : ENDIF
+ IF t = 'D' AND k = 'I' : EQUB 241 EOR VE : ENDIF
+ IF t = 'R' AND k = 'E' : EQUB 242 EOR VE : ENDIF
+ IF t = 'A' AND k = '?' : EQUB 243 EOR VE : ENDIF
+ IF t = 'E' AND k = 'R' : EQUB 244 EOR VE : ENDIF
+ IF t = 'A' AND k = 'T' : EQUB 245 EOR VE : ENDIF
+ IF t = 'E' AND k = 'N' : EQUB 246 EOR VE : ENDIF
+ IF t = 'B' AND k = 'E' : EQUB 247 EOR VE : ENDIF
+ IF t = 'R' AND k = 'A' : EQUB 248 EOR VE : ENDIF
+ IF t = 'L' AND k = 'A' : EQUB 249 EOR VE : ENDIF
+ IF t = 'V' AND k = 'E' : EQUB 250 EOR VE : ENDIF
+ IF t = 'T' AND k = 'I' : EQUB 251 EOR VE : ENDIF
+ IF t = 'E' AND k = 'D' : EQUB 252 EOR VE : ENDIF
+ IF t = 'O' AND k = 'R' : EQUB 253 EOR VE : ENDIF
+ IF t = 'Q' AND k = 'U' : EQUB 254 EOR VE : ENDIF
+ IF t = 'A' AND k = 'N' : EQUB 255 EOR VE : ENDIF
 
 ENDMACRO
 
@@ -42069,7 +42299,7 @@ ENDMACRO
 
 MACRO ERND n
 
-  EQUB (n + 91) EOR VE
+ EQUB (n + 91) EOR VE
 
 ENDMACRO
 
@@ -42105,15 +42335,15 @@ ENDMACRO
 
 MACRO TOKN n
 
-  IF n >= 0 AND n <= 95
-    t = n + 160
-  ELIF n >= 128
-    t = n - 114
-  ELSE
-    t = n
-  ENDIF
+ IF n >= 0 AND n <= 95
+  t = n + 160
+ ELIF n >= 128
+  t = n - 114
+ ELSE
+  t = n
+ ENDIF
 
-  EQUB t EOR VE
+ EQUB t EOR VE
 
 ENDMACRO
 
@@ -46370,7 +46600,7 @@ ENDIF
 
                         \ --- Mod: Code added for Universe Editor: ------------>
 
-INCLUDE "../universe-editor/main-sources/elite-universe-editor-3.asm"
+ INCLUDE "../universe-editor/main-sources/elite-universe-editor-3.asm"
 
                         \ --- End of added code ------------------------------->
 
@@ -46393,15 +46623,15 @@ INCLUDE "../universe-editor/main-sources/elite-universe-editor-3.asm"
 \
 \ ******************************************************************************
 
-PRINT "ELITE J"
-PRINT "Assembled at ", ~CODE_J%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_J%)
-PRINT "Execute at ", ~LOAD%
-PRINT "Reload at ", ~LOAD_J%
+ PRINT "ELITE J"
+ PRINT "Assembled at ", ~CODE_J%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_J%)
+ PRINT "Execute at ", ~LOAD%
+ PRINT "Reload at ", ~LOAD_J%
 
-PRINT "S.ELTJ ", ~CODE_J%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_J%
-SAVE "3-assembled-output/ELTJ.bin", CODE_J%, P%, LOAD%
+ PRINT "S.ELTJ ", ~CODE_J%, " ", ~P%, " ", ~LOAD%, " ", ~LOAD_J%
+ SAVE "3-assembled-output/ELTJ.bin", CODE_J%, P%, LOAD%
 
 \ ******************************************************************************
 \
@@ -46411,10 +46641,10 @@ SAVE "3-assembled-output/ELTJ.bin", CODE_J%, P%, LOAD%
 \
 \ ******************************************************************************
 
-CODE_SHIPS% = &D000
-LOAD_SHIPS% = &D000
+ CODE_SHIPS% = &D000
+ LOAD_SHIPS% = &D000
 
-ORG CODE_SHIPS%
+ ORG CODE_SHIPS%
 
 \ ******************************************************************************
 \
@@ -46576,32 +46806,32 @@ ORG CODE_SHIPS%
 
 MACRO VERTEX x, y, z, face1, face2, face3, face4, visibility
 
-  IF x < 0
-    s_x = 1 << 7
-  ELSE
-    s_x = 0
-  ENDIF
+ IF x < 0
+  s_x = 1 << 7
+ ELSE
+  s_x = 0
+ ENDIF
 
-  IF y < 0
-    s_y = 1 << 6
-  ELSE
-    s_y = 0
-  ENDIF
+ IF y < 0
+  s_y = 1 << 6
+ ELSE
+  s_y = 0
+ ENDIF
 
-  IF z < 0
-    s_z = 1 << 5
-  ELSE
-    s_z = 0
-  ENDIF
+ IF z < 0
+  s_z = 1 << 5
+ ELSE
+  s_z = 0
+ ENDIF
 
-  s = s_x + s_y + s_z + visibility
-  f1 = face1 + (face2 << 4)
-  f2 = face3 + (face4 << 4)
-  ax = ABS(x)
-  ay = ABS(y)
-  az = ABS(z)
+ s = s_x + s_y + s_z + visibility
+ f1 = face1 + (face2 << 4)
+ f2 = face3 + (face4 << 4)
+ ax = ABS(x)
+ ay = ABS(y)
+ az = ABS(z)
 
-  EQUB ax, ay, az, s, f1, f2
+ EQUB ax, ay, az, s, f1, f2
 
 ENDMACRO
 
@@ -46640,8 +46870,8 @@ ENDMACRO
 
 MACRO EDGE vertex1, vertex2, face1, face2, visibility
 
-  f = face1 + (face2 << 4)
-  EQUB visibility, f, vertex1 << 2, vertex2 << 2
+ f = face1 + (face2 << 4)
+ EQUB visibility, f, vertex1 << 2, vertex2 << 2
 
 ENDMACRO
 
@@ -46678,30 +46908,30 @@ ENDMACRO
 
 MACRO FACE normal_x, normal_y, normal_z, visibility
 
-  IF normal_x < 0
-    s_x = 1 << 7
-  ELSE
-    s_x = 0
-  ENDIF
+ IF normal_x < 0
+  s_x = 1 << 7
+ ELSE
+  s_x = 0
+ ENDIF
 
-  IF normal_y < 0
-    s_y = 1 << 6
-  ELSE
-    s_y = 0
-  ENDIF
+ IF normal_y < 0
+  s_y = 1 << 6
+ ELSE
+  s_y = 0
+ ENDIF
 
-  IF normal_z < 0
-    s_z = 1 << 5
-  ELSE
-    s_z = 0
-  ENDIF
+ IF normal_z < 0
+  s_z = 1 << 5
+ ELSE
+  s_z = 0
+ ENDIF
 
-  s = s_x + s_y + s_z + visibility
-  ax = ABS(normal_x)
-  ay = ABS(normal_y)
-  az = ABS(normal_z)
+ s = s_x + s_y + s_z + visibility
+ ax = ABS(normal_x)
+ ay = ABS(normal_y)
+ az = ABS(normal_z)
 
-  EQUB s, ax, ay, az
+ EQUB s, ax, ay, az
 
 ENDMACRO
 
@@ -49797,7 +50027,7 @@ ENDMACRO
 
                         \ --- And replaced by: -------------------------------->
 
-INCLUDE "../universe-editor/main-sources/elite-universe-editor-4.asm"
+ INCLUDE "../universe-editor/main-sources/elite-universe-editor-4.asm"
 
                         \ --- End of replacement ------------------------------>
 
@@ -49807,15 +50037,15 @@ INCLUDE "../universe-editor/main-sources/elite-universe-editor-4.asm"
 \
 \ ******************************************************************************
 
-PRINT "SHIPS"
-PRINT "Assembled at ", ~CODE_SHIPS%
-PRINT "Ends at ", ~P%
-PRINT "Code size is ", ~(P% - CODE_SHIPS%)
-PRINT "Execute at ", ~LOAD_SHIPS%
-PRINT "Reload at ", ~LOAD_SHIPS%
+ PRINT "SHIPS"
+ PRINT "Assembled at ", ~CODE_SHIPS%
+ PRINT "Ends at ", ~P%
+ PRINT "Code size is ", ~(P% - CODE_SHIPS%)
+ PRINT "Execute at ", ~LOAD_SHIPS%
+ PRINT "Reload at ", ~LOAD_SHIPS%
 
-PRINT "S.SHIPS ", ~CODE_SHIPS%, " ", ~P%, " ", ~LOAD_SHIPS%, " ", ~LOAD_SHIPS%
-SAVE "3-assembled-output/SHIPS.bin", CODE_SHIPS%, P%, LOAD_SHIPS%
+ PRINT "S.SHIPS ", ~CODE_SHIPS%, " ", ~P%, " ", ~LOAD_SHIPS%, " ", ~LOAD_SHIPS%
+ SAVE "3-assembled-output/SHIPS.bin", CODE_SHIPS%, P%, LOAD_SHIPS%
 
 \ ******************************************************************************
 \
@@ -49823,6 +50053,11 @@ SAVE "3-assembled-output/SHIPS.bin", CODE_SHIPS%, P%, LOAD_SHIPS%
 \
 \ ******************************************************************************
 
-PRINT "ELITE game code ", ~(K%-F%), " bytes free"
-PRINT "F% = ", ~F%
-PRINT "Ends at ", ~P%
+ PRINT "ELITE game code ", ~(K%-F%), " bytes free"
+ PRINT "F% = ", ~F%
+ PRINT "Ends at ", ~P%
+
+ PRINT "Addresses for the scramble routines in elite-checksum.py"
+ PRINT "S% = ", ~S%
+ PRINT "G% = ", ~G%
+ PRINT "F% = ", ~F%
