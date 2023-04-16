@@ -123,11 +123,11 @@ IF _6502SP_VERSION
 ELIF _MASTER_VERSION
 
  PHA                    \ Store A on the stack so we can restore it after the
-                        \ call to SWAPZP/NMIRELEASE
+                        \ call to getzp/NMIRELEASE
 
 IF _SNG47
 
- JSR SWAPZP             \ Call SWAPZP to restore the top part of zero page
+ JSR getzp              \ Call getzp to restore the top part of zero page
 
 ELIF _COMPACT
 
@@ -164,7 +164,7 @@ ENDIF
  STZ K%-2               \ of the MOS keyboard buffer, and we don't want to
                         \ corrupt it
 
- JSR SWAPZP             \ Call SWAPZP to restore the top part of zero page
+ JSR getzp              \ Call getzp to restore the top part of zero page
 
 ENDIF
 
@@ -301,7 +301,7 @@ IF _SNG47
  BNE dele1              \ Loop back to dele1 to copy the next character until we
                         \ have copied the whole filename
 
- JSR SWAPZP             \ Call SWAPZP to restore the top part of zero page
+ JSR getzp              \ Call getzp to restore the top part of zero page
 
 ELIF _COMPACT
 
@@ -339,7 +339,7 @@ ELIF _MASTER_VERSION
  JSR OSCLI              \ Call OSCLI to execute the OS command at (Y X), which
                         \ catalogues the disc
 
- JMP SWAPZP             \ Call SWAPZP to restore the top part of zero page,
+ JMP getzp              \ Call getzp to restore the top part of zero page,
                         \ returning from the subroutine using a tail call
 
 ENDIF
@@ -363,7 +363,7 @@ IF _MASTER_VERSION
 
 IF _SNG47
 
- JSR SWAPZP             \ Call SWAPZP to restore the top part of zero page
+ JSR getzp              \ Call getzp to restore the top part of zero page
 
 ELIF _COMPACT
 
@@ -387,7 +387,7 @@ ELIF _MASTER_VERSION
  JSR OSCLI              \ Call OSCLI to run the OS command in dirCommand, which
                         \ changes the disc directory to E
 
- JMP SWAPZP             \ Call SWAPZP to restore the top part of zero page,
+ JMP getzp              \ Call getzp to restore the top part of zero page,
                         \ returning from the subroutine using a tail call
 
 ENDIF

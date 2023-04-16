@@ -338,7 +338,7 @@ ENDIF
  LDA #5                 \ Print extended token 5 ("ARE YOU SURE?") as a prompt
  JSR PrintPrompt
 
- JSR GETYN              \ Call GETYN to wait until either "Y" or "N" is pressed
+ JSR YESNO              \ Call YESNO to wait until either "Y" or "N" is pressed
 
  PHP                    \ Store the response in the C flag on the stack
 
@@ -991,10 +991,15 @@ ENDIF
 
  JSR WPSHPS             \ Clear the ships from the scanner
 
-IF _6502SP_VERSION OR _MASTER_VERSION
+IF _6502SP_VERSION
 
  TSX                    \ Transfer the stack pointer to X and store it in stack,
  STX stack              \ so we can restore it in the break handler
+
+ELIF _MASTER_VERSION
+
+ TSX                    \ Transfer the stack pointer to X and store it in
+ STX stackpt            \ stackpt, so we can restore it in the break handler
 
 ENDIF
 
@@ -1068,7 +1073,7 @@ IF _6502SP_VERSION
 
 ELIF _MASTER_VERSION
 
- JSR TRADE              \ Set the palette for trading screens and switch the
+ JSR TRADEMODE2         \ Set the palette for trading screens and switch the
                         \ current colour to white
 
 ENDIF
@@ -1481,7 +1486,7 @@ IF _C64_VERSION
 
 .OpenFile
 
- JSR SWAPZP             \ Call SWAPZP to save the top part of zero page
+ JSR getzp              \ Call getzp to save the top part of zero page
 
  LDA #%00000110         \ Set A so we can page the kernal ROM and I/O into main
                         \ memory below
@@ -1566,7 +1571,7 @@ IF _C64_VERSION
  
  CLI                    \ Re-enable interrupts
 
- JMP SWAPZP             \ Call SWAPZP to restore the top part of zero page,
+ JMP getzp              \ Call getzp to restore the top part of zero page,
                         \ returning from the subroutine using a tail call
 
 ENDIF
@@ -2118,9 +2123,13 @@ IF _6502SP_VERSION
  JSR ZEKTRAN            \ Reset the key logger buffer that gets returned from
                         \ the I/O processor
 
-ENDIF
-
  JSR U%                 \ Clear the key logger
+
+ELIF _MASTER_VERSION OR _C64_VERSION
+
+ JSR ZEKTRAN            \ Clear the key logger
+
+ENDIF
 
  LDA #3                 \ Move the text cursor to column 3
  JSR DOXC

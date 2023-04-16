@@ -81,7 +81,7 @@ IF _6502SP_VERSION
 
 ELIF _MASTER_VERSION
 
-\ Key numbers, translated using the values in TRANTABLE
+\ Key numbers, translated using the values in TRTB%
 
  keyA            = &41
  keyC            = &43
@@ -341,7 +341,7 @@ ELIF _C64_VERSION
  prq             = $723C
  TT162           = $72C5
  TT114           = $7452
- SWAPZP          = $784F
+ getzp           = $784F
  DOEXP           = $7866 \ STA DOEXP in ApplyExplosionMod/RevertExplosionMod
  PTCLS           = $78D6
  SOLAR           = $7AC2
@@ -353,7 +353,7 @@ ELIF _C64_VERSION
  NWSHP           = $7C6B
  NwS1            = $7D03
  WPLS            = $80FF
- GETYN           = $81EE
+ YESNO           = $81EE
  TT17            = $81FB
  SetMemory       = $827F
  KS4             = $82A4
@@ -379,7 +379,7 @@ ELIF _C64_VERSION
  MT26            = $8A5B
  NAMELEN1        = $8BBE
  deviceNumber    = $8C0B \ Unique to Commodore 64
- U%              = $8C6D
+ ZEKTRAN         = $8C6D
  TAS2            = $8C8A
  keyLog          = $8D0C \ Unique to Commodore 64, distinct key logger from KL
  RDKEY           = $8D53

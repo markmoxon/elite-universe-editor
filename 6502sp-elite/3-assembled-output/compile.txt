@@ -3268,7 +3268,7 @@ WP workspace from  &D00  to &E3C
      0FC6   A2 82      LDX #&82
      0FC8   A0 73      LDY #&73
      0FCA   4C F1 FF   JMP &FFF1
-.GETYN
+.YESNO
      0FCD   20 A5 57   JSR &57A5
      0FD0   C9 79      CMP #&79
      0FD2   F0 05      BEQ &0FD9

@@ -83,8 +83,17 @@ ENDIF
                         \ which is yellow (colour 1), red (colour 2) and cyan
                         \ (colour 3)
 
+IF _6502SP_VERSION OR _C64_VERSION
+
  JSR SOLAR              \ Add the sun, planet and stardust, according to the
                         \ current system seeds
+
+ELIF _MASTER_VERSION
+
+ JSR nobirths           \ Add the sun, planet and stardust, according to the
+                        \ current system seeds
+
+ENDIF
 
  LDX #1                 \ Set the current slot to 1 so we can create the sun
  STX currentSlot

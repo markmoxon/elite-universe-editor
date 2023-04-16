@@ -84,8 +84,8 @@ ELIF _MASTER_VERSION
 
 IF _SNG47
 
- LDA #0                 \ Call DKS4 to check whether the SHIFT key is being
- JSR DKS4               \ pressed
+ LDA #0                 \ Call DKS5 to check whether the SHIFT key is being
+ JSR DKS5               \ pressed
 
 ELIF _COMPACT
 
@@ -886,7 +886,7 @@ ENDIF
 
 \ ******************************************************************************
 \
-\       Name: GETYN
+\       Name: YESNO
 \       Type: Subroutine
 \   Category: Universe editor
 \    Summary: Wait until either "Y" or "N" is pressed
@@ -901,7 +901,7 @@ ENDIF
 
 IF _6502SP_VERSION
 
-.GETYN
+.YESNO
 
  JSR t                  \ Scan the keyboard until a key is pressed, returning
                         \ the ASCII code in A and X
@@ -910,7 +910,7 @@ IF _6502SP_VERSION
  BEQ gety1              \ the C flag set (as the CMP sets the C flag)
 
  CMP #'n'               \ If "N" was not pressed, loop back to keep scanning
- BNE GETYN              \ for key presses
+ BNE YESNO              \ for key presses
 
  CLC                    \ Clear the C flag
 
