@@ -5,7 +5,7 @@
 \ The Universe Editor is an extended version of BBC Micro Elite by Mark Moxon
 \
 \ The original Commodore 64 Elite was written by Ian Bell and David Braben and
-\ is copyright Firebird 1985
+\ is copyright D. Braben and I. Bell 1985
 \
 \ The extra code in the Universe Editor is copyright Mark Moxon
 \
