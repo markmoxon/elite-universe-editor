@@ -318,7 +318,7 @@ IF _MATCH_ORIGINAL_BINARIES
 
 ELSE
 
-  SKIP 1
+ SKIP 1
 
  FOR I%, 1, 255
 
@@ -367,7 +367,7 @@ IF _MATCH_ORIGINAL_BINARIES
 
 ELSE
 
-  SKIP 1
+ SKIP 1
 
  FOR I%, 1, 255
 
@@ -417,10 +417,12 @@ ELSE
   B% = INT(2^((I% / 2 + 128) / 16) + 0.5) DIV 256
 
   IF B% = 256
-   EQUB B%+1
+   N% = B%+1
   ELSE
-   EQUB B%
+   N% = B%
   ENDIF
+
+  EQUB N%
 
  NEXT
 
@@ -465,10 +467,12 @@ ELSE
   B% = INT(2^((I% / 2 + 128.25) / 16) + 0.5) DIV 256
 
   IF B% = 256
-   EQUB B%+1
+   N% = B%+1
   ELSE
-   EQUB B%
+   N% = B%
   ENDIF
+
+  EQUB N%
 
  NEXT
 
@@ -6396,6 +6400,8 @@ ENDMACRO
  LDX #1                 \ Call OSBYTE with A = 128 to fetch the 16-bit value
  LDA #128               \ from ADC channel 1 (the joystick X value), returning
  JSR OSBYTE             \ the value in (Y X)
+                        \
+                        \   * Channel 1 is the x-axis: 0 = right, 65520 = left
 
  TYA                    \ Copy Y to A, so the result is now in (A X)
 
@@ -6405,6 +6411,8 @@ ENDMACRO
  LDX #2                 \ Call OSBYTE with A = 128 to fetch the 16-bit value
  LDA #128               \ from ADC channel 2 (the joystick Y value), returning
  JSR OSBYTE             \ the value in (Y X)
+                        \
+                        \   * Channel 2 is the y-axis: 0 = down,  65520 = up
 
  TYA                    \ Copy Y to A, so the result is now in (A X)
 
@@ -6501,7 +6509,7 @@ ENDMACRO
 \
 \                         * All others: Call the standard OSWORD routine
 \
-\  (Y X)                The address of the associated OSWORD parameter block
+\   (Y X)               The address of the associated OSWORD parameter block
 \
 \ Other entry points:
 \
@@ -7703,9 +7711,11 @@ ENDMACRO
 
  LDA DELTA              \ Fetch our ship's speed into A, in the range 0-40
 
- JSR DIL-1              \ Draw the speed indicator using a range of 0-31, and
-                        \ increment SC to point to the next indicator (the roll
-                        \ indicator)
+\LSR A                  \ Draw the speed indicator using a range of 0-31, and
+ JSR DIL-1              \ increment SC to point to the next indicator (the roll
+                        \ indicator). The LSR is commented out as it isn't
+                        \ required with a call to DIL-1, so perhaps this was
+                        \ originally a call to DIL that got optimised
 
 \ ******************************************************************************
 \
