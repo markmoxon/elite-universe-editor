@@ -1,5 +1,7 @@
 # Elite Universe Editor
 
+[BBC Micro cassette Elite](https://github.com/markmoxon/cassette-elite-beebasm) | [BBC Micro disc Elite](https://github.com/markmoxon/disc-elite-beebasm) | [6502 Second Processor Elite](https://github.com/markmoxon/6502sp-elite-beebasm) | [BBC Master Elite](https://github.com/markmoxon/master-elite-beebasm) | [Acorn Electron Elite](https://github.com/markmoxon/electron-elite-beebasm) | [NES Elite](https://github.com/markmoxon/nes-elite-beebasm) | [Elite-A](https://github.com/markmoxon/elite-a-beebasm) | [Teletext Elite](https://github.com/markmoxon/teletext-elite) | **Elite universe Editor** | [Flicker-free C64 Elite](https://github.com/markmoxon/c64-elite-flicker-free)
+
 ![The Elite Universe Editor on the BBC Micro](https://www.bbcelite.com/images/github/elite-universe-editor-home-screen.png)
 
 ![The Elite Universe Editor on the Commodore 64](https://www.bbcelite.com/images/github/elite-universe-editor-home-screen-c64.png)
