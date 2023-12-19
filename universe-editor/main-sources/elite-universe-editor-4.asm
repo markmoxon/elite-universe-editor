@@ -1034,7 +1034,7 @@ IF _6502SP_VERSION
 ELIF _MASTER_VERSION
 
  LDA #'U'               \ Change the directory to U
- STA S1%+3
+ STA NA%-2
  STA dirCommand+4
 
  LDA #LO(ReturnToDiscMenu) \ Stop BRBR error handler from returning to the SVE
@@ -1240,7 +1240,7 @@ IF _6502SP_VERSION
 ELIF _MASTER_VERSION
 
  LDA #'E'               \ Change the directory back to E
- STA S1%+3
+ STA NA%-2
  STA dirCommand+4
 
  JSR ChangeDirectory    \ Change directory to E
