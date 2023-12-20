@@ -44,6 +44,8 @@
 \ See the deep dive on "Printing extended text tokens" for details on how jump
 \ tokens are stored in the extended token table.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   n                   The jump number to insert into the table
@@ -74,6 +76,8 @@ ENDMACRO
 \
 \ See the deep dive on "Printing extended text tokens" for details on how
 \ characters are stored in the extended token table.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
@@ -108,6 +112,8 @@ ENDMACRO
 \ See the deep dive on "Printing extended text tokens" for details on how
 \ recursive tokens are stored in the extended token table.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   n                   The number of the recursive token to insert into the
@@ -139,6 +145,8 @@ ENDMACRO
 \
 \ See the deep dive on "Printing extended text tokens" for details on how
 \ two-letter tokens are stored in the extended token table.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
@@ -216,6 +224,8 @@ ENDMACRO
 \ See the deep dive on "Printing extended text tokens" for details on how
 \ random tokens are stored in the extended token table.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   n                   The number of the random token to insert into the
@@ -251,6 +261,8 @@ ENDMACRO
 \
 \ See the deep dive on "Printing text tokens" for details on how recursive
 \ tokens are stored in the recursive token table.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \

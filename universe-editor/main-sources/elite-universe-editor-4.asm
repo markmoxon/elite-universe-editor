@@ -941,6 +941,8 @@ ENDIF
 \
 \   A                   The recursive token to be printed, in the range 0-255
 \
+\ ------------------------------------------------------------------------------
+\
 \ Returns:
 \
 \   A                   A is preserved

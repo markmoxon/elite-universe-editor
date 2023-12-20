@@ -340,6 +340,8 @@
 \ in the ship blueprints, and the deep dive on "Drawing ships" for information
 \ on how vertices are used to draw 3D wireframe ships.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   x                   The vertex's x-coordinate
@@ -410,6 +412,8 @@ ENDMACRO
 \ in the ship blueprints, and the deep dive on "Drawing ships" for information
 \ on how edges are used to draw 3D wireframe ships.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   vertex1             The number of the vertex at the start of the edge
@@ -449,6 +453,8 @@ ENDMACRO
 \ See the deep dive on "Ship blueprints" for details of how faces are stored
 \ in the ship blueprints, and the deep dive on "Drawing ships" for information
 \ on how faces are used to draw 3D wireframe ships.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
@@ -3720,6 +3726,8 @@ ENDMACRO
 \ See the deep dive on "Printing text tokens" for details on how characters are
 \ stored in the recursive token table.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   'x'                 The character to insert into the table
@@ -3752,6 +3760,8 @@ ENDMACRO
 \
 \ See the deep dive on "Printing text tokens" for details on how two-letter
 \ tokens are stored in the recursive token table.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
@@ -3817,6 +3827,8 @@ ENDMACRO
 \ See the deep dive on "Printing text tokens" for details on how characters are
 \ stored in the recursive token table.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   n                   The control code to insert into the table
@@ -3851,6 +3863,8 @@ ENDMACRO
 \
 \ See the deep dive on "Printing text tokens" for details on how recursive
 \ tokens are stored in the recursive token table.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
@@ -5120,6 +5134,8 @@ ENDMACRO
 \ See the deep dive on "Printing extended text tokens" for details on how jump
 \ tokens are stored in the extended token table.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   n                   The jump number to insert into the table
@@ -5150,6 +5166,8 @@ ENDMACRO
 \
 \ See the deep dive on "Printing extended text tokens" for details on how
 \ characters are stored in the extended token table.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
@@ -5184,6 +5202,8 @@ ENDMACRO
 \ See the deep dive on "Printing extended text tokens" for details on how
 \ recursive tokens are stored in the extended token table.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   n                   The number of the recursive token to insert into the
@@ -5215,6 +5235,8 @@ ENDMACRO
 \
 \ See the deep dive on "Printing extended text tokens" for details on how
 \ two-letter tokens are stored in the extended token table.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
@@ -5292,6 +5314,8 @@ ENDMACRO
 \ See the deep dive on "Printing extended text tokens" for details on how
 \ random tokens are stored in the extended token table.
 \
+\ ------------------------------------------------------------------------------
+\
 \ Arguments:
 \
 \   n                   The number of the random token to insert into the
@@ -5327,6 +5351,8 @@ ENDMACRO
 \
 \ See the deep dive on "Printing text tokens" for details on how recursive
 \ tokens are stored in the recursive token table.
+\
+\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \
