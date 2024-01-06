@@ -7740,8 +7740,6 @@ ENDMACRO
 \ This routine is run when the parasite sends a #SETXC <column> command. It
 \ updates the text cursor x-coordinate (i.e. the text column) in XC.
 \
-\ ------------------------------------------------------------------------------
-\
 \ Arguments:
 \
 \   A                   The text column
@@ -7767,8 +7765,6 @@ ENDMACRO
 \
 \ This routine is run when the parasite sends a #SETYC <row> command. It updates
 \ the text cursor y-coordinate (i.e. the text row) in YC.
-\
-\ ------------------------------------------------------------------------------
 \
 \ Arguments:
 \

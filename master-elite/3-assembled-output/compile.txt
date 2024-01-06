@@ -434,7 +434,6 @@ Saving file '3-assembled-output/M128Elt.bin'
      000B
 .P
      000C
-     000F
 .XC
      0010
 .COL
@@ -12440,6 +12439,7 @@ S.ELTE &5751  &61DE  &1300  &5751
      659B   B0 05      BCS &65A2
      659D   A0 02      LDY #&02
      659F   20 49 13   JSR &1349
+.plus13
      65A2   20 81 61   JSR &6181
 .FRCE
      65A5   20 B2 65   JSR &65B2
@@ -16223,6 +16223,7 @@ S.BCODE &1300  &8000  &1300  &1300
 Saving file '3-assembled-output/BCODE.unprot.bin'
 Addresses for the scramble routines in elite-checksum.py
 F% = &8000 
+G% = &2CC1 
 NA2% = &34CD 
 .CheckShiftCtrl
      B200   64 46      STZ &46

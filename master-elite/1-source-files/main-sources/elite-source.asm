@@ -153,9 +153,17 @@
  sohyp2  = 11           \ Sound 11 = Hyperspace drive engaged 2
 
  NRU% = 0               \ The number of planetary systems with extended system
-                        \ description overrides in the RUTOK table. The value of
-                        \ this variable is 0 in the original source, but this
-                        \ appears to be a bug, as it should really be 26
+                        \ description overrides in the RUTOK table
+                        \
+                        \ NRU% is set to 0 in the original source, but this is a
+                        \ bug, as it should be 26 (as in the other versions of
+                        \ enhanced Elite)
+                        \
+                        \ This bug causes the Data on System screen to crash the
+                        \ game for a small number of systems - for example, the
+                        \ game will freeze if you bring up the Data on System
+                        \ screen after docking at Biarge in the first galaxy
+                        \ during the Constrictor mission
 
  RE = &23               \ The obfuscation byte used to hide the recursive tokens
                         \ table from crackers viewing the binary code
@@ -307,9 +315,7 @@ ENDIF
 
 .P
 
- SKIP 3                 \ Temporary storage, used in a number of places
-
- SKIP 1                 \ This byte appears to be unused
+ SKIP 4                 \ Temporary storage, used in a number of places
 
 .XC
 
@@ -24020,8 +24026,6 @@ ENDIF
 \
 \ ------------------------------------------------------------------------------
 \
-\ ------------------------------------------------------------------------------
-\
 \ Arguments:
 \
 \   A                   The text column
@@ -24040,8 +24044,6 @@ ENDIF
 \       Type: Subroutine
 \   Category: Text
 \    Summary: Move the text cursor to a specific row
-\
-\ ------------------------------------------------------------------------------
 \
 \ ------------------------------------------------------------------------------
 \
@@ -24169,7 +24171,7 @@ ENDIF
 \
 \ So given an existing set of seeds in s0, s1 and s2, we can get the new values
 \ s0´, s1´ and s2´ simply by doing the above sums. And if we want to do the
-\ above in-place without creating three new w´ variables, then we can do the
+\ above in-place without creating three new s´ variables, then we can do the
 \ following:
 \
 \  tmp = s0 + s1
@@ -25888,8 +25890,8 @@ ENDIF
  JSR DETOK
 
  LDA #198               \ Print extended token 198, which is blank, but would
- JSR DETOK              \ presumably contain the word "TRIBBLE" if they were
-                        \ enabled
+ JSR DETOK              \ contain the text "LITTLE TRUMBLE" if the Trumbles
+                        \ mission was enabled
 
  LDA TRIBBLE+1          \ If we have more than 256 Trumbles, skip to DOANS
  BNE DOANS
@@ -36554,8 +36556,8 @@ ENDIF
 
  JSR DIALS              \ Call DIALS to update the dashboard
 
- LDA QQ11               \ If this is a space view, skip the following five
- BEQ P%+13              \ instructions (i.e. jump to JSR TT17 below)
+ LDA QQ11               \ If this is a space view, jump to plus13 to skip the
+ BEQ plus13             \ following five instructions
 
  AND PATG               \ If PATG = &FF (author names are shown on start-up)
  LSR A                  \ and bit 0 of QQ11 is 1 (the current view is type 1),
@@ -36563,6 +36565,8 @@ ENDIF
 
  LDY #2                 \ Wait for 2/50 of a second (0.04 seconds), to slow the
  JSR DELAY              \ main loop down a bit
+
+.plus13
 
  JSR TT17               \ Scan the keyboard for the cursor keys or joystick,
                         \ returning the cursor's delta values in X and Y and
@@ -37397,8 +37401,6 @@ ENDIF
 \
 \ BRKV is set to point to BR1 by the loading process.
 \
-\ ------------------------------------------------------------------------------
-\
 \ Other entry points:
 \
 \   QU5                 Restart the game using the last saved commander without
@@ -38093,8 +38095,6 @@ ENDIF
 \   Category: Text
 \    Summary: Fetch a line of text from the keyboard
 \  Deep dive: Extended text tokens
-\
-\ ------------------------------------------------------------------------------
 \
 \ ------------------------------------------------------------------------------
 \
@@ -39371,8 +39371,6 @@ ENDIF
 \       Type: Subroutine
 \   Category: Maths (Geometry)
 \    Summary: Calculate the vector to the planet and store it in XX15
-\
-\ ------------------------------------------------------------------------------
 \
 \ ------------------------------------------------------------------------------
 \
@@ -43732,8 +43730,8 @@ ENDMACRO
                         \
                         \   XX12(1 0) = y-coordinate of the end of the beam
                         \
-                        \ The end of the laser beam will be set positioned to
-                        \ look good, rather than being directly aimed at us, as
+                        \ The end of the laser beam will be positioned to look
+                        \ good, rather than being directly aimed at us, as
                         \ otherwise we would only see a flashing point of light
                         \ as they unleashed their attack
 
@@ -43935,8 +43933,6 @@ ENDMACRO
 \   Category: Drawing ships
 \    Summary: Draw ship: Loop back for the next edge
 \  Deep dive: Drawing ships
-\
-\ ------------------------------------------------------------------------------
 \
 \ ------------------------------------------------------------------------------
 \
@@ -45198,7 +45194,7 @@ ENDMACRO
 
  INY                    \ Increment the index to point to the X2 coordinate
 
- LDA (XX19),Y           \ Set X1 to the Y-th coordinate on the ship line heap,
+ LDA (XX19),Y           \ Set X2 to the Y-th coordinate on the ship line heap,
  STA X2
 
  LDA XX12+2             \ Replace it with the X2 coordinate in XX12+2
@@ -48086,13 +48082,6 @@ ENDIF
 \ Make the two-part explosion sound of us making a laser strike, or of another
 \ ship exploding.
 \
-\ ------------------------------------------------------------------------------
-\
-\ Other entry points:
-\
-\   EXNO-2              Set X = 7 and fall through into EXNO to make the sound
-\                       of a ship exploding
-\
 \ ******************************************************************************
 
 .EXNO
@@ -48205,6 +48194,7 @@ ENDIF
 
  PRINT "Addresses for the scramble routines in elite-checksum.py"
  PRINT "F% = ", ~F%
+ PRINT "G% = ", ~G%
  PRINT "NA2% = ", ~NA2%
 
 \ ******************************************************************************
