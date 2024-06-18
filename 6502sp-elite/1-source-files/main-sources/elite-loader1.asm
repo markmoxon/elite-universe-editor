@@ -13,10 +13,10 @@
 \ in the documentation are entirely my fault
 \
 \ The terminology and notations used in this commentary are explained at
-\ https://www.bbcelite.com/about_site/terminology_used_in_this_commentary.html
+\ https://elite.bbcelite.com/terminology
 \
 \ The deep dive articles referred to in this commentary can be found at
-\ https://www.bbcelite.com/deep_dives
+\ https://elite.bbcelite.com/deep_dives
 \
 \ ------------------------------------------------------------------------------
 \
@@ -40,6 +40,20 @@
 \
 \ ******************************************************************************
 
+IF _SNG45 OR _EXECUTIVE
+
+ CODE% = &1FDC          \ The address where the code will be run
+
+ LOAD% = &1FDC          \ The address where the code will be loaded
+
+ELIF _SOURCE_DISC
+
+ CODE% = &2000          \ The address where the code will be run
+
+ LOAD% = &2000          \ The address where the code will be loaded
+
+ENDIF
+
  N% = 77                \ N% is set to the number of bytes in the VDU table, so
                         \ we can loop through them in the loader below
 
@@ -48,8 +62,11 @@
                         \ known as SHEILA)
 
  OSWRCH = &FFEE         \ The address for the OSWRCH routine
+
  OSBYTE = &FFF4         \ The address for the OSBYTE routine
+
  OSWORD = &FFF1         \ The address for the OSWORD routine
+
  OSCLI = &FFF7          \ The address for the OSCLI routine
 
 \ ******************************************************************************
@@ -89,18 +106,6 @@
 \ ELITE LOADER
 \
 \ ******************************************************************************
-
-IF _SNG45 OR _EXECUTIVE
-
- CODE% = &1FDC
- LOAD% = &1FDC
-
-ELIF _SOURCE_DISC
-
- CODE% = &2000
- LOAD% = &2000
-
-ENDIF
 
  ORG CODE%
 
@@ -212,11 +217,24 @@ ENDIF
                         \ is 98 for modes 1 and 2, but needs to be adjusted for
                         \ our custom screen's width
 
- EQUB 23, 0, 10, 32     \ Set 6845 register R10 = 32
+ EQUB 23, 0, 10, 32     \ Set 6845 register R10 = %00100000 = 32
  EQUB 0, 0, 0           \
- EQUB 0, 0, 0           \ This is the "cursor start" register, so this sets the
-                        \ cursor start line at 0, effectively disabling the
-                        \ cursor
+ EQUB 0, 0, 0           \ This is the "cursor start" register, and bits 5 and 6
+                        \ define the "cursor display mode", as follows:
+                        \
+                        \   * %00 = steady, non-blinking cursor
+                        \
+                        \   * %01 = do not display a cursor
+                        \
+                        \   * %10 = fast blinking cursor (blink at 1/16 of the
+                        \           field rate)
+                        \
+                        \   * %11 = slow blinking cursor (blink at 1/32 of the
+                        \           field rate)
+                        \
+                        \ We can therefore turn off the cursor completely by
+                        \ setting cursor display mode %01, with bit 6 of R10
+                        \ clear and bit 5 of R10 set
 
  EQUB 23, 0, &87, 34    \ Set 6845 register R7 = 34
  EQUB 0, 0, 0           \

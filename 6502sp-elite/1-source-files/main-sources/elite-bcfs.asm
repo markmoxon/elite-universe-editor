@@ -13,10 +13,10 @@
 \ in the documentation are entirely my fault
 \
 \ The terminology and notations used in this commentary are explained at
-\ https://www.bbcelite.com/about_site/terminology_used_in_this_commentary.html
+\ https://elite.bbcelite.com/terminology
 \
 \ The deep dive articles referred to in this commentary can be found at
-\ https://www.bbcelite.com/deep_dives
+\ https://elite.bbcelite.com/deep_dives
 \
 \ ------------------------------------------------------------------------------
 \
@@ -305,6 +305,16 @@ ENDIF
 \
 \ ******************************************************************************
 
+                        \ --- Mod: Code removed for Universe Editor: ---------->
+
+\PRINT "P% = ", ~P%
+\PRINT "S.P.CODE ", ~LOAD%, ~(F% + &0400 + &2200), " ", ~LOAD%, ~LOAD%
+\SAVE "3-assembled-output/P.CODE.unprot.bin", CODE%, (F% + &0400 + &2200), LOAD%
+
+                        \ --- And replaced by: -------------------------------->
+
  PRINT "P% = ", ~P%
  PRINT "S.P.CODE ", ~LOAD%, ~(F% + &0400 + &2800), " ", ~LOAD%, ~LOAD%
  SAVE "3-assembled-output/P.CODE.unprot.bin", CODE%, (F% + &0400 + &2800), LOAD%
+
+                        \ --- End of replacement ------------------------------>

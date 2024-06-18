@@ -12,10 +12,10 @@
 \ in the documentation are entirely my fault
 \
 \ The terminology and notations used in this commentary are explained at
-\ https://www.bbcelite.com/about_site/terminology_used_in_this_commentary.html
+\ https://elite.bbcelite.com/terminology
 \
 \ The deep dive articles referred to in this commentary can be found at
-\ https://www.bbcelite.com/deep_dives
+\ https://elite.bbcelite.com/deep_dives
 \
 \ ------------------------------------------------------------------------------
 \
@@ -41,6 +41,10 @@
 \
 \ ******************************************************************************
 
+ CODE% = &1300          \ The address where the code will be run
+
+ LOAD% = &1300          \ The address where the code will be loaded
+
                         \ --- Mod: Code removed for Universe Editor: ---------->
 
 \Q% = _MAX_COMMANDER    \ Set Q% to TRUE to max out the default commander, FALSE
@@ -62,27 +66,49 @@
  NTY = 33               \ The number of different ship types
 
  MSL = 1                \ Ship type for a missile
+
  SST = 2                \ Ship type for a Coriolis space station
+
  ESC = 3                \ Ship type for an escape pod
+
  PLT = 4                \ Ship type for an alloy plate
+
  OIL = 5                \ Ship type for a cargo canister
+
  AST = 7                \ Ship type for an asteroid
+
  SPL = 8                \ Ship type for a splinter
+
  SHU = 9                \ Ship type for a Shuttle
+
  CYL = 11               \ Ship type for a Cobra Mk III
+
  ANA = 14               \ Ship type for an Anaconda
+
  HER = 15               \ Ship type for a rock hermit (asteroid)
+
  COPS = 16              \ Ship type for a Viper
+
  SH3 = 17               \ Ship type for a Sidewinder
+
  KRA = 19               \ Ship type for a Krait
+
  ADA = 20               \ Ship type for an Adder
+
  WRM = 23               \ Ship type for a Worm
+
  CYL2 = 24              \ Ship type for a Cobra Mk III (pirate)
+
  ASP = 25               \ Ship type for an Asp Mk II
+
  THG = 29               \ Ship type for a Thargoid
+
  TGL = 30               \ Ship type for a Thargon
+
  CON = 31               \ Ship type for a Constrictor
+
  COU = 32               \ Ship type for a Cougar
+
  DOD = 33               \ Ship type for a Dodecahedron ("Dodo") space station
 
  JL = ESC               \ Junk is defined as starting from the escape pod
@@ -108,56 +134,92 @@
                         \ stored in INWK and K%)
 
  X = 128                \ The centre x-coordinate of the 256 x 192 space view
+
  Y = 96                 \ The centre y-coordinate of the 256 x 192 space view
 
  f0 = &80               \ Internal key number for red key f0 (Launch, Front)
+
  f1 = &81               \ Internal key number for red key f1 (Buy Cargo, Rear)
+
  f2 = &82               \ Internal key number for red key f2 (Sell Cargo, Left)
+
  f3 = &83               \ Internal key number for red key f3 (Equip Ship, Right)
+
  f4 = &84               \ Internal key number for red key f4 (Long-range Chart)
+
  f5 = &85               \ Internal key number for red key f5 (Short-range Chart)
+
  f6 = &86               \ Internal key number for red key f6 (Data on System)
+
  f7 = &87               \ Internal key number for red key f7 (Market Price)
+
  f8 = &88               \ Internal key number for red key f8 (Status Mode)
+
  f9 = &89               \ Internal key number for red key f9 (Inventory)
 
  YELLOW  = %00001111    \ Four mode 1 pixels of colour 1 (yellow)
+
  RED     = %11110000    \ Four mode 1 pixels of colour 2 (red, magenta or white)
+
  CYAN    = %11111111    \ Four mode 1 pixels of colour 3 (cyan or white)
+
  GREEN   = %10101111    \ Four mode 1 pixels of colour 3, 1, 3, 1 (cyan/yellow)
+
  WHITE   = %11111010    \ Four mode 1 pixels of colour 3, 2, 3, 2 (cyan/red)
+
  MAGENTA = RED          \ Four mode 1 pixels of colour 2 (red, magenta or white)
+
  DUST    = WHITE        \ Four mode 1 pixels of colour 3, 2, 3, 2 (cyan/red)
 
  RED2    = %00000011    \ Two mode 2 pixels of colour 1    (red)
+
  GREEN2  = %00001100    \ Two mode 2 pixels of colour 2    (green)
+
  YELLOW2 = %00001111    \ Two mode 2 pixels of colour 3    (yellow)
+
  BLUE2   = %00110000    \ Two mode 2 pixels of colour 4    (blue)
+
  MAG2    = %00110011    \ Two mode 2 pixels of colour 5    (magenta)
+
  CYAN2   = %00111100    \ Two mode 2 pixels of colour 6    (cyan)
+
  WHITE2  = %00111111    \ Two mode 2 pixels of colour 7    (white)
+
  STRIPE  = %00100011    \ Two mode 2 pixels of colour 5, 1 (magenta/red)
 
  soboop  = 0            \ Sound 0  = Long, low beep
+
  sobeep  = 1            \ Sound 1  = Short, high beep
+
  soclick = 2            \ Sound 2  = This sound is not defined or used
+
  solaser = 3            \ Sound 3  = Lasers fired by us 1
+
  soexpl  = 4            \ Sound 4  = We died / Collision / Being hit by lasers 2
+
  solas2  = 5            \ Sound 5  = Lasers fired by us 2
+
  sohit   = 6            \ Sound 6  = We made a hit/kill / Other ship exploding
+
  sobomb  = 6            \ Sound 6  = Energy bomb
+
  soecm   = 7            \ Sound 7  = E.C.M. on
+
  solaun  = 8            \ Sound 8  = Missile launched / Ship launch
-                        \ Sound 9  = Being hit by lasers 1 (no variable defined)
+
+                        \ Sound 9  = Being hit by lasers 1 (no variable defined
+                        \            in original source code)
+
  sohyp   = 10           \ Sound 10 = Hyperspace drive engaged 1
+
  sohyp2  = 11           \ Sound 11 = Hyperspace drive engaged 2
 
  NRU% = 0               \ The number of planetary systems with extended system
                         \ description overrides in the RUTOK table
                         \
                         \ NRU% is set to 0 in the original source, but this is a
-                        \ bug, as it should be 26 (as in the other versions of
-                        \ enhanced Elite)
+                        \ bug, as it should match the number of entries in the
+                        \ RUGAL table
                         \
                         \ This bug causes the Data on System screen to crash the
                         \ game for a small number of systems - for example, the
@@ -247,6 +309,7 @@ ENDIF
                         \ known as SHEILA)
 
  OSBYTE = &FFF4         \ The address for the OSBYTE routine
+
  OSCLI = &FFF7          \ The address for the OSCLI routine
 
 \ ******************************************************************************
@@ -2040,9 +2103,6 @@ ENDIF
 \
 \ ******************************************************************************
 
- CODE% = &1300
- LOAD% = &1300
-
  ORG CODE%
 
  LOAD_A% = LOAD%
@@ -3070,7 +3130,8 @@ ENDIF
 \       Name: setzp
 \       Type: Subroutine
 \   Category: Utility routines
-\    Summary: Save zero page (&0090 to &00FF) into the buffer at &3000
+\    Summary: Copy the top part of zero page (&0090 to &00FF) into the buffer at
+\             &3000
 \
 \ ******************************************************************************
 
@@ -3078,14 +3139,15 @@ ENDIF
 
 IF _COMPACT
 
- JSR NMICLAIM           \ Claim the NMI workspace (&00A0 to &00A7)
+ JSR NMICLAIM           \ Claim the NMI workspace (&00A0 to &00A7) from the MOS
+                        \ so the game can use it
 
 ENDIF
 
  LDA #%00001111         \ Set bits 1 and 2 of the Access Control Register at
  STA VIA+&34            \ SHEILA &34 to switch screen memory into &3000-&7FFF
 
- LDX #&90               \ We want to save zero page from &0900 and up, so set an
+ LDX #&90               \ We want to save zero page from &0090 and up, so set an
                         \ index in X, starting from &90
 
 .sz1
@@ -3108,7 +3170,8 @@ ENDIF
 \       Name: NMIRELEASE
 \       Type: Subroutine
 \   Category: Utility routines
-\    Summary: Release the NMI workspace (&00A0 to &00A7)
+\    Summary: Release the NMI workspace (&00A0 to &00A7) so the MOS can use it
+\             and store the top part of zero page in the the buffer at &3000
 \
 \ ******************************************************************************
 
@@ -3116,9 +3179,10 @@ IF _COMPACT
 
 .NMIRELEASE
 
- JSR getzp+3            \ Call getzp+3 to restore the top part of zero page,
-                        \ but without first claiming the NMI workspace (as it's
-                        \ already been claimed by this point)
+ JSR getzp+3            \ Call getzp+3 to restore the top part of zero page
+                        \ from the buffer at &3000, but without first claiming
+                        \ the NMI workspace (as it's already been claimed by
+                        \ this point)
 
  LDA #143               \ Call OSBYTE 143 to issue a paged ROM service call of
  LDX #&B                \ type &B with Y set to the previous NMI owner's ID.
@@ -3136,22 +3200,21 @@ ENDIF
 \   Category: Utility routines
 \    Summary: Swap zero page (&0090 to &00EF) with the buffer at &3000
 \
-IF _COMPACT
 \ ------------------------------------------------------------------------------
 \
 \ Other entry points:
 \
 \   getzp+3             Restore the top part of zero page, but without first
-\                       claiming the NMI workspace
+\                       claiming the NMI workspace (Master Compact variant only)
 \
-ENDIF
 \ ******************************************************************************
 
 .getzp
 
 IF _COMPACT
 
- JSR NMICLAIM           \ Claim the NMI workspace (&00A0 to &00A7)
+ JSR NMICLAIM           \ Claim the NMI workspace (&00A0 to &00A7) from the MOS
+                        \ so the game can use it
 
 ENDIF
 
@@ -3188,7 +3251,8 @@ ENDIF
 \       Name: NMICLAIM
 \       Type: Subroutine
 \   Category: Utility routines
-\    Summary: Claim the NMI workspace (&00A0 to &00A7)
+\    Summary: Claim the NMI workspace (&00A0 to &00A7) back from the MOS so the
+\             game can use it once again
 \
 \ ******************************************************************************
 
@@ -3397,7 +3461,7 @@ IF _COMPACT
                         \   * Bit 7 of IRA will be read from the keyboard
 
  STA VIA+&4F            \ Set 6522 System VIA output register ORA (SHEILA &4F)
-                        \ to X, the key we want to scan for; bits 0-6 will be
+                        \ to A, the key we want to scan for; bits 0-6 will be
                         \ sent to the keyboard, of which bits 0-3 determine the
                         \ keyboard column, and bits 4-6 the keyboard row
 
@@ -4553,7 +4617,7 @@ ENDIF
  ADC Q
  STA S
 
- BCC LI210              \ If the addition didn't overflow, jump to L2110
+ BCC LI210              \ If the addition didn't overflow, jump to LI210
 
  CLC                    \ Otherwise we just overflowed, so clear the C flag and
  INY                    \ increment Y to move to the pixel line below
@@ -11912,10 +11976,26 @@ ENDIF
                         \ fair distance from the planet, so jump to MA23 as we
                         \ haven't crashed into the planet
 
- SBC #36                \ Subtract 36 from x_hi^2 + y_hi^2 + z_hi^2. The radius
-                        \ of the planet is defined as 6 units and 6^2 = 36, so
-                        \ A now contains the high byte of our altitude above
-                        \ the planet surface, squared
+ SBC #36                \ Subtract 36 from x_hi^2 + y_hi^2 + z_hi^2
+                        \
+                        \ When we do the 3D Pythagoras calculation, we only use
+                        \ the high bytes of the coordinates, so that's x_hi,
+                        \ y_hi and z_hi and
+                        \
+                        \ The planet radius is (0 96 0), as defined in the
+                        \ PLANET routine, so the high byte is 96
+                        \
+                        \ When we square the coordinates above and add them,
+                        \ the result gets divided by 256 (otherwise the result
+                        \ wouldn't fit into one byte), so if we do the same for
+                        \ the planet's radius, we get:
+                        \
+                        \   96 * 96 / 256 = 36
+                        \
+                        \ So for the planet, the equivalent figure to test the
+                        \ sum of the _hi bytes against is 36, so A now contains
+                        \ the high byte of our altitude above the planet
+                        \ surface, squared
 
  BCC MA28               \ If A < 0 then jump to MA28 as we have crashed into
                         \ the planet
@@ -11951,8 +12031,8 @@ ENDIF
                         \ docking computer manoeuvring
 
  LDA auto               \ If auto is zero, then the docking computer is not
- BEQ MA23               \ activated, so jump to MA33 to skip the
-                        \ docking computer manoeuvring
+ BEQ MA23               \ activated, so jump to MA23 to skip to the next
+                        \ section
 
  LDA #123               \ Set A = 123 and jump down to MA34 to print token 123
  BNE MA34               \ ("DOCKING COMPUTERS ON") as an in-flight message
@@ -13902,6 +13982,7 @@ ENDIF
 \ ******************************************************************************
 
  CODE_B% = P%
+
  LOAD_B% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
@@ -17349,6 +17430,7 @@ ENDIF
 \ ******************************************************************************
 
  CODE_C% = P%
+
  LOAD_C% = LOAD% +P% - CODE%
 
 \ ******************************************************************************
@@ -23757,6 +23839,7 @@ ENDIF
 \ ******************************************************************************
 
  CODE_D% = P%
+
  LOAD_D% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
@@ -24554,8 +24637,8 @@ ENDIF
  JSR spc                \ 67 + A, followed by a space, so:
                         \
                         \   A = 0 prints token 67 ("LARGE") and a space
-                        \   A = 1 prints token 67 ("FIERCE") and a space
-                        \   A = 2 prints token 67 ("SMALL") and a space
+                        \   A = 1 prints token 68 ("FIERCE") and a space
+                        \   A = 2 prints token 69 ("SMALL") and a space
 
 .TT205
 
@@ -24609,14 +24692,14 @@ ENDIF
 
  ADC #242               \ A = 0 to 7, so print recursive token 82 + A, so:
  JSR TT27               \
-                        \   A = 0 prints token 76 ("RODENT")
-                        \   A = 1 prints token 76 ("FROG")
-                        \   A = 2 prints token 76 ("LIZARD")
-                        \   A = 3 prints token 76 ("LOBSTER")
-                        \   A = 4 prints token 76 ("BIRD")
-                        \   A = 5 prints token 76 ("HUMANOID")
-                        \   A = 6 prints token 76 ("FELINE")
-                        \   A = 7 prints token 76 ("INSECT")
+                        \   A = 0 prints token 82 ("RODENT")
+                        \   A = 1 prints token 83 ("FROG")
+                        \   A = 2 prints token 84 ("LIZARD")
+                        \   A = 3 prints token 85 ("LOBSTER")
+                        \   A = 4 prints token 86 ("BIRD")
+                        \   A = 5 prints token 87 ("HUMANOID")
+                        \   A = 6 prints token 88 ("FELINE")
+                        \   A = 7 prints token 89 ("INSECT")
 
 .TT76
 
@@ -25532,9 +25615,10 @@ ENDIF
  SEC                    \ Subtract ASCII "0" from the key pressed, to leave the
  SBC #'0'               \ numeric value of the key in A (if it was a number key)
 
- BCC OUT                \ If A < 0, jump to OUT to return from the subroutine
-                        \ with a result of 0, as the key pressed was not a
-                        \ number or letter and is less than ASCII "0"
+ BCC OUT                \ If A < 0, jump to OUT to load the current number and
+                        \ return from the subroutine, as the key pressed was
+                        \ RETURN (or some other ncharacter with a value less
+                        \ than ASCII "0")
 
  CMP #10                \ If A >= 10, jump to BAY2 to display the Inventory
  BCS BAY2               \ screen, as the key pressed was a letter or other
@@ -27469,6 +27553,12 @@ ENDIF
 \
 \   A                   The text token to be printed
 \
+\ ------------------------------------------------------------------------------
+\
+\ Other entry points:
+\
+\   prq+3               Print a question mark
+\
 \ ******************************************************************************
 
 .prq
@@ -29370,6 +29460,7 @@ ENDIF
 \ ******************************************************************************
 
  CODE_E% = P%
+
  LOAD_E% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
@@ -32113,15 +32204,15 @@ ENDIF
 \
 \       Name: PROJ
 \       Type: Subroutine
-\   Category: Drawing ships
-\    Summary: Project the current ship onto the screen
+\   Category: Maths (Geometry)
+\    Summary: Project the current ship or planet onto the screen
 \  Deep dive: Extended screen coordinates
 \
 \ ------------------------------------------------------------------------------
 \
-\ Project the current ship's location onto the screen, either returning the
-\ screen coordinates of the projection (if it's on-screen), or returning an
-\ error via the C flag.
+\ Project the current ship's location or the planet onto the screen, either
+\ returning the screen coordinates of the projection (if it's on-screen), or
+\ returning an error via the C flag.
 \
 \ In this context, "on-screen" means that the point is projected into the
 \ following range:
@@ -34854,6 +34945,7 @@ ENDIF
 \ ******************************************************************************
 
  CODE_F% = P%
+
  LOAD_F% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
@@ -36352,6 +36444,37 @@ ENDIF
                         \ passed through the BCS above), so A is now one of the
                         \ lone bounty hunter ships, i.e. Cobra Mk III (pirate),
                         \ Asp Mk II, Python (pirate) or Fer-de-lance
+                        \
+                        \ Interestingly, this logic means that the Moray, which
+                        \ is the ship after the Fer-de-lance in the XX21 table,
+                        \ never spawns, as the above logic chooses a blueprint
+                        \ number in the range CYL2 to CYL2+3 (i.e. 24 to 27),
+                        \ and the Moray is blueprint 28
+                        \
+                        \ No other code spawns the ship with blueprint 28, so
+                        \ this means the Moray is never seen in Elite
+                        \
+                        \ This is presumably a bug, which could be very easily
+                        \ fixed by inserting one of the following instructions
+                        \ before the ADC #CYL2 instruction above:
+                        \
+                        \   * SEC would change the range to 25 to 28, which
+                        \     would cover the Asp Mk II, Python (pirate),
+                        \     Fer-de-lance and Moray
+                        \
+                        \   * LSR A would set the C flag to a random number to
+                        \     give a range of 24 to 28, which would cover the
+                        \     Cobra Mk III (pirate), Asp Mk II, Python (pirate),
+                        \     Fer-de-lance and Moray
+                        \
+                        \ It's hard to know what the authors' original intent
+                        \ was, but the second approach makes the Moray and Cobra
+                        \ Mk III the rarest choices, with the Asp Mk II, Python
+                        \ and Fer-de-Lance being more likely, and as the Moray
+                        \ is described in the literature as a rare ship, and the
+                        \ Cobra can already be spawned as part of a group of
+                        \ pirates (see mt1 below), I tend to favour the LSR A
+                        \ solution over the SEC approach
 
  TAY                    \ Copy the new ship type to Y
 
@@ -37082,7 +37205,10 @@ ENDIF
  TXS                    \ location stack, so that's back to the value it had
                         \ before we change it in the SVE routine
 
- JSR getzp              \ Call getzp to restore the top part of zero page
+ JSR getzp              \ Call getzp to restore the top part of zero page from
+                        \ the buffer at &3000, as this will have been stored in
+                        \ the buffer before performing the disc access that gave
+                        \ the error we're processsing
 
  STZ CATF               \ Set the CATF flag to 0, so the TT26 routine reverts to
                         \ standard formatting
@@ -38391,7 +38517,10 @@ IF _COMPACT
  BPL DIRL               \ Loop back to DIRL to copy the next character until we
                         \ have copied the whole filename
 
- JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7)
+ JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7) so the MOS
+                        \ can use it, and store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
  LDX #LO(DIRI)          \ Set (Y X) to point to DIRI ("DIR <name entered>")
  LDY #HI(DIRI)
@@ -38399,8 +38528,9 @@ IF _COMPACT
  JSR OSCLI              \ Call OSCLI to run the OS command in DIRI, which
                         \ changes the disc directory to the name entered
 
- JMP getzp              \ Call getzp to restore the top part of zero page
-                        \ and return from the subroutine using a tail call
+ JMP getzp              \ Call getzp to restore the top part of zero page from
+                        \ the buffer at &3000 and return from the subroutine
+                        \ using a tail call
 
 ENDIF
 
@@ -38466,11 +38596,16 @@ ENDIF
 
 IF _SNG47
 
- JSR getzp              \ Call getzp to restore the top part of zero page
+ JSR getzp              \ Call getzp to store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
 ELIF _COMPACT
 
- JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7)
+ JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7) so the MOS
+                        \ can use it, and store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
 ENDIF
 
@@ -38482,7 +38617,8 @@ ENDIF
  JSR OSCLI              \ Call OSCLI to execute the OS command at (Y X), which
                         \ catalogues the disc
 
- JSR getzp              \ Call getzp to restore the top part of zero page
+ JSR getzp              \ Call getzp to restore the top part of zero page from
+                        \ the buffer at &3000
 
  STZ CATF               \ Set the CATF flag to 0, so the TT26 routine reverts to
                         \ standard formatting
@@ -38584,7 +38720,9 @@ IF _SNG47
  BNE DELL1              \ Loop back to DELL1 to copy the next character until we
                         \ have copied the whole filename
 
- JSR getzp              \ Call getzp to restore the top part of zero page
+ JSR getzp              \ Call getzp to store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
 ELIF _COMPACT
 
@@ -38596,7 +38734,10 @@ ELIF _COMPACT
  BPL DELL1              \ Loop back to DELL1 to copy the next character until we
                         \ have copied the whole filename
 
- JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7)
+ JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7) so the MOS
+                        \ can use it, and store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
 ENDIF
 
@@ -38606,7 +38747,8 @@ ENDIF
  JSR OSCLI              \ Call OSCLI to execute the OS command at (Y X), which
                         \ catalogues the disc
 
- JSR getzp              \ Call getzp to restore the top part of zero page
+ JSR getzp              \ Call getzp to restore the top part of zero page from
+                        \ the buffer at &3000
 
  JMP SVE                \ Jump to SVE to display the disc access menu and return
                         \ from the subroutine using a tail call
@@ -39215,12 +39357,16 @@ ENDIF
 
 IF _SNG47
 
- JSR getzp              \ Call getzp to store the top part of zero page, as it
-                        \ gets corrupted by the MOS during the saving process
+ JSR getzp              \ Call getzp to store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
 ELIF _COMPACT
 
- JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7)
+ JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7) so the MOS
+                        \ can use it, and store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
 ENDIF
 
@@ -39230,8 +39376,9 @@ ENDIF
  JSR OSCLI              \ Call OSCLI to execute the OS command at (Y X), which
                         \ saves the commander file
 
- JMP getzp              \ Call getzp to restore the top part of zero page
-                        \ and return from the subroutine using a tail call
+ JMP getzp              \ Call getzp to restore the top part of zero page from
+                        \ the buffer at &3000 and return from the subroutine
+                        \ using a tail call
 
 \ ******************************************************************************
 \
@@ -39324,12 +39471,16 @@ ENDIF
 
 IF _SNG47
 
- JSR getzp              \ Call getzp to store the top part of zero page, as it
-                        \ gets corrupted by the MOS during the loading process
+ JSR getzp              \ Call getzp to store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
 ELIF _COMPACT
 
- JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7)
+ JSR NMIRELEASE         \ Release the NMI workspace (&00A0 to &00A7) so the MOS
+                        \ can use it, and store the top part of zero page in the
+                        \ the buffer at &3000, as it gets corrupted by the MOS
+                        \ during disc access
 
 ENDIF
 
@@ -39340,7 +39491,8 @@ ENDIF
  JSR OSCLI              \ Call OSCLI to execute the OS command at (Y X), which
                         \ loads the commander file
 
- JSR getzp              \ Call getzp to restore the top part of zero page
+ JSR getzp              \ Call getzp to restore the top part of zero page from
+                        \ the buffer at &3000
 
                         \ We now copy the newly loaded commander data block to
                         \ the TAP% staging area, though this has no effect as we
@@ -41281,6 +41433,7 @@ ENDMACRO
 \ ******************************************************************************
 
  CODE_G% = P%
+
  LOAD_G% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
@@ -45247,6 +45400,7 @@ ENDMACRO
 \ ******************************************************************************
 
  CODE_H% = P%
+
  LOAD_H% = LOAD% + P% - CODE%
 
 \ ******************************************************************************
@@ -47405,7 +47559,7 @@ IF _SNG47
                         \   * Bit 7 of IRA will be read from the keyboard
 
  STA VIA+&4F            \ Set 6522 System VIA output register ORA (SHEILA &4F)
-                        \ to X, the key we want to scan for; bits 0-6 will be
+                        \ to A, the key we want to scan for; bits 0-6 will be
                         \ sent to the keyboard, of which bits 0-3 determine the
                         \ keyboard column, and bits 4-6 the keyboard row
 
@@ -47844,7 +47998,7 @@ IF _COMPACT
  INX                    \ Set X = X + 1
 
  LDA JSTE               \ JSTE contains &FF if both joystick channels are
- BEQ TT171              \ reversed and 0 otherwise, so skip to L7F80 if the
+ BEQ TT171              \ reversed and 0 otherwise, so skip to TT171 if the
                         \ joystick channels are not reversed
 
  TXA                    \ The X channel needs to be reversed, so negate the
@@ -48111,7 +48265,8 @@ ENDIF
  LDA #HI(CHPR)
  STA WRCHV+1
 
- JSR setzp              \ Call setzp to back up the top part of zero page
+ JSR setzp              \ Call setzp to copy the top part of zero page into
+                        \ the buffer at &3000
 
  JSR SETINTS            \ Call SETINTS to set various vectors, interrupts and
                         \ timers

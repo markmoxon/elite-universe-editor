@@ -13,10 +13,10 @@
 \ in the documentation are entirely my fault
 \
 \ The terminology and notations used in this commentary are explained at
-\ https://www.bbcelite.com/about_site/terminology_used_in_this_commentary.html
+\ https://elite.bbcelite.com/terminology
 \
 \ The deep dive articles referred to in this commentary can be found at
-\ https://www.bbcelite.com/deep_dives
+\ https://elite.bbcelite.com/deep_dives
 \
 \ ------------------------------------------------------------------------------
 \
@@ -40,25 +40,42 @@
 \
 \ ******************************************************************************
 
+ CODE% = &2400          \ The assembly address of the main I/O processor code
+
+ LOAD% = &2400          \ The load address of the main I/O processor code
+
  VSCAN = 57             \ Defines the split position in the split-screen mode
 
  Y = 96                 \ The centre y-coordinate of the 256 x 192 space view
 
  YELLOW  = %00001111    \ Four mode 1 pixels of colour 1 (yellow)
+
  RED     = %11110000    \ Four mode 1 pixels of colour 2 (red, magenta or white)
+
  CYAN    = %11111111    \ Four mode 1 pixels of colour 3 (cyan or white)
+
  GREEN   = %10101111    \ Four mode 1 pixels of colour 3, 1, 3, 1 (cyan/yellow)
+
  WHITE   = %11111010    \ Four mode 1 pixels of colour 3, 2, 3, 2 (cyan/red)
+
  MAGENTA = RED          \ Four mode 1 pixels of colour 2 (red, magenta or white)
+
  DUST    = WHITE        \ Four mode 1 pixels of colour 3, 2, 3, 2 (cyan/red)
 
  RED2    = %00000011    \ Two mode 2 pixels of colour 1    (red)
+
  GREEN2  = %00001100    \ Two mode 2 pixels of colour 2    (green)
+
  YELLOW2 = %00001111    \ Two mode 2 pixels of colour 3    (yellow)
+
  BLUE2   = %00110000    \ Two mode 2 pixels of colour 4    (blue)
+
  MAG2    = %00110011    \ Two mode 2 pixels of colour 5    (magenta)
+
  CYAN2   = %00111100    \ Two mode 2 pixels of colour 6    (cyan)
+
  WHITE2  = %00111111    \ Two mode 2 pixels of colour 7    (white)
+
  STRIPE  = %00100011    \ Two mode 2 pixels of colour 5, 1 (magenta/red)
 
  PARMAX = 15            \ The number of dashboard parameters transmitted with
@@ -85,11 +102,10 @@
  NVOSWRCH = &FFCB       \ The address for the non-vectored OSWRCH routine
 
  OSWRCH = &FFEE         \ The address for the OSWRCH routine
- OSBYTE = &FFF4         \ The address for the OSBYTE routine
- OSWORD = &FFF1         \ The address for the OSWORD routine
 
- CODE% = &2400          \ The assembly address of the main I/O processor code
- LOAD% = &2400          \ The load address of the main I/O processor code
+ OSBYTE = &FFF4         \ The address for the OSBYTE routine
+
+ OSWORD = &FFF1         \ The address for the OSWORD routine
 
 \ ******************************************************************************
 \
@@ -3277,7 +3293,7 @@ ENDIF
  ADC Q
  STA S
 
- BCC LI210              \ If the addition didn't overflow, jump to L2110
+ BCC LI210              \ If the addition didn't overflow, jump to LI210
 
  CLC                    \ Otherwise we just overflowed, so clear the C flag and
  INY                    \ increment Y to move to the pixel line below
@@ -6371,7 +6387,7 @@ MACRO DKS4
                         \   * Bit 7 of IRA will be read from the keyboard
 
  STA VIA+&4F            \ Set 6522 System VIA output register ORA (SHEILA &4F)
-                        \ to X, the key we want to scan for; bits 0-6 will be
+                        \ to A, the key we want to scan for; bits 0-6 will be
                         \ sent to the keyboard, of which bits 0-3 determine the
                         \ keyboard column, and bits 4-6 the keyboard row
 

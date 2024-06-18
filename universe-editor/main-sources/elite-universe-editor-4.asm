@@ -2903,7 +2903,7 @@ ENDIF
 
 \ ******************************************************************************
 \
-\       Name: UniverseTokens
+\       Name: UniverseToken
 \       Type: Variable
 \   Category: Universe editor
 \    Summary: Extended recursive token table for the universe editor
