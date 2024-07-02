@@ -62,7 +62,7 @@
  EQUS "---------------------------------------"
  EQUB 10, 13
 
- SAVE "universe-editor/other-files/README.txt", readme, P%
+ SAVE "2-assembled-output/README.txt", readme, P%
 
 MACRO CAP x
  EQUB x + 128
