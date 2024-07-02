@@ -44,8 +44,8 @@
  PUTFILE "library-elite-universe-editor/universe-files/U.SHIPID6.bin", "U.SHIPID6", &000000, &000000
  PUTFILE "library-elite-universe-editor/universe-files/U.SHIPIDC.bin", "U.SHIPIDC", &000000, &000000
 
- PUTFILE "universe-editor/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
- PUTFILE "universe-editor/other-files/README.txt", "README", &FFFFFF, &FFFFFF
- PUTFILE "universe-editor/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
+ PUTFILE "1-source-files/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
+ PUTFILE "2-assembled-output/other-files/README.txt", "README", &FFFFFF, &FFFFFF
+ PUTFILE "1-source-files/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
 
  PUTFILE "library-elite-universe-editor/basic-programs/B.CONVERT.bin", "B.CONVERT", &FF0E00, &FF8023

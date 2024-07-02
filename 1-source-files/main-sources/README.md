@@ -1,6 +1,6 @@
-# Annotated source code for the Elite Universe Editor
+# Source files for the Elite Universe Editor
 
-This folder contains the annotated source code for the Elite Universe Editor.
+This folder contains the source files for the Elite Universe Editor.
 
 ---
 

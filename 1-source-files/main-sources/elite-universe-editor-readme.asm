@@ -134,4 +134,4 @@ ENDMACRO
  EQUS "---------------------------------------"
  EQUB 13
 
- SAVE "universe-editor/other-files/README64.txt", readmeC64, P%
+ SAVE "2-assembled-output/README64.txt", readmeC64, P%
