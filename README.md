@@ -2,19 +2,19 @@
 
 [BBC Micro cassette Elite](https://github.com/markmoxon/cassette-elite-beebasm) | [BBC Micro disc Elite](https://github.com/markmoxon/disc-elite-beebasm) | [6502 Second Processor Elite](https://github.com/markmoxon/6502sp-elite-beebasm) | [BBC Master Elite](https://github.com/markmoxon/master-elite-beebasm) | [Acorn Electron Elite](https://github.com/markmoxon/electron-elite-beebasm) | [NES Elite](https://github.com/markmoxon/nes-elite-beebasm) | [Elite-A](https://github.com/markmoxon/elite-a-beebasm) | [Teletext Elite](https://github.com/markmoxon/teletext-elite) | **Elite Universe Editor** | [Elite Compendium (BBC Master)](https://github.com/markmoxon/elite-compendium-bbc-master) | [Elite Compendium (BBC Micro)](https://github.com/markmoxon/elite-compendium-bbc-micro) | [Elite over Econet](https://github.com/markmoxon/elite-over-econet) | [Flicker-free Commodore 64 Elite](https://github.com/markmoxon/c64-elite-flicker-free) | [BBC Micro Aviator](https://github.com/markmoxon/aviator-beebasm) | [BBC Micro Revs](https://github.com/markmoxon/revs-beebasm) | [Archimedes Lander](https://github.com/markmoxon/archimedes-lander)
 
-![The Elite Universe Editor on the BBC Micro](https://www.bbcelite.com/images/github/elite-universe-editor-home-screen.png)
+![The Elite Universe Editor on the BBC Micro](https://elite.bbcelite.com/images/github/elite-universe-editor-home-screen.png)
 
-![The Elite Universe Editor on the Commodore 64](https://www.bbcelite.com/images/github/elite-universe-editor-home-screen-c64.png)
+![The Elite Universe Editor on the Commodore 64](https://elite.bbcelite.com/images/github/elite-universe-editor-home-screen-c64.png)
 
 This repository contains source code for the Elite Universe Editor on the BBC Master, the BBC Micro with a 6502 Second Processor and the Commodore 64.
 
-The Elite Universe Editor allows you to create your own universes in classic BBC Micro and Commodore 64 Elite. For more information, see the [bbcelite.com website](https://www.bbcelite.com/hacks/elite_universe_editor.html).
+The Elite Universe Editor allows you to create your own universes in classic BBC Micro and Commodore 64 Elite. For more information, see the [bbcelite.com website](https://elite.bbcelite.com/hacks/elite_universe_editor.html).
 
 This repository contains the full source code for the Universe Editor, which you can build yourself on a modern computer. See below for more details on [browsing the source code](#browsing-the-source-in-an-ide) and [building the Elite Universe Editor from the source](#building-the-elite-universe-editor-from-the-source).
 
-![Creating the screenshot from the original BBC Micro box in the Elite Universe Editor](https://www.bbcelite.com/images/github/elite-universe-editor-boxart-2.png)
+![Creating the screenshot from the original BBC Micro box in the Elite Universe Editor](https://elite.bbcelite.com/images/github/elite-universe-editor-boxart-2.png)
 
-![Creating the screenshot from the original Commodore 64 box in the Elite Universe Editor](https://www.bbcelite.com/images/github/elite-universe-editor-boxart-c.png)
+![Creating the screenshot from the original Commodore 64 box in the Elite Universe Editor](https://elite.bbcelite.com/images/github/elite-universe-editor-boxart-c.png)
 
 ## Contents
 
@@ -52,7 +52,7 @@ The Commodore 64 game disks in this repository are very similar to those release
 
 The commentary and Universe Editor code is copyright &copy; Mark Moxon. Any misunderstandings or mistakes in the documentation are entirely my fault.
 
-Huge thanks are due to the original authors for not only creating such an important piece of my childhood, but also for releasing the source code for us to play with; to Paul Brink for his annotated disassembly; and to Kieran Connell for his [BeebAsm version](https://github.com/kieranhj/elite-beebasm), which I forked as the original basis for this project. You can find more information about this project in the [accompanying website's project page](https://www.bbcelite.com/about_site/about_this_project.html).
+Huge thanks are due to the original authors for not only creating such an important piece of my childhood, but also for releasing the source code for us to play with; to Paul Brink for his annotated disassembly; and to Kieran Connell for his [BeebAsm version](https://github.com/kieranhj/elite-beebasm), which I forked as the original basis for this project. You can find more information about this project in the [accompanying website's project page](https://elite.bbcelite.com/about_site/about_this_project.html).
 
 Also, a big thumbs up to Kroc Camen for his epic [Elite Harmless](https://github.com/Kroc/elite-harmless) project, which is a really useful reference for anyone exploring the C64 binaries. Finally, thanks to the gurus in this [Lemon64 forum thread](https://www.lemon64.com/forum/viewtopic.php?t=67762&start=90) for their sage advice.
 
@@ -80,7 +80,7 @@ If you want to browse the source in an IDE, you might find the following useful.
 
 * The Universe Editor code is in the [universe-editor/main-sources](universe-editor/main-sources) folder. It is split up into multiple files to enable it to be squeezed into the different versions of Elite (which have different memory maps and different amounts of free space).
 
-* It's probably worth skimming through the [notes on terminology and notations](https://www.bbcelite.com/about_site/terminology_used_in_this_commentary.html) on the accompanying website, as this explains a number of terms used in the commentary, without which it might be a bit tricky to follow at times (in particular, you should understand the terminology I use for multi-byte numbers).
+* It's probably worth skimming through the [notes on terminology and notations](https://elite.bbcelite.com/about_site/terminology_used_in_this_commentary.html) on the accompanying website, as this explains a number of terms used in the commentary, without which it might be a bit tricky to follow at times (in particular, you should understand the terminology I use for multi-byte numbers).
 
 * The source code for the main Elite game (which the Universe Editor modifies) is in the [6502sp-elite](6502sp-elite) and [master-elite](master-elite) folders. The annotated source files in these folders contain both the original Acornsoft code and all of the modifications made to hook the Universe Editor into the game, so you can look through the source to see exactly what's changed in order to add the Universe Editor. Any code that I've removed from the original version is commented out in the source files, so when they are assembled they produce the Universe Editor binaries, while still containing details of all the modifications. You can find all the diffs by searching the sources for `Mod:`.
 
