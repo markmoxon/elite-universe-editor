@@ -7,8 +7,8 @@ c1541="c1541"
 $c1541 \
     -format "elite uni editor,1" \
             d64 \
-            universe-editor-disks/elite-universe-editor-c64-ntsc.d64 \
-    -attach universe-editor-disks/elite-universe-editor-c64-ntsc.d64 \
+            2-compiled-game-discs/elite-universe-editor-c64-ntsc.d64 \
+    -attach 2-compiled-game-discs/elite-universe-editor-c64-ntsc.d64 \
     -write c64-elite-universe-editor/work/ntsc/firebird \
     -write c64-elite-universe-editor/work/ntsc/gma1.modified gma1 \
     -write c64-elite-universe-editor/work/ntsc/gma3 \
@@ -21,15 +21,15 @@ $c1541 \
     -write library-elite-universe-editor/universe-files/u.manual.bin "manual" \
     -write library-elite-universe-editor/universe-files/u.shipid.bin "shipid" \
     -write library-elite-universe-editor/universe-files/u.shipidc.bin "shipidc" \
-    -write universe-editor/other-files/readme64.txt "readme,s" \
-    -write universe-editor/other-files/empty.txt "build ${CURRENTDATE},s"
+    -write 1-source-files/other-files/readme64.txt "readme,s" \
+    -write 1-source-files/other-files/empty.txt "build ${CURRENTDATE},s"
 
 # Build the PAL game disk
 $c1541 \
     -format "elite uni editor,1" \
             d64 \
-            universe-editor-disks/elite-universe-editor-c64-pal.d64 \
-    -attach universe-editor-disks/elite-universe-editor-c64-pal.d64 \
+            2-compiled-game-discs/elite-universe-editor-c64-pal.d64 \
+    -attach 2-compiled-game-discs/elite-universe-editor-c64-pal.d64 \
     -write c64-elite-universe-editor/work/pal/firebird \
     -write c64-elite-universe-editor/work/pal/byebyejulie \
     -write c64-elite-universe-editor/work/pal/gma1.modified gma1 \
@@ -43,5 +43,5 @@ $c1541 \
     -write library-elite-universe-editor/universe-files/u.manual.bin "manual" \
     -write library-elite-universe-editor/universe-files/u.shipid.bin "shipid" \
     -write library-elite-universe-editor/universe-files/u.shipidc.bin "shipidc" \
-    -write universe-editor/other-files/readme64.txt "readme,s" \
-    -write universe-editor/other-files/empty.txt "build ${CURRENTDATE},s"
+    -write 1-source-files/other-files/readme64.txt "readme,s" \
+    -write 1-source-files/other-files/empty.txt "build ${CURRENTDATE},s"
