@@ -7,3 +7,6 @@
 [submodule "c64-elite-universe-editor"]
 	path = c64-elite-universe-editor
 	url = https://github.com/markmoxon/c64-elite-universe-editor.git
+[submodule "library-elite-universe-editor"]
+	path = library-elite-universe-editor
+	url = https://github.com/markmoxon/library-elite-universe-editor.git
