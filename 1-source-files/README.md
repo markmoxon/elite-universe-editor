@@ -6,8 +6,6 @@ This folder contains the source files for the Elite Universe Editor.
 
 * [other-files](other-files) contains the boot and BASIC loader files
 
-* [universe-files](universe-files) contains a selection of sample universe files
-
 ---
 
 Right on, Commanders!
