@@ -6,11 +6,16 @@
 
 ![The Elite Universe Editor on the Commodore 64](https://elite.bbcelite.com/images/github/elite-universe-editor-home-screen-c64.png)
 
-This repository contains source code for the Elite Universe Editor on the BBC Master, the BBC Micro with a 6502 Second Processor and the Commodore 64.
+This repository collects together the source code for the Elite Universe Editor on the BBC Master, the BBC Micro with a 6502 Second Processor and the Commodore 64.
 
 The Elite Universe Editor allows you to create your own universes in classic BBC Micro and Commodore 64 Elite. For more information, see the [bbcelite.com website](https://elite.bbcelite.com/hacks/elite_universe_editor.html).
 
-This repository contains the full source code for the Universe Editor, which you can build yourself on a modern computer. See below for more details on [browsing the source code](#browsing-the-source-in-an-ide) and [building the Elite Universe Editor from the source](#building-the-elite-universe-editor-from-the-source).
+This repository builds the Universe Editor by pulling in the source code from various submodules:
+
+* [Elite Universe Editor Library](https://github.com/markmoxon/library-elite-universe-editor)
+* [BBC Master Elite Universe Editor](https://github.com/markmoxon/master-elite-universe-editor)
+* [6502 Second Processor Elite Universe Editor](https://github.com/markmoxon/6502sp-elite-universe-editor)
+* [Commodore 64 Elite Universe Editor](https://github.com/markmoxon/c64-elite-universe-editor)
 
 ![Creating the screenshot from the original BBC Micro box in the Elite Universe Editor](https://elite.bbcelite.com/images/github/elite-universe-editor-boxart-2.png)
 
@@ -78,13 +83,13 @@ My hope is that the educational and non-profit intentions of this repository wil
 
 If you want to browse the source in an IDE, you might find the following useful.
 
-* The Universe Editor code is in the [universe-editor/main-sources](universe-editor/main-sources) folder. It is split up into multiple files to enable it to be squeezed into the different versions of Elite (which have different memory maps and different amounts of free space).
+* The Universe Editor code is in the [main-sources folder in the library submodule](https://github.com/markmoxon/library-elite-universe-editor/main-sources). It is split up into multiple files to enable it to be squeezed into the different versions of Elite (which have different memory maps and different amounts of free space).
 
 * It's probably worth skimming through the [notes on terminology and notations](https://elite.bbcelite.com/about_site/terminology_used_in_this_commentary.html) on the accompanying website, as this explains a number of terms used in the commentary, without which it might be a bit tricky to follow at times (in particular, you should understand the terminology I use for multi-byte numbers).
 
-* The source code for the main Elite game (which the Universe Editor modifies) is in the [6502sp-elite](6502sp-elite) and [master-elite](master-elite) folders. The annotated source files in these folders contain both the original Acornsoft code and all of the modifications made to hook the Universe Editor into the game, so you can look through the source to see exactly what's changed in order to add the Universe Editor. Any code that I've removed from the original version is commented out in the source files, so when they are assembled they produce the Universe Editor binaries, while still containing details of all the modifications. You can find all the diffs by searching the sources for `Mod:`.
+* The source code for the main Elite game (which the Universe Editor modifies) is in the [6502sp-elite-universe-editor](https://github.com/markmoxon/6502sp-elite-universe-editor) and [master-elite-universe-editor](https://github.com/markmoxon/master-elite-universe-editor) submodules. The annotated source files in these folders contain both the original Acornsoft code and all of the modifications made to hook the Universe Editor into the game, so you can look through the source to see exactly what's changed in order to add the Universe Editor. Any code that I've removed from the original version is commented out in the source files, so when they are assembled they produce the Universe Editor binaries, while still containing details of all the modifications. You can find all the diffs by searching the sources for `Mod:`.
 
-* The Commodore 64 version doesn't contain source for the original game, but instead patches the original game binaries to add the Universe Editor. This process is described in [the Commodore 64 patching process](#the-commodore-64-patching-process) below. The Universe Editor uses the same source files on all platforms, but there are some extra routines required by the Commodore 64 version, which can be found in the [c64-elite/src](c64-elite/src) folder.
+* The Commodore 64 version doesn't contain source for the original game, but instead patches the original game binaries to add the Universe Editor. This process is described in [the Commodore 64 patching process](#the-commodore-64-patching-process) below. The Universe Editor uses the same source files on all platforms, but there are some extra routines required by the Commodore 64 version, which can be found in the [src folder in the c64 submodule](https://github.com/markmoxon/c64-elite-universe-editor/src) folder.
 
 * There are loads of routines and variables in Elite - literally hundreds. You can find them in the source files by searching for the following: `Type: Subroutine`, `Type: Variable`, `Type: Workspace` and `Type: Macro`.
 
@@ -96,21 +101,25 @@ I hope you enjoy exploring the inner workings of the Elite Universe Editor as mu
 
 ## Folder structure
 
-There are five main folders in this repository.
+There are three main folders and four submodules in this repository.
 
-* [universe-editor](universe-editor) contains the shared source files for the Universe Editor. The same source is used for all versions.
+* [1-source-files](source-files) contains the source files for creating the BBC disc images and README files.
 
-* [6502sp-elite](6502sp-elite) contains the source code for 6502 Second Processor Elite, modified to hook in the Universe Editor.
+* [2-assembled-output](2-assembled-output) contains the output binaries from the build process for the Elite Universe Editor.
 
-* [master-elite](master-elite) contains the source code for BBC Master Elite, modified to hook in the Universe Editor.
+* [3-compiled-game-discs](3-compiled-game-discs) contains the disk images produced by the build process. These disks contain the Universe Editor.
 
-* [c64-elite](c64-elite) contains the original disk images for Commodore 64 Elite, which we extract and modify to hook in the Universe Editor.
+* [library-elite-universe-editor](https://github.com/markmoxon/library-elite-universe-editor) contains the shared source files for the Universe Editor. The same source is used for all versions.
 
-* [universe-editor-disks](universe-editor-disks) contains the disk images produced by the build process. These disks contain the Universe Editor.
+* [6502sp-elite-universe-editor](https://github.com/markmoxon/6502sp-elite-universe-editor) contains the source code for 6502 Second Processor Elite, modified to hook in the Universe Editor.
 
-The [6502sp-elite](6502sp-elite) and [master-elite](master-elite) folders are heavily based on the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm).
+* [master-elite-universe-editor](https://github.com/markmoxon/master-elite-universe-editor) contains the source code for BBC Master Elite, modified to hook in the Universe Editor.
 
-The [c64-elite](c64-elite) folder uses a patching process that's described in [the Commodore 64 patching process](#the-commodore-64-patching-process) below.
+* [c64-elite-universe-editor](https://github.com/markmoxon/c64-elite-universe-editor) contains the original disk images for Commodore 64 Elite, which we extract and modify to hook in the Universe Editor.
+
+The 6502sp and master submodules are downstream of the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm).
+
+The c64 submodule uses a patching process that's described in [the Commodore 64 patching process](#the-commodore-64-patching-process) below.
 
 ## Building the Elite Universe Editor from the source
 
@@ -140,7 +149,7 @@ All being well, doing the following:
 make.bat
 ```
 
-will produce a file called `elite-universe-editor-bbc.ssd` in the [`universe-editor-disks`](universe-editor-disks) folder that contains the BBC version of the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
+will produce a file called `elite-universe-editor-bbc.ssd` in the [`3-compiled-game-discs`](3-compiled-game-discs) folder that contains the BBC version of the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
 
 Note that the Windows build will terminate with an error after the BBC disc image is created. This is because the Commodore 64 build only works on Mac and Linux.
 
@@ -154,7 +163,7 @@ All being well, doing the following:
 make
 ```
 
-will produce three files in the [`universe-editor-disks`](universe-editor-disks) folder called `elite-universe-editor-bbc.ssd`, `elite-universe-editor-c64-ntsc.ssd` and `elite-universe-editor-c64-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
+will produce three files in the [`3-compiled-game-discs`](3-compiled-game-discs) folder called `elite-universe-editor-bbc.ssd`, `elite-universe-editor-c64-ntsc.ssd` and `elite-universe-editor-c64-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
 
 ## The Commodore 64 patching process
 
@@ -170,15 +179,15 @@ We don't have access to the source code for the Commodore 64 version of Elite, s
 
 * Create a new disk image containing the modified game binaries (using c1541 once again)
 
-To find out more about the above steps, take a look at the following files, which contain lots of comments about how the process works:
+To find out more about the above steps, take a look at the following files in the c64-elite-universe-editor submodule, which contain lots of comments about how the process works:
 
-* The [`build.sh`](c64-elite/build.sh) script controls the build. Read this for an overview of the patching process.
+* The [`build.sh`](https://github.com/markmoxon/c64-elite-universe-editor/build.sh) script controls the build. Read this for an overview of the patching process.
 
-* The [`elite-universe-editor-c64.asm`](c64-elite/src/elite-universe-editor-c64.asm) file is assembled by BeebAsm and produces a binary file called `editor.bin` that contains the bulk of the code that implements the Universe Editor. This binary file is then ready to be injected into the game binary to implement the Universe Editor patch.
+* The [`elite-universe-editor-c64.asm`](https://github.com/markmoxon/c64-elite-universe-editor/src/elite-universe-editor-c64.asm) file is assembled by BeebAsm and produces a binary file called `editor.bin` that contains the bulk of the code that implements the Universe Editor. This binary file is then ready to be injected into the game binary to implement the Universe Editor patch.
 
-* The [`elite-flicker-free.asm`](c64-elite/src/elite-flicker-free.asm) file is assembled by BeebAsm and produces a number of binary files. These contain the bulk of the code that implements the flicker-free algorithm, which is also included in the Universe Editor. These code blocks are saved as binary files that are ready to be injected into the game binary to implement the patch.
+* The [`elite-flicker-free.asm`](https://github.com/markmoxon/c64-elite-universe-editor/src/elite-flicker-free.asm) file is assembled by BeebAsm and produces a number of binary files. These contain the bulk of the code that implements the flicker-free algorithm, which is also included in the Universe Editor. These code blocks are saved as binary files that are ready to be injected into the game binary to implement the patch.
 
-* The [`elite-modify.py`](c64-elite/src/elite-modify.py) script modifies the game binary and applies the Universe Editor and flicker-free patches. It does this by:
+* The [`elite-modify.py`](https://github.com/markmoxon/c64-elite-universe-editor/src/elite-modify.py) script modifies the game binary and applies the Universe Editor and flicker-free patches. It does this by:
 
   * Loading the main binary into memory
   * Decrypting it
