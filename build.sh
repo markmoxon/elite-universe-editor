@@ -15,12 +15,12 @@ $c1541 \
     -write c64-elite-universe-editor/work/ntsc/gma4 \
     -write c64-elite-universe-editor/work/ntsc/gma5 \
     -write c64-elite-universe-editor/work/ntsc/gma6.encrypted gma6 \
-    -write library-elite-universe-editor/universe-files/u.boxart1.bin "boxart1" \
-    -write library-elite-universe-editor/universe-files/u.boxart2.bin "boxart2" \
-    -write library-elite-universe-editor/universe-files/u.boxartc.bin "boxartc" \
-    -write library-elite-universe-editor/universe-files/u.manual.bin "manual" \
-    -write library-elite-universe-editor/universe-files/u.shipid.bin "shipid" \
-    -write library-elite-universe-editor/universe-files/u.shipidc.bin "shipidc" \
+    -write elite-universe-editor-library/universe-files/u.boxart1.bin "boxart1" \
+    -write elite-universe-editor-library/universe-files/u.boxart2.bin "boxart2" \
+    -write elite-universe-editor-library/universe-files/u.boxartc.bin "boxartc" \
+    -write elite-universe-editor-library/universe-files/u.manual.bin "manual" \
+    -write elite-universe-editor-library/universe-files/u.shipid.bin "shipid" \
+    -write elite-universe-editor-library/universe-files/u.shipidc.bin "shipidc" \
     -write 2-assembled-output/readme64.txt "readme,s" \
     -write 1-source-files/other-files/empty.txt "build ${CURRENTDATE},s"
 
@@ -37,11 +37,11 @@ $c1541 \
     -write c64-elite-universe-editor/work/pal/gma4 \
     -write c64-elite-universe-editor/work/pal/gma5 \
     -write c64-elite-universe-editor/work/pal/gma6.encrypted gma6 \
-    -write library-elite-universe-editor/universe-files/u.boxart1.bin "boxart1" \
-    -write library-elite-universe-editor/universe-files/u.boxart2.bin "boxart2" \
-    -write library-elite-universe-editor/universe-files/u.boxartc.bin "boxartc" \
-    -write library-elite-universe-editor/universe-files/u.manual.bin "manual" \
-    -write library-elite-universe-editor/universe-files/u.shipid.bin "shipid" \
-    -write library-elite-universe-editor/universe-files/u.shipidc.bin "shipidc" \
+    -write elite-universe-editor-library/universe-files/u.boxart1.bin "boxart1" \
+    -write elite-universe-editor-library/universe-files/u.boxart2.bin "boxart2" \
+    -write elite-universe-editor-library/universe-files/u.boxartc.bin "boxartc" \
+    -write elite-universe-editor-library/universe-files/u.manual.bin "manual" \
+    -write elite-universe-editor-library/universe-files/u.shipid.bin "shipid" \
+    -write elite-universe-editor-library/universe-files/u.shipidc.bin "shipidc" \
     -write 2-assembled-output/readme64.txt "readme,s" \
     -write 1-source-files/other-files/empty.txt "build ${CURRENTDATE},s"

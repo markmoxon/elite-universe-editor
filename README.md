@@ -12,7 +12,7 @@ The Elite Universe Editor allows you to create your own universes in classic BBC
 
 This repository builds the Universe Editor by pulling in the source code from various submodules:
 
-* [Elite Universe Editor Library](https://github.com/markmoxon/library-elite-universe-editor)
+* [Elite Universe Editor Library](https://github.com/markmoxon/elite-universe-editor-library)
 * [BBC Master Elite Universe Editor](https://github.com/markmoxon/elite-universe-editor-bbc-master)
 * [6502 Second Processor Elite Universe Editor](https://github.com/markmoxon/elite-universe-editor-6502-second-processor)
 * [Commodore 64 Elite Universe Editor](https://github.com/markmoxon/elite-universe-editor-commodore-64)
@@ -83,7 +83,7 @@ My hope is that the educational and non-profit intentions of this repository wil
 
 If you want to browse the source in an IDE, you might find the following useful.
 
-* The Universe Editor code is in the [main-sources folder in the library submodule](https://github.com/markmoxon/library-elite-universe-editor/main-sources). It is split up into multiple files to enable it to be squeezed into the different versions of Elite (which have different memory maps and different amounts of free space).
+* The Universe Editor code is in the [main-sources folder in the library submodule](https://github.com/markmoxon/elite-universe-editor-library/main-sources). It is split up into multiple files to enable it to be squeezed into the different versions of Elite (which have different memory maps and different amounts of free space).
 
 * It's probably worth skimming through the [notes on terminology and notations](https://elite.bbcelite.com/about_site/terminology_used_in_this_commentary.html) on the accompanying website, as this explains a number of terms used in the commentary, without which it might be a bit tricky to follow at times (in particular, you should understand the terminology I use for multi-byte numbers).
 
@@ -109,7 +109,7 @@ There are three main folders and four submodules in this repository.
 
 * [3-compiled-game-discs](3-compiled-game-discs) contains the disk images produced by the build process. These disks contain the Universe Editor.
 
-* [library-elite-universe-editor](https://github.com/markmoxon/library-elite-universe-editor) contains the shared source files for the Universe Editor. The same source is used for all versions.
+* [elite-universe-editor-library](https://github.com/markmoxon/elite-universe-editor-library) contains the shared source files for the Universe Editor. The same source is used for all versions.
 
 * [elite-universe-editor-6502-second-processor](https://github.com/markmoxon/elite-universe-editor-6502-second-processor) contains the source code for 6502 Second Processor Elite, modified to hook in the Universe Editor.
 
