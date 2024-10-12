@@ -1,6 +1,6 @@
 # Elite Universe Editor
 
-[BBC Micro cassette Elite](https://github.com/markmoxon/cassette-elite-beebasm) | [BBC Micro disc Elite](https://github.com/markmoxon/disc-elite-beebasm) | [6502 Second Processor Elite](https://github.com/markmoxon/6502sp-elite-beebasm) | [BBC Master Elite](https://github.com/markmoxon/master-elite-beebasm) | [Acorn Electron Elite](https://github.com/markmoxon/electron-elite-beebasm) | [NES Elite](https://github.com/markmoxon/nes-elite-beebasm) | [Elite-A](https://github.com/markmoxon/elite-a-beebasm) | [Teletext Elite](https://github.com/markmoxon/teletext-elite) | **Elite Universe Editor** | [Elite Compendium (BBC Master)](https://github.com/markmoxon/elite-compendium-bbc-master) | [Elite Compendium (BBC Micro)](https://github.com/markmoxon/elite-compendium-bbc-micro) | [Elite over Econet](https://github.com/markmoxon/elite-over-econet) | [Flicker-free Commodore 64 Elite](https://github.com/markmoxon/c64-elite-flicker-free) | [BBC Micro Aviator](https://github.com/markmoxon/aviator-beebasm) | [BBC Micro Revs](https://github.com/markmoxon/revs-beebasm) | [Archimedes Lander](https://github.com/markmoxon/archimedes-lander)
+[BBC Micro cassette Elite](https://github.com/markmoxon/elite-source-code-bbc-micro-cassette) | [BBC Micro disc Elite](https://github.com/markmoxon/elite-source-code-bbc-micro-disc) | [6502 Second Processor Elite](https://github.com/markmoxon/elite-source-code-6502-second-processor) | [BBC Master Elite](https://github.com/markmoxon/elite-source-code-bbc-master) | [Acorn Electron Elite](https://github.com/markmoxon/elite-source-code-acorn-electron) | [NES Elite](https://github.com/markmoxon/elite-source-code-nes) | [Elite-A](https://github.com/markmoxon/elite-a-source-code-bbc-micro) | [Teletext Elite](https://github.com/markmoxon/teletext-elite) | **Elite Universe Editor** | [Elite Compendium (BBC Master)](https://github.com/markmoxon/elite-compendium-bbc-master) | [Elite Compendium (BBC Micro)](https://github.com/markmoxon/elite-compendium-bbc-micro) | [Elite over Econet](https://github.com/markmoxon/elite-over-econet) | [Flicker-free Commodore 64 Elite](https://github.com/markmoxon/c64-elite-flicker-free) | [BBC Micro Aviator](https://github.com/markmoxon/aviator-source-code-bbc-micro) | [BBC Micro Revs](https://github.com/markmoxon/revs-source-code-bbc-micro) | [Archimedes Lander](https://github.com/markmoxon/lander-source-code-acorn-archimedes)
 
 ![The Elite Universe Editor on the BBC Micro](https://elite.bbcelite.com/images/github/elite-universe-editor-home-screen.png)
 
@@ -117,7 +117,7 @@ There are three main folders and four submodules in this repository.
 
 * [c64-elite-universe-editor](https://github.com/markmoxon/c64-elite-universe-editor) contains the original disk images for Commodore 64 Elite, which we extract and modify to hook in the Universe Editor.
 
-The 6502sp and master submodules are downstream of the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm).
+The 6502sp and master submodules are downstream of the repositories containing the fully documented source code for Elite on the [6502 Second Processor](https://github.com/markmoxon/elite-source-code-6502-second-processor) and [BBC Master](https://github.com/markmoxon/elite-source-code-bbc-master).
 
 The c64 submodule uses a patching process that's described in [the Commodore 64 patching process](#the-commodore-64-patching-process) below.
 
@@ -167,7 +167,7 @@ will produce three files in the [`3-compiled-game-discs`](3-compiled-game-discs)
 
 ## The Commodore 64 patching process
 
-The BBC version of the Elite Universe Editor is built from scratch using the annotated source code for Elite with the Universe Editor added into the source (see the [6502 Second Processor](https://github.com/markmoxon/6502sp-elite-beebasm) and [BBC Master](https://github.com/markmoxon/master-elite-beebasm) repositories for the original sources).
+The BBC version of the Elite Universe Editor is built from scratch using the annotated source code for Elite with the Universe Editor added into the source (see the [6502 Second Processor](https://github.com/markmoxon/elite-source-code-6502-second-processor) and [BBC Master](https://github.com/markmoxon/elite-source-code-bbc-master) repositories for the original sources).
 
 We don't have access to the source code for the Commodore 64 version of Elite, so in order to add the Universe Editor, we have to do the following:
 
