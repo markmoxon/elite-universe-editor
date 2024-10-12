@@ -1,12 +1,12 @@
-[submodule "6502sp-elite-universe-editor"]
-	path = 6502sp-elite-universe-editor
-	url = https://github.com/markmoxon/6502sp-elite-universe-editor.git
-[submodule "master-elite-universe-editor"]
-	path = master-elite-universe-editor
-	url = https://github.com/markmoxon/master-elite-universe-editor.git
-[submodule "c64-elite-universe-editor"]
-	path = c64-elite-universe-editor
-	url = https://github.com/markmoxon/c64-elite-universe-editor.git
-[submodule "library-elite-universe-editor"]
-	path = library-elite-universe-editor
-	url = https://github.com/markmoxon/library-elite-universe-editor.git
+[submodule "elite-universe-editor-library"]
+	path = elite-universe-editor-library
+	url = https://github.com/markmoxon/elite-universe-editor-library.git
+[submodule "elite-universe-editor-6502-second-processor"]
+	path = elite-universe-editor-6502-second-processor
+	url = https://github.com/markmoxon/elite-universe-editor-6502-second-processor.git
+[submodule "elite-universe-editor-bbc-master"]
+	path = elite-universe-editor-bbc-master
+	url = https://github.com/markmoxon/elite-universe-editor-bbc-master.git
+[submodule "elite-universe-editor-commodore-64"]
+	path = elite-universe-editor-commodore-64
+	url = https://github.com/markmoxon/elite-universe-editor-commodore-64.git
