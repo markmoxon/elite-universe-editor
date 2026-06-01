@@ -27,6 +27,10 @@
 \
 \ ******************************************************************************
 
+ PUTFILE "1-source-files/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
+ PUTFILE "2-assembled-output/README.txt", "README", &FFFFFF, &FFFFFF
+ PUTFILE "1-source-files/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
+
  PUTFILE "elite-universe-editor-6502-second-processor/3-assembled-output/ELITE.bin", "TubeElt", &FF1FDC, &FF2085
  PUTFILE "elite-universe-editor-6502-second-processor/3-assembled-output/ELITEa.bin", "I.ELITEa", &FF2000, &FF2000
  PUTFILE "elite-universe-editor-6502-second-processor/3-assembled-output/I.CODE.bin", "I.CODE", &FF2400, &FF2C89
@@ -43,9 +47,5 @@
  PUTFILE "elite-universe-editor-library/universe-files/U.SHIPID.bin", "U.SHIPID", &000000, &000000
  PUTFILE "elite-universe-editor-library/universe-files/U.SHIPID6.bin", "U.SHIPID6", &000000, &000000
  PUTFILE "elite-universe-editor-library/universe-files/U.SHIPIDC.bin", "U.SHIPIDC", &000000, &000000
-
- PUTFILE "1-source-files/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
- PUTFILE "2-assembled-output/README.txt", "README", &FFFFFF, &FFFFFF
- PUTFILE "1-source-files/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
 
  PUTFILE "elite-universe-editor-library/basic-programs/B.CONVERT.bin", "B.CONVERT", &FF0E00, &FF8023
