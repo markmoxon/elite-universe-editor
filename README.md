@@ -24,7 +24,7 @@ See [my profile](https://github.com/markmoxon) for more repositories to explore.
 
 This repository collects together the source code for the Elite Universe Editor on the BBC Master, the BBC Micro with a 6502 Second Processor and the Commodore 64.
 
-The Elite Universe Editor allows you to create your own universes in classic BBC Micro and Commodore 64 Elite. For more information, see the [bbcelite.com website](https://elite.bbcelite.com/hacks/elite_universe_editor.html).
+The Elite Universe Editor allows you to create your own universes in classic BBC Micro and Commodore 64 Elite. For more information, see the [bbcelite.com website](https://elite.bbcelite.com/hacks/elite_universe_editor/).
 
 This repository builds the Universe Editor by pulling in the source code from various submodules:
 
