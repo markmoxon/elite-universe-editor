@@ -29,7 +29,8 @@
 
  PUTFILE "1-source-files/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
  PUTFILE "2-assembled-output/README.txt", "README", &FFFFFF, &FFFFFF
- PUTFILE "1-source-files/other-files/$.ELITE.bin", "ELITE", &FF1900, &FF8023
+ PUTBASIC "1-source-files/other-files/$.ELITE.bas", "ELITE"
+ PUTFILE "1-source-files/images/$.SCREEN.bin", "SCREEN", &FF7C00, &000000
 
  PUTFILE "elite-universe-editor-6502-second-processor/3-assembled-output/ELITE.bin", "TubeElt", &FF1FDC, &FF2085
  PUTFILE "elite-universe-editor-6502-second-processor/3-assembled-output/ELITEa.bin", "I.ELITEa", &FF2000, &FF2000
