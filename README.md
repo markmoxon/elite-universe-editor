@@ -187,7 +187,7 @@ will produce three files in the [`4-compiled-game-discs`](4-compiled-game-discs)
 
 The BBC version of the Elite Universe Editor is built from scratch using the annotated source code for Elite with the Universe Editor added into the source (see the [6502 Second Processor](https://github.com/markmoxon/elite-source-code-6502-second-processor) and [BBC Master](https://github.com/markmoxon/elite-source-code-bbc-master) repositories for the original sources).
 
-When I wrote the Elite Universe Editor, we didn't have access to the source code for the Commodore 64 version of Elite, so in order to add the Universe Editor, we have to do the following:
+When I wrote the Elite Universe Editor, we didn't have access to the source code for the Commodore 64 version of Elite, so in order to add the Universe Editor, I had to hack it into the original game binary. This means that in order to build the Commodore 64 Universe Editor, we have to do the following:
 
 * Extract the game binaries from the original Commodore 64 .g64 disk image (using c1541 from the VICE emulator)
 
@@ -215,6 +215,8 @@ To find out more about the above steps, take a look at the following files in th
   * Disabling any copy protection from the original disk
 
 This approach is very similar to the patching process used to create the flicker-free version of Commodore 64 Elite. See the [c64-elite-flicker-free repository](https://github.com/markmoxon/c64-elite-flicker-free) for details.
+
+Note that the build process for the elite-universe-editor-commodore-64 submodule will only work on a Mac or Linux box. The process may work on the Windows Subsystem for Linux or coreutils for Windows, but I haven't tested it.
 
 ---
 
