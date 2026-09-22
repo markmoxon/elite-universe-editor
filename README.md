@@ -121,9 +121,11 @@ There are three main folders and four submodules in this repository.
 
 * [1-source-files](source-files) contains the source files for creating the BBC disc images and README files.
 
-* [2-assembled-output](2-assembled-output) contains the output binaries from the build process for the Elite Universe Editor.
+* [2-build-files](2-build-files) contains the make executable for Windows, plus the required DLL files.
 
-* [3-compiled-game-discs](3-compiled-game-discs) contains the disk images produced by the build process. These disks contain the Universe Editor.
+* [3-assembled-output](3-assembled-output) contains the output binaries from the build process for the Elite Universe Editor.
+
+* [4-compiled-game-discs](4-compiled-game-discs) contains the disk images produced by the build process. These disks contain the Universe Editor.
 
 * [elite-universe-editor-library](https://github.com/markmoxon/elite-universe-editor-library) contains the shared source files for the Universe Editor. The same source is used for all versions.
 
@@ -151,9 +153,9 @@ You will need the following to build the Elite Universe Editor from the source:
 
 * For the Commodore 64 build, you will also need c1541 from the VICE emulator, which can be downloaded from the [VICE site](https://vice-emu.sourceforge.io).
 
-Builds are supported for both Windows and Mac/Linux systems, but please note that Windows only builds the BBC version. To build the Commodore 64 version as well, you will need to be on a Mac or Linux box. The process may work on the Windows Subsystem for Linux, but I haven't tested it.
+Builds are supported for both Windows and Mac/Linux systems. In all cases the build process is defined in the `Makefile` provided.
 
-In all cases the build process is defined in the `Makefile` provided. Let's look at how to build the Elite Universe Editor from the source.
+Let's look at how to build the Elite Universe Editor from the source.
 
 ### Windows
 
@@ -165,7 +167,7 @@ All being well, doing the following:
 make.bat
 ```
 
-will produce a file called `elite-universe-editor-bbc.ssd` in the [`3-compiled-game-discs`](3-compiled-game-discs) folder that contains the BBC version of the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
+will produce a file called `elite-universe-editor-bbc.ssd` in the [`4-compiled-game-discs`](4-compiled-game-discs) folder that contains the BBC version of the Universe Editor, which you can then load into an emulator, or into a real BBC Micro using a device like a Gotek.
 
 Note that the Windows build will terminate with an error after the BBC disc image is created. This is because the Commodore 64 build only works on Mac and Linux.
 
@@ -179,13 +181,13 @@ All being well, doing the following:
 make
 ```
 
-will produce three files in the [`3-compiled-game-discs`](3-compiled-game-discs) folder called `elite-universe-editor-bbc.ssd`, `elite-universe-editor-c64-ntsc.ssd` and `elite-universe-editor-c64-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
+will produce three files in the [`4-compiled-game-discs`](4-compiled-game-discs) folder called `elite-universe-editor-bbc.ssd`, `elite-universe-editor-c64-ntsc.ssd` and `elite-universe-editor-c64-pal.ssd`. These contain the BBC version of the Universe Editor, and the NTSC and PAL versions of the Commodore 64 Universe Editor. You can then load these into emulators or real machines.
 
 ## The Commodore 64 patching process
 
 The BBC version of the Elite Universe Editor is built from scratch using the annotated source code for Elite with the Universe Editor added into the source (see the [6502 Second Processor](https://github.com/markmoxon/elite-source-code-6502-second-processor) and [BBC Master](https://github.com/markmoxon/elite-source-code-bbc-master) repositories for the original sources).
 
-We don't have access to the source code for the Commodore 64 version of Elite, so in order to add the Universe Editor, we have to do the following:
+When I wrote the Elite Universe Editor, we didn't have access to the source code for the Commodore 64 version of Elite, so in order to add the Universe Editor, we have to do the following:
 
 * Extract the game binaries from the original Commodore 64 .g64 disk image (using c1541 from the VICE emulator)
 

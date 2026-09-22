@@ -62,7 +62,7 @@
  EQUS "---------------------------------------"
  EQUB 10, 13
 
- SAVE "2-assembled-output/README.txt", readme, P%
+ SAVE "3-assembled-output/README.txt", readme, P%
 
 MACRO CAP x
  EQUB x + 128
@@ -134,4 +134,4 @@ ENDMACRO
  EQUS "---------------------------------------"
  EQUB 13
 
- SAVE "2-assembled-output/README64.txt", readmeC64, P%
+ SAVE "3-assembled-output/README64.txt", readmeC64, P%

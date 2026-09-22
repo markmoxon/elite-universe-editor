@@ -28,7 +28,7 @@
 \ ******************************************************************************
 
  PUTFILE "1-source-files/other-files/$.!BOOT.bin", "!BOOT", &FFFFFF, &FFFFFF
- PUTFILE "2-assembled-output/README.txt", "README", &FFFFFF, &FFFFFF
+ PUTFILE "3-assembled-output/README.txt", "README", &FFFFFF, &FFFFFF
  PUTBASIC "1-source-files/other-files/$.ELITE.bas", "ELITE"
  PUTFILE "1-source-files/images/$.SCREEN.bin", "SCREEN", &FF7C00, &000000
 
